@@ -736,6 +736,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9f1c14d8-773c-44ed-8d43-cf0e83f2168f
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366953940}
+        m_TargetAssemblyTypeName: PlayerInputHolder, Assembly-CSharp
+        m_MethodName: OnMouseInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23a6f257-6937-4884-8020-9c7b91f61eac
+    m_ActionName: Player/MousePosition[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -766,7 +782,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 2
-  _rotationSpeed: 90
+  _bodyRotationSpeed: 90
+  _tankTower: {fileID: 1450151859}
+  _towerRotationSpeed: 150
 --- !u!50 &1366953942
 Rigidbody2D:
   serializedVersion: 4
