@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class State : MonoBehaviour
+public class State
 {
-    // Start is called before the first frame update
-    void Start()
+    protected StateMachine StateMachine { get; private set; }
+    protected Enemy Enemy { get; private set; }
+
+    public State(Enemy enemy, StateMachine stateMachine)
+    {
+        Enemy = enemy;
+        StateMachine = stateMachine;
+    }
+
+    public virtual void Enter()
+    {
+        DoChecks();
+    }
+
+    public virtual void LogicUpdate()
+    {
+
+    }
+
+    public virtual void PhysicsUpdate()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Exit()
     {
-        
+
+    }
+
+    public virtual void DoChecks()
+    {
+
     }
 }

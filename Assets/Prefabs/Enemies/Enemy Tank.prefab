@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2175387047987126272}
   - component: {fileID: 4459344098825387208}
   - component: {fileID: 5798832734449470314}
+  - component: {fileID: 3762691060938788043}
   m_Layer: 9
   m_Name: Enemy Tank
   m_TagString: Untagged
@@ -166,6 +167,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3762691060938788043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175387047987126279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16636b76df195a544863ed9f83c0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2175387048401603441
 GameObject:
   m_ObjectHideFlags: 0
