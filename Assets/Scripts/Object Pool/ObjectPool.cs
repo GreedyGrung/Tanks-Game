@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    public T Prefab { get; }
     public bool AutoExpand { get; set; }
-    public Transform Container { get; }
 
+    private T _prefab;
+    private Transform _container;
     private List<T> _pool;
 
     public ObjectPool(T prefab, int size, Transform container)
     {
-        Prefab = prefab;
-        Container = container;
+        _prefab = prefab;
+        _container = container;
 
         CreatePool(size);
     }
@@ -29,7 +29,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     private T CreateObject(bool isActiveByDefault = false)
     {
-        var newObject = Object.Instantiate(Prefab, Container);
+        var newObject = Object.Instantiate(_prefab, _container);
         newObject.gameObject.SetActive(isActiveByDefault);
         _pool.Add(newObject);
 

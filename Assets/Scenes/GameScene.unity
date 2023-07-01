@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectile: {fileID: 8301613956255768734, guid: 2b5b97182589efc40817d43d92665988, type: 3}
-  _poolSize: 20
+  _poolSize: 10
   _autoExpand: 0
 --- !u!4 &765753925
 Transform:
@@ -815,6 +815,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 83de7cc6-d7a9-474e-a593-a41e1656cdd8
     m_ActionName: Player/MouseLeftButtonClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366953940}
+        m_TargetAssemblyTypeName: PlayerInputHolder, Assembly-CSharp
+        m_MethodName: ChooseFirstProjectileType
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8a454f66-ed15-4e6c-90d7-cc57b28f5e60
+    m_ActionName: Player/ChoosingProjectile[/Keyboard/1,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366953940}
+        m_TargetAssemblyTypeName: PlayerInputHolder, Assembly-CSharp
+        m_MethodName: ChooseSecondProjectileType
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dfb68913-8952-4796-8d59-927c601ff0ca
+    m_ActionName: Player/ChooseSecondProjectileType[/Keyboard/2]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -878,6 +910,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1450151859}
+  - component: {fileID: 1450151860}
   m_Layer: 0
   m_Name: Tank Tower
   m_TagString: Untagged
@@ -902,6 +935,21 @@ Transform:
   m_Father: {fileID: 1366953937}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1450151860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450151858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925f754f9d2e3c84fbc90bfdd501fa41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _armorPiercingProjectilePool: {fileID: 1632927327}
+  _highExplosiveProjectilePool: {fileID: 765753924}
+  _playerInputHolder: {fileID: 1366953940}
 --- !u!1 &1632927324
 GameObject:
   m_ObjectHideFlags: 0
