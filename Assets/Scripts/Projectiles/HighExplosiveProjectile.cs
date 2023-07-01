@@ -8,4 +8,9 @@ public class HighExplosiveProjectile : Projectile
     {
         Debug.Log("HighExplosiveProjectile explode");
     }
+
+    public override void Update()
+    {
+        base.Update();
+    }
 }

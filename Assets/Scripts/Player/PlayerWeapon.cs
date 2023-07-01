@@ -3,16 +3,9 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    public enum ActivePorjectileType
-    {
-        AP = 1,
-        HEX = 2,
-    }
-
-    public ActivePorjectileType ActiveProjectile { get; private set; } = ActivePorjectileType.AP;
-
     [SerializeField] private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
     [SerializeField] private HighExplosiveProjectilePool _highExplosiveProjectilePool;
+    [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private PlayerInputHolder _playerInputHolder;
 
     private Projectile _projectile;
@@ -40,7 +33,9 @@ public class PlayerWeapon : MonoBehaviour
     private void Shoot()
     {
         _projectile = _activePool.Pool.TakeFromPool();
-        _projectile.Explode();
+        _projectile.gameObject.layer = Constants.PLAYER_PROJECTILE_LAYER;
+        _projectile.transform.position = _bulletSpawn.position;
+        _projectile.transform.rotation = _bulletSpawn.rotation;
     }
 
     private void ChooseFirstProjectileType()

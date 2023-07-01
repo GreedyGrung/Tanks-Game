@@ -8,4 +8,9 @@ public class ArmorPiercingProjectile : Projectile
     {
         Debug.Log("ArmorPiercingProjectile explode");
     }
+
+    public override void Update()
+    {
+        base.Update();
+    }
 }
