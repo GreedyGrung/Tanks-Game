@@ -911,10 +911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c978c266095a8b4d94907e1158793e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 2
-  _bodyRotationSpeed: 90
+  _movementData: {fileID: 11400000, guid: b3e78ceffdaa2bc41bdb9c9b2217eb85, type: 2}
   _tankTower: {fileID: 1450151859}
-  _towerRotationSpeed: 150
 --- !u!50 &1366953942
 Rigidbody2D:
   serializedVersion: 4
@@ -982,6 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925f754f9d2e3c84fbc90bfdd501fa41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponData: {fileID: 11400000, guid: e66dc0e258e39c94a85de1a393475eee, type: 2}
   _armorPiercingProjectilePool: {fileID: 1632927327}
   _highExplosiveProjectilePool: {fileID: 765753924}
   _bulletSpawn: {fileID: 1869183800}

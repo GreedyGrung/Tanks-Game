@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Tank Body")]
-    [SerializeField] private float _moveSpeed = 2f;
-    [SerializeField] private float _bodyRotationSpeed = 90f;
-
-    [Header("Tank Tower")]
+    [SerializeField] private PlayerMovementData _movementData;
     [SerializeField] private Transform _tankTower;
-    [SerializeField] private float _towerRotationSpeed = 90f;
 
     private PlayerInputHolder _playerInputHolder;
     private Camera _mainCamera;
@@ -35,9 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleBodyMovement()
     {
-        transform.Translate(Vector3.up * _playerInputHolder.MovementInput.y * _moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * _playerInputHolder.MovementInput.y * _movementData.MovementSpeed * Time.deltaTime);
         _bodyRotationInverseCoefficient = _playerInputHolder.MovementInput.y < 0 ? -1 : 1;
-        transform.Rotate(Vector3.forward * -_playerInputHolder.MovementInput.x * _bodyRotationInverseCoefficient * _bodyRotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward * -_playerInputHolder.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime);
     }
 
     private void CalculateTowerRotationAngle()
@@ -48,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleTowerRotation()
     {
-        float rotationStep = _towerRotationSpeed * Time.deltaTime;
+        float rotationStep = _movementData.TowerRotationSpeed * Time.deltaTime;
         _tankTower.transform.rotation = Quaternion.RotateTowards(_tankTower.transform.rotation, _targetRotation, rotationStep);
     }
 }

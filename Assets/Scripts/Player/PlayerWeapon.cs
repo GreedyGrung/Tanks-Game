@@ -1,8 +1,9 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    [SerializeField] private PlayerWeaponData _weaponData;
     [SerializeField] private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
     [SerializeField] private HighExplosiveProjectilePool _highExplosiveProjectilePool;
     [SerializeField] private Transform _bulletSpawn;
@@ -10,6 +11,8 @@ public class PlayerWeapon : MonoBehaviour
 
     private Projectile _projectile;
     private BaseProjectilePool _activePool;
+
+    private bool _canShoot = true;
 
     private void Start()
     {
@@ -32,10 +35,21 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Shoot()
     {
+        if (!_canShoot)
+            return;
+
         _projectile = _activePool.Pool.TakeFromPool();
         _projectile.gameObject.layer = Constants.PLAYER_PROJECTILE_LAYER;
         _projectile.transform.position = _bulletSpawn.position;
         _projectile.transform.rotation = _bulletSpawn.rotation;
+        StartCoroutine(Reload());
+    }
+
+    private IEnumerator Reload()
+    {
+        _canShoot = false;
+        yield return new WaitForSeconds(_weaponData.ReloadTime);
+        _canShoot = true;
     }
 
     private void ChooseFirstProjectileType()
