@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public StateMachine StateMachine { get; private set; }
     public Transform Player { get; private set; }
+    public Rigidbody2D Rigidbody { get; private set; }
     public BaseProjectilePool ProjectilePool { get; protected set; }
     public Projectile Projectile { get; protected set; }
 
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour, IDamageable
         MaxHealth = _enemyData.MaxHealth;
         CurrentHealth = MaxHealth;
         Player = FindObjectOfType<PlayerMovement>().transform;
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
 
     public virtual void Update()
