@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion _targetRotation;
     private int _bodyRotationInverseCoefficient;
 
-    private void Start()
+    public void Init()
     {
         _playerInputHolder = GetComponent<PlayerInputHolder>();
         _mainCamera = Camera.main;

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class TurretAttackState : State
 {
     private Turret _turret;
@@ -14,7 +12,6 @@ public class TurretAttackState : State
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("attacking");
     }
 
     public override void DoChecks()
@@ -30,6 +27,11 @@ public class TurretAttackState : State
         DoChecks();
 
         _turret.RotateTowerTowardsPlayer();
+
+        if (!_turret.IsRotating && _turret.CanShoot)
+        {
+            _turret.Shoot();
+        }
 
         if (!_playerDetected || _obstacleBetweenPlayerAndTurret)
         {

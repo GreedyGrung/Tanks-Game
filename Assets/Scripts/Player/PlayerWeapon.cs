@@ -14,7 +14,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private bool _canShoot = true;
 
-    private void Start()
+    public void Init()
     {
         _activePool = _armorPiercingProjectilePool;
     }

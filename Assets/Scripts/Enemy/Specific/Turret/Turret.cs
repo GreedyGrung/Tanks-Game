@@ -6,12 +6,18 @@ public class Turret : Enemy
     public TurretAttackState AttackState { get; private set; }
     public TurretDeadState DeadState { get; private set; }
 
+    public bool IsRotating { get; private set; } = false;
+
     [SerializeField] private Transform _tower;
     [SerializeField] private float _rotationInterpolationFactor = 0.05f;
+
+    private readonly float _rotationThreshold = 1f;
 
     public override void Start()
     {
         base.Start();
+
+        ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
 
         IdleState = new(this, StateMachine);
         AttackState = new(this, StateMachine);
@@ -47,6 +53,15 @@ public class Turret : Enemy
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         _tower.rotation = Quaternion.Slerp(_tower.rotation, targetRotation, _rotationInterpolationFactor * EnemyData.TowerRotationSpeed * Time.deltaTime);
+
+        if (Quaternion.Angle(_tower.rotation, targetRotation) > _rotationThreshold)
+        {
+            IsRotating = true;
+        }
+        else
+        {
+            IsRotating = false;
+        }
     }
 
     public bool ObstacleBetweenTurretAndPlayer()
@@ -62,5 +77,14 @@ public class Turret : Enemy
     {
         base.TakeDamage(damage);
         Debug.Log("Turret took damage: " + damage);
+    }
+
+    public override void Shoot()
+    {
+        base.Shoot();
+        Projectile = ProjectilePool.Pool.TakeFromPool();
+        Projectile.gameObject.layer = Constants.ENEMY_PROJECTILE_LAYER;
+        Projectile.transform.position = BulletSpawn.position;
+        Projectile.transform.rotation = BulletSpawn.rotation;
     }
 }

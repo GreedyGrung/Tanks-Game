@@ -15,6 +15,7 @@ MonoBehaviour:
   _maxHealth: 20
   _bodyRotationSpeed: 0
   _towerRotationSpeed: 90
+  _reloadTime: 1
   _wallCheckDistance: 0
   _detectionDistance: 5
   _playerLayer:
