@@ -8,6 +8,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private PlayerHealth _playerHealth;
 
+    public PlayerWeapon Weapon => _playerWeapon;
+
     private void Awake()
     {
         _playerHealth = new(_healthData);

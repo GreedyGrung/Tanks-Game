@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public event Action OnPlayerShot;
+    public event Action OnApProjectileTypeChosen;
+    public event Action OnHexProjectileTypeChosen;
+
     [SerializeField] private PlayerWeaponData _weaponData;
     [SerializeField] private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
     [SerializeField] private HighExplosiveProjectilePool _highExplosiveProjectilePool;
@@ -13,6 +18,8 @@ public class PlayerWeapon : MonoBehaviour
     private BaseProjectilePool _activePool;
 
     private bool _canShoot = true;
+
+    public PlayerWeaponData WeaponData => _weaponData;
 
     public void Init()
     {
@@ -38,6 +45,7 @@ public class PlayerWeapon : MonoBehaviour
         if (!_canShoot)
             return;
 
+        OnPlayerShot?.Invoke();
         _projectile = _activePool.Pool.TakeFromPool();
         _projectile.gameObject.layer = Constants.PLAYER_PROJECTILE_LAYER;
         _projectile.transform.position = _bulletSpawn.position;
@@ -55,10 +63,12 @@ public class PlayerWeapon : MonoBehaviour
     private void ChooseFirstProjectileType()
     {
         _activePool = _armorPiercingProjectilePool;
+        OnApProjectileTypeChosen?.Invoke();
     }
 
     private void ChooseSecondProjectileType()
     {
         _activePool = _highExplosiveProjectilePool;
+        OnHexProjectileTypeChosen?.Invoke();
     }
 }

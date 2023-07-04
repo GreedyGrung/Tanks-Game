@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ee2d991510fce4191ba505091c24bd, type: 3}
   m_Name: PlayerWeaponData
   m_EditorClassIdentifier: 
-  _reloadTime: 2
+  _reloadTime: 1
