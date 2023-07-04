@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private float _rotationInterpolationFactor = 0.05f;
 
+    private EnemyVisuals _enemyVisuals;
+    private readonly float _rotationThreshold = 10f;
+
     public StateMachine StateMachine { get; private set; }
     public Transform Player { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
@@ -24,8 +27,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public float CurrentHealth { get; private set; }
     public float MaxHealth { get; private set; }
 
-    private readonly float _rotationThreshold = 10f;
-
     public virtual void Awake()
     {
         StateMachine = new();
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour, IDamageable
         CurrentHealth = MaxHealth;
         Player = FindObjectOfType<PlayerMovement>().transform;
         Rigidbody = GetComponent<Rigidbody2D>();
+        _enemyVisuals = GetComponent<EnemyVisuals>();
     }
 
     public virtual void Update()
@@ -93,7 +95,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (CurrentHealth <= 0)
         {
-            gameObject.SetActive(false);
+            _enemyVisuals.PlayExplosionAnimation();
         }
     }
 
