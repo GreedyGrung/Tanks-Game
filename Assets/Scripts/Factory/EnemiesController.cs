@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemiesController : MonoBehaviour
 {
+    public static event Action OnAllEnemiesKilled;
+
     [Header("Factories")]
     [SerializeField] private TurretFactory _turretFactory;
     [SerializeField] private TankFactory _tankFactory;
@@ -15,7 +18,7 @@ public class EnemiesController : MonoBehaviour
     {
         foreach (var spawn in _spawns)
         {
-            int enemyType = Random.Range(0, 2);
+            int enemyType = UnityEngine.Random.Range(0, 2);
             Enemy enemy = enemyType == 0 ? _turretFactory.GetNewInstance(spawn) : _tankFactory.GetNewInstance(spawn);
             _enemies.Add(enemy);
         }
@@ -37,7 +40,7 @@ public class EnemiesController : MonoBehaviour
 
         if (_enemies.Count == 0)
         {
-            Debug.Log("Game ended");
+            OnAllEnemiesKilled?.Invoke();
         }
     }
 }

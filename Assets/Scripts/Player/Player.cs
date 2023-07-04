@@ -20,11 +20,13 @@ public class Player : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         PlayerHealth.OnPlayerDied += DeactivatePlayer;
+        EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
     }
 
     private void OnDisable()
     {
         PlayerHealth.OnPlayerDied -= DeactivatePlayer;
+        EnemiesController.OnAllEnemiesKilled -= DeactivatePlayer;
     }
 
     public void TakeDamage(float damage)

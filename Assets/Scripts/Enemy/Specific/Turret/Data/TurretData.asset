@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a324cfc8fc1ed9649bad934b629cec08, type: 3}
   m_Name: TurretData
   m_EditorClassIdentifier: 
-  _maxHealth: 20
+  _maxHealth: 30
   _bodyRotationSpeed: 0
   _towerRotationSpeed: 90
   _reloadTime: 1
