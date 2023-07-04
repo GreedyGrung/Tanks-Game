@@ -5732,6 +5732,8 @@ GameObject:
   - component: {fileID: 316001970}
   - component: {fileID: 316001972}
   - component: {fileID: 316001971}
+  - component: {fileID: 316001974}
+  - component: {fileID: 316001973}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -5782,6 +5784,8 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 316001971}
+  - {fileID: 316001974}
+  - {fileID: 316001973}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -5799,6 +5803,32 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
+--- !u!114 &316001973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316001969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf744de499f8bf847a31ac2b56bced9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _turretFactory: {fileID: 1105163624}
+--- !u!114 &316001974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316001969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904e6f0af805bd24eabe3fbd548317a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tankFactory: {fileID: 571142386}
 --- !u!1 &341984615
 GameObject:
   m_ObjectHideFlags: 0
@@ -14239,8 +14269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23dacab6de10214a9768659c0c5ab1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turretFactory: {fileID: 1105163624}
-  _tankFactory: {fileID: 571142386}
   _spawns:
   - {fileID: 56775968}
   - {fileID: 412491656}

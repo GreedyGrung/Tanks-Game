@@ -1,18 +1,24 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class EnemiesController : MonoBehaviour
 {
     public static event Action OnAllEnemiesKilled;
 
-    [Header("Factories")]
-    [SerializeField] private TurretFactory _turretFactory;
-    [SerializeField] private TankFactory _tankFactory;
-
     [SerializeField] private List<Transform> _spawns;
 
+    private TurretFactory _turretFactory;
+    private TankFactory _tankFactory;
     private List<Enemy> _enemies = new();
+
+    [Inject]
+    private void Construct(TurretFactory turretFactory, TankFactory tankFactory)
+    {
+        _turretFactory = turretFactory;
+        _tankFactory = tankFactory;
+    }
 
     private void Start()
     {
