@@ -16,7 +16,7 @@ public class Turret : Enemy
     {
         base.Awake();
 
-        ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
+        ProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
 
         IdleState = new(this, StateMachine);
         AttackState = new(this, StateMachine);

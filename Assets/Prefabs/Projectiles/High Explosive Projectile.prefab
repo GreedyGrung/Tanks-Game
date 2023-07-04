@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ab02b0319da4547b420ac6afdd9699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _damage: 5
-  _lifetime: 3
+  _moveSpeed: 3.5
+  _damage: 8
+  _lifetime: 5
   _projectileAnimation: {fileID: 6458805697875287573}
   _visuals: {fileID: 5189500766247418784}

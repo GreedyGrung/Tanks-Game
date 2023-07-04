@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b26863312f7074596733363eac406e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _damage: 10
-  _lifetime: 3
+  _moveSpeed: 7
+  _damage: 4
+  _lifetime: 5
   _projectileAnimation: {fileID: 2402972619327271583}
   _visuals: {fileID: 1257668179311446127}
 --- !u!1 &4646578243581063581
