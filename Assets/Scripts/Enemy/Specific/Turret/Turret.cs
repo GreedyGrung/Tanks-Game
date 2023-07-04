@@ -12,9 +12,9 @@ public class Turret : Enemy
 
     public Transform Tower => _tower;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
 
@@ -34,7 +34,6 @@ public class Turret : Enemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        Debug.Log("Turret took damage: " + damage);
     }
 
     public override void Shoot()

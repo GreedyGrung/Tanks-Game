@@ -8438,6 +8438,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 430672356588490607, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 2175387047987126272, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -8485,6 +8489,10 @@ PrefabInstance:
     - target: {fileID: 2175387047987126279, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
       propertyPath: m_Name
       value: Enemy Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565009725451507734, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
@@ -8543,5 +8551,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 6956358691509752039, guid: 3f242c1ebc571fd42a1c78f30f379284, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f242c1ebc571fd42a1c78f30f379284, type: 3}

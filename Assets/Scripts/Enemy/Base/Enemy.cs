@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    public event Action<float, float> OnEnemyTookDamage;
+
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Transform _bulletSpawn;
     [SerializeField] private float _rotationInterpolationFactor = 0.05f;
@@ -23,7 +26,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private readonly float _rotationThreshold = 10f;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         StateMachine = new();
         MaxHealth = _enemyData.MaxHealth;
@@ -86,6 +89,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
+        OnEnemyTookDamage?.Invoke(CurrentHealth, EnemyData.MaxHealth);
 
         if (CurrentHealth <= 0)
         {

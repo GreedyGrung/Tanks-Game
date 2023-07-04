@@ -11,9 +11,9 @@ public class Tank : Enemy
 
     public Transform Tower => _tower;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
 
