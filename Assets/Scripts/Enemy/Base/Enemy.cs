@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using Zenject;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -29,12 +30,17 @@ public class Enemy : MonoBehaviour, IDamageable
     public float CurrentHealth { get; private set; }
     public float MaxHealth { get; private set; }
 
+    [Inject]
+    private void Construct(Player player)
+    {
+        Player = player.transform;
+    }
+
     public virtual void Awake()
     {
         StateMachine = new();
         MaxHealth = _enemyData.MaxHealth;
         CurrentHealth = MaxHealth;
-        Player = FindObjectOfType<PlayerMovement>().transform;
         Rigidbody = GetComponent<Rigidbody2D>();
         _enemyVisuals = GetComponent<EnemyVisuals>();
     }
