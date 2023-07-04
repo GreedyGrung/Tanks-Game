@@ -11,6 +11,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _detectionDistance;
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _obstacleLayer;
+    [SerializeField] private LayerMask _detectionObstacleLayer;
 
     public float MaxHealth => _maxHealth;
     public float BodyRotationSpeed => _bodyRotationSpeed;
@@ -20,4 +21,5 @@ public class EnemyData : ScriptableObject
     public float DetectionDistance => _detectionDistance;
     public LayerMask PlayerLayer => _playerLayer;
     public LayerMask ObstacleLayer => _obstacleLayer;
+    public LayerMask DetectionObstacleLayer => _detectionObstacleLayer;
 }

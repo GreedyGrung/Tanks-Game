@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Vector2 direction = Player.position - transform.position;
         float distance = Vector2.Distance(transform.position, Player.position);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, EnemyData.ObstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, EnemyData.DetectionObstacleLayer);
 
         return hit.collider != null;
     }
