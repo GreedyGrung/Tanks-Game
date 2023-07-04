@@ -182,8 +182,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: ce2aec2caf65a534386eed0843495740, type: 2}
   _bulletSpawn: {fileID: 2175387049254632777}
+  _rotationInterpolationFactor: 0.05
   _moveStateData: {fileID: 11400000, guid: 71fcc1bcab0b4e54aa988f1b6c4d65b0, type: 2}
   _wallCheck: {fileID: 6714585758611052621}
+  _tower: {fileID: 2175387048401603442}
 --- !u!1 &2175387048401603441
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,14 +326,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2175387049254632776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.211, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2175387048401603442}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &7716128294944078967
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,9 +18,10 @@ MonoBehaviour:
   _reloadTime: 1.5
   _wallCheckDistance: 0.5
   _detectionDistance: 4
+  _fieldOfView: 135
   _playerLayer:
     serializedVersion: 2
     m_Bits: 256
   _obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 1024

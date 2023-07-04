@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Transform _bulletSpawn;
+    [SerializeField] private float _rotationInterpolationFactor = 0.05f;
 
     public StateMachine StateMachine { get; private set; }
     public Transform Player { get; private set; }
@@ -16,8 +17,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public Transform BulletSpawn => _bulletSpawn;
 
     public bool CanShoot { get; private set; } = true;
+    public bool IsRotatingTower { get; private set; }
     public float CurrentHealth { get; private set; }
     public float MaxHealth { get; private set; }
+
+    private readonly float _rotationThreshold = 10f;
 
     public virtual void Start()
     {
@@ -36,6 +40,47 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
+    }
+
+    public bool ObstacleBetweenEnemyAndPlayer()
+    {
+        Vector2 direction = Player.position - transform.position;
+        float distance = Vector2.Distance(transform.position, Player.position);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, EnemyData.ObstacleLayer);
+
+        return hit.collider != null;
+    }
+
+    public bool PlayerDetected()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, EnemyData.DetectionDistance, EnemyData.PlayerLayer);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.transform == Player)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void RotateTowerTowardsPlayer(Transform tower)
+    {
+        Vector2 direction = Player.position - tower.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+        tower.rotation = Quaternion.Slerp(tower.rotation, targetRotation, _rotationInterpolationFactor * EnemyData.TowerRotationSpeed * Time.deltaTime);
+
+        if (Quaternion.Angle(tower.rotation, targetRotation) > _rotationThreshold)
+        {
+            IsRotatingTower = true;
+        }
+        else
+        {
+            IsRotatingTower = false;
+        }
     }
 
     public virtual void TakeDamage(float damage)

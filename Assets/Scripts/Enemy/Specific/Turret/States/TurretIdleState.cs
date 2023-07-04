@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TurretIdleState : State
+public class TurretIdleState : IdleState
 {
     private Turret _turret;
     private bool _playerDetected;
-    private bool _obstacleBetweenPlayerAndTurret;
+    private bool _obstacleBetweenEnemyAndPlayer;
 
     public TurretIdleState(Turret turret, StateMachine stateMachine) : base(turret, stateMachine)
     {
@@ -17,7 +13,7 @@ public class TurretIdleState : State
     {
         base.DoChecks();
         _playerDetected = _turret.PlayerDetected();
-        _obstacleBetweenPlayerAndTurret = _turret.ObstacleBetweenTurretAndPlayer();
+        _obstacleBetweenEnemyAndPlayer = _turret.ObstacleBetweenEnemyAndPlayer();
     }
 
     public override void LogicUpdate()
@@ -26,7 +22,7 @@ public class TurretIdleState : State
         DoChecks();
         _turret.RotateTower();
 
-        if (_playerDetected && !_obstacleBetweenPlayerAndTurret)
+        if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
         {
             _turret.StateMachine.ChangeState(_turret.AttackState);
         }

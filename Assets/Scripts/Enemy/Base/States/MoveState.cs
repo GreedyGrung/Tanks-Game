@@ -1,18 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MoveState : MonoBehaviour
+public class MoveState : State
 {
-    // Start is called before the first frame update
-    void Start()
+    public MoveState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

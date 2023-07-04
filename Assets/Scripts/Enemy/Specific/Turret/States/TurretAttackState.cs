@@ -18,7 +18,7 @@ public class TurretAttackState : State
     {
         base.DoChecks();
         _playerDetected = _turret.PlayerDetected();
-        _obstacleBetweenPlayerAndTurret = _turret.ObstacleBetweenTurretAndPlayer();
+        _obstacleBetweenPlayerAndTurret = _turret.ObstacleBetweenEnemyAndPlayer();
     }
 
     public override void LogicUpdate()
@@ -26,9 +26,9 @@ public class TurretAttackState : State
         base.LogicUpdate();
         DoChecks();
 
-        _turret.RotateTowerTowardsPlayer();
+        _turret.RotateTowerTowardsPlayer(_turret.Tower);
 
-        if (!_turret.IsRotating && _turret.CanShoot)
+        if (!_turret.IsRotatingTower && _turret.CanShoot)
         {
             _turret.Shoot();
         }

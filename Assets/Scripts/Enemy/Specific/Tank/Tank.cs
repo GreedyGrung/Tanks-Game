@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tank : Enemy
@@ -9,6 +7,9 @@ public class Tank : Enemy
 
     [SerializeField] private MoveStateData _moveStateData;
     [SerializeField] private Transform _wallCheck;
+    [SerializeField] private Transform _tower;
+
+    public Transform Tower => _tower;
 
     public override void Start()
     {
@@ -49,6 +50,15 @@ public class Tank : Enemy
         transform.Rotate(Vector3.forward, randomRotation);
     }
 
+    public override void Shoot()
+    {
+        base.Shoot();
+        Projectile = ProjectilePool.Pool.TakeFromPool();
+        Projectile.gameObject.layer = Constants.ENEMY_PROJECTILE_LAYER;
+        Projectile.transform.position = BulletSpawn.position;
+        Projectile.transform.rotation = BulletSpawn.rotation;
+    }
+
     private void OnDrawGizmos()
     {
         Vector2 raycastOrigin = _wallCheck.position;
@@ -56,5 +66,8 @@ public class Tank : Enemy
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(raycastOrigin, raycastOrigin + raycastDirection * EnemyData.WallCheckDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, EnemyData.DetectionDistance);
     }
 }
