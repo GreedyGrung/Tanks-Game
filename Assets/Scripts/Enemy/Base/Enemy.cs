@@ -4,6 +4,7 @@ using System;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    public static event Action<Enemy> OnEnemyDestroyed;
     public event Action<float, float> OnEnemyTookDamage;
 
     [SerializeField] private EnemyData _enemyData;
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private EnemyVisuals _enemyVisuals;
     private readonly float _rotationThreshold = 10f;
+    private bool _isExploding = false;
 
     public StateMachine StateMachine { get; private set; }
     public Transform Player { get; private set; }
@@ -39,11 +41,21 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
+        if (_isExploding)
+        {
+            return;
+        }
+
         StateMachine.CurrentState.LogicUpdate();
     }
 
     public virtual void FixedUpdate()
     {
+        if (_isExploding)
+        {
+            return;
+        }
+
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
@@ -95,7 +107,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (CurrentHealth <= 0)
         {
+            _isExploding = true;
             _enemyVisuals.PlayExplosionAnimation();
+            OnEnemyDestroyed?.Invoke(this);
         }
     }
 
