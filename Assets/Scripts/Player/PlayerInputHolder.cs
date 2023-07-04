@@ -10,7 +10,6 @@ public class PlayerInputHolder : MonoBehaviour
 
     public Vector2 MovementInput { get; private set; }
     public Vector2 MousePosition { get; private set; }
-    public bool MouseLeftButtonClick { get; private set; }
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -26,12 +25,7 @@ public class PlayerInputHolder : MonoBehaviour
     {
         if (context.canceled)
         {
-            MouseLeftButtonClick = true;
             OnLeftMouseButtonClicked?.Invoke();
-        }
-        else
-        {
-            MouseLeftButtonClick = false;
         }
     }
 

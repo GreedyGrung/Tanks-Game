@@ -8,6 +8,8 @@ public class GenericFactory<T> : MonoBehaviour where T : MonoBehaviour
 
     public T GetNewInstance(Transform spawn)
     {
-        return _diContainer.InstantiatePrefab(_prefab, spawn.position, Quaternion.identity, null) as T;
+        GameObject gameObject = _diContainer.InstantiatePrefab(_prefab, spawn.position, Quaternion.identity, null);
+        T objectOfType = gameObject.GetComponent<T>();
+        return objectOfType;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class PlayerStatsPanel : MonoBehaviour
 {
     [SerializeField] private Player _player;
+
+    [Header("Images")]
     [SerializeField] private Image _healthValue;
     [SerializeField] private Image _reloadValue;
     [SerializeField] private Image _apProjectileBackground;
