@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class GameOverCanvas : MonoBehaviour
 {
@@ -12,22 +13,27 @@ public class GameOverCanvas : MonoBehaviour
     [SerializeField] private GameObject _failurePanel;
     [SerializeField] private Button _failureButton;
 
+    private Player _player;
+
+    [Inject]
+    private void Construct(Player player)
+    {
+        _player = player;
+    }
+
     private void Start()
     {
         _victoryButton.onClick.AddListener(ReloadScene);
         _failureButton.onClick.AddListener(ReloadScene);
-    }
 
-    private void OnEnable()
-    {
         EnemiesController.OnAllEnemiesKilled += ShowVictoryPanel;
-        PlayerHealth.OnPlayerDied += ShowFailurePanel;
+        _player.Health.OnDied += ShowFailurePanel;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         EnemiesController.OnAllEnemiesKilled -= ShowVictoryPanel;
-        PlayerHealth.OnPlayerDied -= ShowFailurePanel;
+        _player.Health.OnDied -= ShowFailurePanel;
     }
 
     private void ShowVictoryPanel()

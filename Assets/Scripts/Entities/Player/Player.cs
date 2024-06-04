@@ -1,37 +1,31 @@
 using UnityEngine;
 
+[SelectionBase]
+[RequireComponent(typeof(PlayerMovement))]
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerWeapon _playerWeapon;
     [SerializeField] private PlayerHealthData _healthData;
 
-    private PlayerHealth _playerHealth;
+    public IHealth Health { get; private set; }
+    private PlayerMovement _playerMovement;
 
     public PlayerWeapon Weapon => _playerWeapon;
 
-    private void OnEnable()
-    {
-        PlayerHealth.OnPlayerDied += DeactivatePlayer;
-        EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
-    }
-
-    private void OnDisable()
-    {
-        PlayerHealth.OnPlayerDied -= DeactivatePlayer;
-        EnemiesController.OnAllEnemiesKilled -= DeactivatePlayer;
-    }
-
     public void Init(IInputService inputService)
     {
-        _playerHealth = new(_healthData);
+        Health = new PlayerHealth(_healthData);
+        _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init(inputService);
         _playerWeapon.Init(inputService);
+
+        EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
+        Health.OnDied += DeactivatePlayer;
     }
 
     public void TakeDamage(float damage)
     {
-        _playerHealth.SubtractHealth(damage);
+        Health.Subtract(damage);
     }
 
     private void DeactivatePlayer()
@@ -39,5 +33,11 @@ public class Player : MonoBehaviour, IDamageable
         _playerMovement.enabled = false;
         _playerWeapon.enabled = false;
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        EnemiesController.OnAllEnemiesKilled -= DeactivatePlayer;
+        Health.OnDied -= DeactivatePlayer;
     }
 }

@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PlayerStatsPanel : MonoBehaviour
 {
-    [SerializeField] private Player _player;
-
     [Header("Images")]
     [SerializeField] private Image _healthValue;
     [SerializeField] private Image _reloadValue;
@@ -16,6 +15,14 @@ public class PlayerStatsPanel : MonoBehaviour
     [SerializeField] private Color _activeProjectile;
     [SerializeField] private Color _inactiveProjectile;
 
+    private Player _player;
+
+    [Inject]
+    private void Construct(Player player)
+    {
+        _player = player;
+    }
+
     private void Start()
     {
         SetupPanel(); 
@@ -23,7 +30,7 @@ public class PlayerStatsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerHealth.OnPlayerHealthChanged += ChangePlayerHealthValue;
+        _player.Health.OnValueChanged += ChangePlayerHealthValue;
         _player.Weapon.OnPlayerShot += StartReloading;
         _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
         _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
@@ -31,7 +38,7 @@ public class PlayerStatsPanel : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerHealth.OnPlayerHealthChanged -= ChangePlayerHealthValue;
+        _player.Health.OnValueChanged -= ChangePlayerHealthValue;
         _player.Weapon.OnPlayerShot -= StartReloading;
         _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
         _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
