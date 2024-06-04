@@ -30,7 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleBodyMovement()
     {
-        transform.Translate(Vector3.up * _inputService.MovementInput.y * _movementData.MovementSpeed * Time.deltaTime);
+        float movementSpeed = _inputService.MovementInput.x == 0 ? _movementData.MovementSpeed : _movementData.MovementSpeedWhenRotating;
+
+        transform.Translate(Vector3.up * _inputService.MovementInput.y * movementSpeed * Time.deltaTime);
         _bodyRotationInverseCoefficient = _inputService.MovementInput.y < 0 ? -1 : 1;
         transform.Rotate(Vector3.forward * -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime);
     }

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
   _movementSpeed: 3
-  _bodyRotationSpeed: 90
+  _movementSpeedWhenRotating: 4.5
+  _bodyRotationSpeed: 120
   _towerRotationSpeed: 150
