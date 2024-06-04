@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerInputHolder : MonoBehaviour
+public class UnityActionsInputService : MonoBehaviour, IInputService
 {
     public event Action OnLeftMouseButtonClicked;
     public event Action OnFirstProjectileTypeSelected;

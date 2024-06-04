@@ -5,15 +5,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerMovementData _movementData;
     [SerializeField] private Transform _tankTower;
 
-    private PlayerInputHolder _playerInputHolder;
+    private IInputService _inputService;
     private Camera _mainCamera;
     private Vector2 _mousePosition;
     Quaternion _targetRotation;
     private int _bodyRotationInverseCoefficient;
 
-    public void Init()
+    public void Init(IInputService inputService)
     {
-        _playerInputHolder = GetComponent<PlayerInputHolder>();
+        _inputService = inputService;
         _mainCamera = Camera.main;
     }
 
@@ -30,14 +30,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleBodyMovement()
     {
-        transform.Translate(Vector3.up * _playerInputHolder.MovementInput.y * _movementData.MovementSpeed * Time.deltaTime);
-        _bodyRotationInverseCoefficient = _playerInputHolder.MovementInput.y < 0 ? -1 : 1;
-        transform.Rotate(Vector3.forward * -_playerInputHolder.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * _inputService.MovementInput.y * _movementData.MovementSpeed * Time.deltaTime);
+        _bodyRotationInverseCoefficient = _inputService.MovementInput.y < 0 ? -1 : 1;
+        transform.Rotate(Vector3.forward * -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime);
     }
 
     private void CalculateTowerRotationAngle()
     {
-        _mousePosition = _mainCamera.ScreenToWorldPoint(_playerInputHolder.MousePosition);
+        _mousePosition = _mainCamera.ScreenToWorldPoint(_inputService.MousePosition);
         _targetRotation = Quaternion.LookRotation(Vector3.forward, _mousePosition - (Vector2)_tankTower.position);
     }
 

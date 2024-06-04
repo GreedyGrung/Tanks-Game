@@ -12,8 +12,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
     [SerializeField] private HighExplosiveProjectilePool _highExplosiveProjectilePool;
     [SerializeField] private Transform _bulletSpawn;
-    [SerializeField] private PlayerInputHolder _playerInputHolder;
-
+    
+    private IInputService _inputService;
     private Projectile _projectile;
     private BaseProjectilePool _activePool;
 
@@ -21,23 +21,24 @@ public class PlayerWeapon : MonoBehaviour
 
     public PlayerWeaponData WeaponData => _weaponData;
 
-    public void Init()
+    public void Init(IInputService inputService)
     {
         _activePool = _armorPiercingProjectilePool;
+        _inputService = inputService;
     }
 
     private void OnEnable()
     {
-        _playerInputHolder.OnLeftMouseButtonClicked += Shoot;
-        _playerInputHolder.OnFirstProjectileTypeSelected += ChooseFirstProjectileType;
-        _playerInputHolder.OnSecondProjectileTypeSelected += ChooseSecondProjectileType;
+        _inputService.OnLeftMouseButtonClicked += Shoot;
+        _inputService.OnFirstProjectileTypeSelected += ChooseFirstProjectileType;
+        _inputService.OnSecondProjectileTypeSelected += ChooseSecondProjectileType;
     }
 
     private void OnDisable()
     {
-        _playerInputHolder.OnLeftMouseButtonClicked -= Shoot;
-        _playerInputHolder.OnFirstProjectileTypeSelected -= ChooseFirstProjectileType;
-        _playerInputHolder.OnSecondProjectileTypeSelected -= ChooseSecondProjectileType;
+        _inputService.OnLeftMouseButtonClicked -= Shoot;
+        _inputService.OnFirstProjectileTypeSelected -= ChooseFirstProjectileType;
+        _inputService.OnSecondProjectileTypeSelected -= ChooseSecondProjectileType;
     }
 
     private void Shoot()
