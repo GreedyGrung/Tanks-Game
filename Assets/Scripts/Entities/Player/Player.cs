@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Init(IInputService inputService)
     {
-        Health = new PlayerHealth(_healthData);
+        Health = new PlayerHealth(_healthData.MaxHealth);
         _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init(inputService);
         _playerWeapon.Init(inputService);

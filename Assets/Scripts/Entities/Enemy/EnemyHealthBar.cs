@@ -16,12 +16,12 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemy.OnEnemyTookDamage += SetHealthValue;
+        _enemy.Health.OnValueChanged += SetHealthValue;
     }
 
     private void OnDisable()
     {
-        _enemy.OnEnemyTookDamage -= SetHealthValue;
+        _enemy.Health.OnValueChanged -= SetHealthValue;
     }
 
     private void Update()

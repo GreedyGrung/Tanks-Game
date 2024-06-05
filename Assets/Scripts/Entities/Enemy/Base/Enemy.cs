@@ -6,7 +6,6 @@ using Zenject;
 public class Enemy : MonoBehaviour, IDamageable
 {
     public static event Action<Enemy> OnEnemyDestroyed;
-    public event Action<float, float> OnEnemyTookDamage;
 
     [SerializeField] private EnemyData _enemyData;
     [SerializeField] private Transform _bulletSpawn;
@@ -21,14 +20,13 @@ public class Enemy : MonoBehaviour, IDamageable
     public Rigidbody2D Rigidbody { get; private set; }
     public BaseProjectilePool ProjectilePool { get; protected set; }
     public Projectile Projectile { get; protected set; }
+    public IHealth Health { get; private set; }
 
     public EnemyData EnemyData => _enemyData;
     public Transform BulletSpawn => _bulletSpawn;
 
     public bool CanShoot { get; private set; } = true;
     public bool IsRotatingTower { get; private set; }
-    public float CurrentHealth { get; private set; }
-    public float MaxHealth { get; private set; }
 
     [Inject]
     private void Construct(Player player)
@@ -39,8 +37,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void Awake()
     {
         StateMachine = new();
-        MaxHealth = _enemyData.MaxHealth;
-        CurrentHealth = MaxHealth;
+        Health = new EnemyHealth(_enemyData.MaxHealth);
         Rigidbody = GetComponent<Rigidbody2D>();
         _enemyVisuals = GetComponent<EnemyVisuals>();
     }
@@ -108,10 +105,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(float damage)
     {
-        CurrentHealth -= damage;
-        OnEnemyTookDamage?.Invoke(CurrentHealth, EnemyData.MaxHealth);
+        Health.Subtract(damage);
 
-        if (CurrentHealth <= 0)
+        if (Health.IsDead)
         {
             _isExploding = true;
             _enemyVisuals.PlayExplosionAnimation();

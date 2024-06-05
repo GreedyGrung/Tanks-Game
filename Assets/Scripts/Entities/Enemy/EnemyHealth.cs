@@ -1,19 +1,19 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-public class PlayerHealth : IHealth
+public class EnemyHealth : IHealth
 {
-    public event Action<float, float> OnValueChanged;
     public event Action OnDied;
+    public event Action<float, float> OnValueChanged;
 
-    public PlayerHealth(float value)
+    public EnemyHealth(float value)
     {
+        Value = value;
         MaxValue = value;
-        Value = MaxValue;
     }
 
-    public float Value { get; private set; }
     public float MaxValue { get; private set; }
+    public float Value { get; private set; }
     public bool IsDead => Value == 0;
     public bool IsFull => Value == MaxValue;
 
