@@ -7,9 +7,9 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private PlayerWeapon _playerWeapon;
     [SerializeField] private PlayerHealthData _healthData;
 
-    public IHealth Health { get; private set; }
     private PlayerMovement _playerMovement;
 
+    public IHealth Health { get; private set; }
     public PlayerWeapon Weapon => _playerWeapon;
 
     public void Init(IInputService inputService)

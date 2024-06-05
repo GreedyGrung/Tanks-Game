@@ -20,10 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CalculateTowerRotationAngle();
-    }
-
-    private void FixedUpdate()
-    {
         HandleBodyMovement();
         HandleTowerRotation();
     }
