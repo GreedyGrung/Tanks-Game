@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _mousePosition;
     Quaternion _targetRotation;
     private int _bodyRotationInverseCoefficient;
+    private Rigidbody2D _rigidbody;
 
     public void Init(IInputService inputService)
     {
@@ -17,23 +18,37 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     private void Update()
     {
         CalculateTowerRotationAngle();
-        HandleBodyMovement();
         HandleTowerRotation();
+    }
+
+    private void FixedUpdate()
+    {
+        HandleBodyMovement();
     }
 
     private void HandleBodyMovement()
     {
-        float movementSpeed = 
-            _inputService.MovementInput.x == 0 ? 
-            _movementData.MovementSpeed : 
-            _movementData.MovementSpeedWhenRotating;
+        float movementSpeed =
+        _inputService.MovementInput.x == 0 ?
+        _movementData.MovementSpeed :
+        _movementData.MovementSpeedWhenRotating;
 
-        transform.Translate(Vector3.up * _inputService.MovementInput.y * movementSpeed * Time.deltaTime);
+        Vector2 movement = transform.up * _inputService.MovementInput.y * movementSpeed * Time.deltaTime;
+        _rigidbody.MovePosition(_rigidbody.position + movement);
+
         _bodyRotationInverseCoefficient = _inputService.MovementInput.y < 0 ? -1 : 1;
-        transform.Rotate(Vector3.forward * -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime);
+        float rotation = -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime;
+        float newRotation = _rigidbody.rotation + rotation;
+
+        _rigidbody.MoveRotation(newRotation);
     }
 
     private void CalculateTowerRotationAngle()

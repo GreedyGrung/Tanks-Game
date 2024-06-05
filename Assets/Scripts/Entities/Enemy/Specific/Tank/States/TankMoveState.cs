@@ -18,25 +18,25 @@ public class TankMoveState : MoveState
         _obstacleBetweenEnemyAndPlayer = _tank.ObstacleBetweenEnemyAndPlayer();
     }
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
+        {
+            _tank.StateMachine.ChangeState(_tank.AttackState);
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
 
         _tank.Move();
 
         if (_tank.CheckForWallCollision())
         {
             _tank.RotateRandomly();
-        }
-
-        if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
-        {
-            _tank.StateMachine.ChangeState(_tank.AttackState);
         }
     }
 }
