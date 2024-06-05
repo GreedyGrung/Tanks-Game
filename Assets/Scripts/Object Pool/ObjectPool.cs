@@ -5,8 +5,8 @@ public class ObjectPool<T> where T : MonoBehaviour
 {
     public bool AutoExpand { get; set; }
 
-    private T _prefab;
-    private Transform _container;
+    private readonly T _prefab;
+    private readonly Transform _container;
     private List<T> _pool;
 
     public ObjectPool(T prefab, int size, Transform container)

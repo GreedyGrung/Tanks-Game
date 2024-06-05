@@ -13596,7 +13596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db2b8458f41e44449bf65785bca48c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1366953943}
   _healthValue: {fileID: 1619467101}
   _reloadValue: {fileID: 1423291549}
   _apProjectileBackground: {fileID: 613107555}
@@ -13956,7 +13955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057d21fb96a85dd4e800649ce9868742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 1366953941}
   _playerWeapon: {fileID: 1450151860}
   _healthData: {fileID: 11400000, guid: b36a39dca611be84a87c5d8dbe91a813, type: 2}
 --- !u!1 &1423291547

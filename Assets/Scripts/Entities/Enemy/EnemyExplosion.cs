@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyExplosion : MonoBehaviour
 {
     private Enemy _enemy;
@@ -21,7 +22,7 @@ public class EnemyExplosion : MonoBehaviour
         _animator.enabled = true;
     }
 
-    public virtual void DisableObject()
+    public void DisableObject()
     {
         _animator.enabled = false;
         gameObject.SetActive(false);
