@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AttackState : MonoBehaviour
+public class AttackState : State
 {
-    // Start is called before the first frame update
-    void Start()
+    protected bool PlayerDetected { get; private set; }
+    protected bool ObstacleBetweenPlayerAndTurret { get; private set; }
+
+    public AttackState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DoChecks()
     {
-        
+        base.DoChecks();
+        PlayerDetected = Enemy.PlayerDetected();
+        ObstacleBetweenPlayerAndTurret = Enemy.ObstacleBetweenEnemyAndPlayer();
     }
 }

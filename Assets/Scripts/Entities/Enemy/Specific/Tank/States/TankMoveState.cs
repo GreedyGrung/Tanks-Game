@@ -26,7 +26,7 @@ public class TankMoveState : MoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        DoChecks();
+
         _tank.Move();
 
         if (_tank.CheckForWallCollision())

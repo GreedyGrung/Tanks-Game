@@ -1,6 +1,6 @@
 public class TurretIdleState : IdleState
 {
-    private Turret _turret;
+    private readonly Turret _turret;
     private bool _playerDetected;
     private bool _obstacleBetweenEnemyAndPlayer;
 
@@ -12,6 +12,7 @@ public class TurretIdleState : IdleState
     public override void DoChecks()
     {
         base.DoChecks();
+
         _playerDetected = _turret.PlayerDetected();
         _obstacleBetweenEnemyAndPlayer = _turret.ObstacleBetweenEnemyAndPlayer();
     }
@@ -19,7 +20,7 @@ public class TurretIdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        DoChecks();
+
         _turret.RotateTower();
 
         if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
