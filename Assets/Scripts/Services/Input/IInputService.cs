@@ -1,7 +1,8 @@
+using Assets.Scripts.Infrastructure;
 using System;
 using UnityEngine;
 
-public interface IInputService
+public interface IInputService : IService
 {
     public event Action OnLeftMouseButtonClicked;
     public event Action OnFirstProjectileTypeSelected;

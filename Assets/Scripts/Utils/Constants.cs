@@ -1,6 +1,9 @@
 public static class Constants 
 {
-    public const int PLAYER_PROJECTILE_LAYER = 6;
-    public const int ENEMY_PROJECTILE_LAYER = 7;
-    public const string WALL_TAG = "Wall";
+    public const int PlayerProjectileLayer = 6;
+    public const int EnemyProjectileLayer = 7;
+    public const string WallTag = "Wall";
+    public const string PlayerPath = "Player/Player";
+    public const string UnityInputActionsPath = "Player/UnityActionsInputService";
+    public const string HudPath = "UI/HUD";
 }

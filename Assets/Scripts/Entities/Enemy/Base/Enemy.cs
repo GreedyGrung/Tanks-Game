@@ -28,23 +28,19 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool CanShoot { get; private set; } = true;
     public bool IsRotatingTower { get; private set; }
 
-    [Inject]
-    private void Construct(Player player)
-    {
-        Player = player.transform;
-    }
-
     public virtual void Awake()
     {
         StateMachine = new();
         Health = new EnemyHealth(_enemyData.MaxHealth);
         Rigidbody = GetComponent<Rigidbody2D>();
         _enemyVisuals = GetComponent<EnemyVisuals>();
+
+        LoadLevelState.OnPlayerSpawned += RecievePlayer;
     }
 
     public virtual void Update()
     {
-        if (_isExploding)
+        if (_isExploding || Player == null)
         {
             return;
         }
@@ -54,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void FixedUpdate()
     {
-        if (_isExploding)
+        if (_isExploding || Player == null)
         {
             return;
         }
@@ -62,8 +58,18 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
+    public virtual void OnDestroy()
+    {
+        LoadLevelState.OnPlayerSpawned -= RecievePlayer;
+    }
+
     public bool ObstacleBetweenEnemyAndPlayer()
     {
+        if (Player == null)
+        {
+            return false;
+        }
+
         Vector2 direction = Player.position - transform.position;
         float distance = Vector2.Distance(transform.position, Player.position);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, EnemyData.DetectionObstacleLayer);
@@ -126,4 +132,10 @@ public class Enemy : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(_enemyData.ReloadTime);
         CanShoot = true;
     }
+
+    private void RecievePlayer(Player player)
+    {
+        Player = player.transform;
+    }
+
 }

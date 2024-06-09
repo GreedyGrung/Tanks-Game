@@ -40,7 +40,7 @@ public class Turret : Enemy
     {
         base.Shoot();
         Projectile = ProjectilePool.Pool.TakeFromPool();
-        Projectile.gameObject.layer = Constants.ENEMY_PROJECTILE_LAYER;
+        Projectile.gameObject.layer = Constants.EnemyProjectileLayer;
         Projectile.transform.position = BulletSpawn.position;
         Projectile.transform.rotation = BulletSpawn.rotation;
     }

@@ -9,12 +9,12 @@ public class PlayerWeapon : MonoBehaviour
     public event Action OnHexProjectileTypeChosen;
 
     [SerializeField] private PlayerWeaponData _weaponData;
-    [SerializeField] private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
-    [SerializeField] private HighExplosiveProjectilePool _highExplosiveProjectilePool;
     [SerializeField] private Transform _bulletSpawn;
     
     private IInputService _inputService;
     private Projectile _projectile;
+    private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
+    private HighExplosiveProjectilePool _highExplosiveProjectilePool;
     private BaseProjectilePool _activePool;
 
     private bool _canShoot = true;
@@ -23,18 +23,22 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Init(IInputService inputService)
     {
+        _armorPiercingProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
+        _highExplosiveProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
         _activePool = _armorPiercingProjectilePool;
         _inputService = inputService;
-    }
 
-    private void OnEnable()
-    {
         _inputService.OnLeftMouseButtonClicked += Shoot;
         _inputService.OnFirstProjectileTypeSelected += ChooseFirstProjectileType;
         _inputService.OnSecondProjectileTypeSelected += ChooseSecondProjectileType;
     }
 
     private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
     {
         _inputService.OnLeftMouseButtonClicked -= Shoot;
         _inputService.OnFirstProjectileTypeSelected -= ChooseFirstProjectileType;
@@ -48,9 +52,10 @@ public class PlayerWeapon : MonoBehaviour
 
         OnPlayerShot?.Invoke();
         _projectile = _activePool.Pool.TakeFromPool();
-        _projectile.gameObject.layer = Constants.PLAYER_PROJECTILE_LAYER;
+        _projectile.gameObject.layer = Constants.PlayerProjectileLayer;
         _projectile.transform.position = _bulletSpawn.position;
         _projectile.transform.rotation = _bulletSpawn.rotation;
+        
         StartCoroutine(Reload());
     }
 

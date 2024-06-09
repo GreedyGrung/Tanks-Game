@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Zenject;
 
 public class GameOverCanvas : MonoBehaviour
 {
@@ -15,24 +14,25 @@ public class GameOverCanvas : MonoBehaviour
 
     private Player _player;
 
-    [Inject]
-    private void Construct(Player player)
-    {
-        _player = player;
-    }
-
     private void Start()
     {
         _victoryButton.onClick.AddListener(ReloadScene);
         _failureButton.onClick.AddListener(ReloadScene);
 
+        LoadLevelState.OnPlayerSpawned += RecievePlayer;
         EnemiesController.OnAllEnemiesKilled += ShowVictoryPanel;
+    }
+
+    private void RecievePlayer(Player player)
+    {
+        _player = player;
         _player.Health.OnDied += ShowFailurePanel;
     }
 
     private void OnDestroy()
     {
         EnemiesController.OnAllEnemiesKilled -= ShowVictoryPanel;
+        LoadLevelState.OnPlayerSpawned -= RecievePlayer;
         _player.Health.OnDied -= ShowFailurePanel;
     }
 
@@ -48,6 +48,6 @@ public class GameOverCanvas : MonoBehaviour
 
     private void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 }

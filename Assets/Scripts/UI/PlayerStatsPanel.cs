@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,10 +26,12 @@ public class PlayerStatsPanel : MonoBehaviour
 
     private void Start()
     {
-        SetupPanel(); 
+        _player = FindObjectOfType<Player>();
+        SetupPanel();
+        SubscribeToPlayerEvents();
     }
 
-    private void OnEnable()
+    private void SubscribeToPlayerEvents()
     {
         _player.Health.OnValueChanged += ChangePlayerHealthValue;
         _player.Weapon.OnPlayerShot += StartReloading;
@@ -36,7 +39,7 @@ public class PlayerStatsPanel : MonoBehaviour
         _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _player.Health.OnValueChanged -= ChangePlayerHealthValue;
         _player.Weapon.OnPlayerShot -= StartReloading;

@@ -1,14 +1,22 @@
 using UnityEngine;
-using Zenject;
 
 public class CameraFollow : MonoBehaviour
 {
     private const float OffsetZ = -10;
 
-    private Transform _followingTarget;
+    [SerializeField] private Transform _followingTarget;
 
-    [Inject]
-    private void Construct(Player player)
+    private void OnEnable()
+    {
+        LoadLevelState.OnPlayerSpawned += RecievePlayer;
+    }
+
+    private void OnDisable()
+    {
+        LoadLevelState.OnPlayerSpawned -= RecievePlayer;
+    }
+
+    private void RecievePlayer(Player player)
     {
         _followingTarget = player.transform;
     }
