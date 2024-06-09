@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 7011624889779140857}
   - component: {fileID: 3868154866425385530}
   - component: {fileID: 6808039586441080232}
+  - component: {fileID: 7730029270675445393}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -517,6 +518,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7730029270675445393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2315078796398583559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db2b8458f41e44449bf65785bca48c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthValue: {fileID: 4018647245275886996}
+  _reloadValue: {fileID: 5745567374261166878}
+  _apProjectileBackground: {fileID: 1063634286239860776}
+  _hexProjectileBackground: {fileID: 3325593454100637247}
+  _activeProjectile: {r: 0.11614455, g: 0.5471698, b: 0.2713136, a: 1}
+  _inactiveProjectile: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 1}
 --- !u!1 &2374600808206344289
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,7 +890,6 @@ GameObject:
   - component: {fileID: 4467372094196535866}
   - component: {fileID: 3408785132568415976}
   - component: {fileID: 4124575051414763575}
-  - component: {fileID: 6454052732381400023}
   m_Layer: 5
   m_Name: PlayerStatsPanel
   m_TagString: Untagged
@@ -939,24 +957,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6454052732381400023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2910634373963140030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db2b8458f41e44449bf65785bca48c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthValue: {fileID: 4018647245275886996}
-  _reloadValue: {fileID: 5745567374261166878}
-  _apProjectileBackground: {fileID: 1063634286239860776}
-  _hexProjectileBackground: {fileID: 3325593454100637247}
-  _activeProjectile: {r: 0.11614455, g: 0.5471698, b: 0.2713136, a: 1}
-  _inactiveProjectile: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 1}
 --- !u!1 &3959231921735023537
 GameObject:
   m_ObjectHideFlags: 0

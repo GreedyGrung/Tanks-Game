@@ -18,7 +18,7 @@ namespace Assets.Scripts.Factory
         public GameObject CreateInput() 
             => _assetProvider.Instantiate(Constants.UnityInputActionsPath);
 
-        public void CreateHud() 
+        public GameObject CreateHud() 
             => _assetProvider.Instantiate(Constants.HudPath);
     }
 }

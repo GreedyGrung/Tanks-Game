@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class PlayerStatsPanel : MonoBehaviour
 {
@@ -18,15 +17,9 @@ public class PlayerStatsPanel : MonoBehaviour
 
     private Player _player;
 
-    [Inject]
-    private void Construct(Player player)
+    public void Init(Player player)
     {
         _player = player;
-    }
-
-    private void Start()
-    {
-        _player = FindObjectOfType<Player>();
         SetupPanel();
         SubscribeToPlayerEvents();
     }

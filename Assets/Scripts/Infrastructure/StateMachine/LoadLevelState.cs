@@ -39,7 +39,7 @@ public class LoadLevelState : IPayloadedState<string>
         UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
         Player player = _gameFactory.CreatePlayer(initialPoint).GetComponent<Player>();
         player.Init(input);
-        _gameFactory.CreateHud();
+        _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
         OnPlayerSpawned?.Invoke(player);
 

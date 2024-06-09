@@ -1,12 +1,9 @@
-using System;
 using UnityEngine;
 
 [SelectionBase]
 [RequireComponent(typeof(PlayerMovement))]
 public class Player : MonoBehaviour, IDamageable
 {
-    public event Action OnInitialized;
-
     [SerializeField] private PlayerWeapon _playerWeapon;
     [SerializeField] private PlayerHealthData _healthData;
 
@@ -24,8 +21,6 @@ public class Player : MonoBehaviour, IDamageable
 
         EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
         Health.OnDied += DeactivatePlayer;
-
-        OnInitialized?.Invoke();
     }
 
     public void TakeDamage(float damage)
