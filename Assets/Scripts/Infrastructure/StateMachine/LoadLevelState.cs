@@ -12,17 +12,25 @@ public class LoadLevelState : IPayloadedState<string>
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
+    private readonly IPersistentProgressService _progressService;
 
-    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingScreen loadingScreen, IGameFactory gameFactory)
+    public LoadLevelState(
+        GameStateMachine gameStateMachine, 
+        SceneLoader sceneLoader, 
+        LoadingScreen loadingScreen, 
+        IGameFactory gameFactory, 
+        IPersistentProgressService progressService)
     {
         _sceneLoader = sceneLoader;
         _loadingScreen = loadingScreen;
         _gameStateMachine = gameStateMachine;
         _gameFactory = gameFactory;
+        _progressService = progressService;
     }
 
     public void Enter(string sceneName)
     {
+        _gameFactory.CleanupProgressWatchers();
         _loadingScreen.Show();
         _sceneLoader.Load(sceneName, OnLoaded);
     }
@@ -34,6 +42,14 @@ public class LoadLevelState : IPayloadedState<string>
 
     private void OnLoaded()
     {
+        InitGameWorld();
+        InformProgressReaders();
+
+        _gameStateMachine.Enter<GameLoopState>();
+    }
+
+    private void InitGameWorld()
+    {
         var initialPoint = GameObject.FindGameObjectWithTag(PlayerSpawnTag);
 
         UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
@@ -42,7 +58,14 @@ public class LoadLevelState : IPayloadedState<string>
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
         OnPlayerSpawned?.Invoke(player);
+        _gameFactory.FindProgressWatchers();
+    }
 
-        _gameStateMachine.Enter<GameLoopState>();
+    private void InformProgressReaders()
+    {
+        foreach (var reader in _gameFactory.ProgressReaders)
+        {
+            reader.LoadProgress(_progressService.Progress);
+        }
     }
 }

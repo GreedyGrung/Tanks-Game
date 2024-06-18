@@ -5,7 +5,6 @@ using Assets.Scripts.Services.AssetManagement;
 public class BootstrapState : IState
 {
     private const string BootstrapSceneName = "BootstrapScene";
-    private const string GameSceneName = "GameScene";
 
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
@@ -33,10 +32,11 @@ public class BootstrapState : IState
     private void RegisterServices()
     {
         _serviceLocator.RegisterSingle<IAssetProvider>(new AssetProvider());
-        GameFactory gameFactory = new(_serviceLocator.Single<IAssetProvider>());
-        _serviceLocator.RegisterSingle<IGameFactory>(gameFactory);
+        _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>()));
+        _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+        _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
     }
 
     private void EnterLoadLevel() 
-        => _stateMachine.Enter<LoadLevelState, string>(GameSceneName);
+        => _stateMachine.Enter<LoadProgressState>();
 }

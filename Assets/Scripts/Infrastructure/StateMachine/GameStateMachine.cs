@@ -13,7 +13,8 @@ public class GameStateMachine
         _states = new Dictionary<Type, IBaseState>()
         {
             [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, serviceLocator),
-            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen, serviceLocator.Single<IGameFactory>()),
+            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen, serviceLocator.Single<IGameFactory>(), serviceLocator.Single<IPersistentProgressService>()),
+            [typeof(LoadProgressState)] = new LoadProgressState(this, serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<ISaveLoadService>()),
             [typeof(GameLoopState)] = new GameLoopState(this)
         };
     }
