@@ -6,13 +6,23 @@ public class PlayerHealth : IHealth
     public event Action<float, float> OnValueChanged;
     public event Action OnDied;
 
-    public PlayerHealth(float value)
+    private float _value;
+
+    public PlayerHealth(float value, float maxValue)
     {
-        MaxValue = value;
-        Value = MaxValue;
+        Value = value;
+        MaxValue = maxValue;
     }
 
-    public float Value { get; private set; }
+    public float Value
+    {
+        get => _value;
+        private set
+        {
+            _value = value;
+            OnValueChanged?.Invoke(Value, MaxValue);
+        }
+    }
     public float MaxValue { get; private set; }
     public bool IsDead => Value == 0;
     public bool IsFull => Value == MaxValue;
@@ -26,7 +36,6 @@ public class PlayerHealth : IHealth
 
         Value += value;
         Mathf.Clamp(Value, 0, MaxValue);
-        OnValueChanged?.Invoke(Value, MaxValue);
     }
 
     public void Subtract(float damage)
@@ -42,7 +51,6 @@ public class PlayerHealth : IHealth
         }
 
         Value -= damage;
-        OnValueChanged?.Invoke(Value, MaxValue);
 
         if (Value <= 0)
         {
@@ -55,12 +63,20 @@ public class PlayerHealth : IHealth
     {
         Value = 0;
         OnDied?.Invoke();
-        OnValueChanged?.Invoke(Value, MaxValue);
     }
 
     public void RestoreAll()
     {
         Value = MaxValue;
-        OnValueChanged?.Invoke(Value, MaxValue);
+    }
+
+    public void SetValue(float value)
+    {
+        if (value < 0)
+        {
+            throw new ArgumentException(nameof(value));
+        }
+
+        Value = value;
     }
 }

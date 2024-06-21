@@ -14,4 +14,5 @@ public interface IHealth
     void Add(float value);
     void RestoreAll();
     void KillImmediately();
+    void SetValue(float value);
 }

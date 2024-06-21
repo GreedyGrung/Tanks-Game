@@ -12,8 +12,8 @@ public class EnemyHealth : IHealth
         MaxValue = value;
     }
 
-    public float MaxValue { get; private set; }
     public float Value { get; private set; }
+    public float MaxValue { get; private set; }
     public bool IsDead => Value == 0;
     public bool IsFull => Value == MaxValue;
 
@@ -62,5 +62,10 @@ public class EnemyHealth : IHealth
     {
         Value = MaxValue;
         OnValueChanged?.Invoke(Value, MaxValue);
+    }
+
+    public void SetValue(float value)
+    {
+        throw new NotImplementedException();
     }
 }

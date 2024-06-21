@@ -6,5 +6,6 @@ namespace Assets.Scripts.Data
     public class PlayerProgress
     {
         public int TestValue;
+        public float Health;
     }
 }
