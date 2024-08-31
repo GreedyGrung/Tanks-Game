@@ -7,7 +7,7 @@ public class EnemiesController : MonoBehaviour
 {
     public static event Action OnAllEnemiesKilled;
 
-    [SerializeField] private List<Transform> _spawns;
+    [SerializeField] private List<EnemySpawner> _spawns;
 
     private TurretFactory _turretFactory;
     private TankFactory _tankFactory;
@@ -24,8 +24,24 @@ public class EnemiesController : MonoBehaviour
     {
         foreach (var spawn in _spawns)
         {
-            int enemyType = UnityEngine.Random.Range(0, 2);
-            Enemy enemy = enemyType == 0 ? _turretFactory.GetNewInstance(spawn) : _tankFactory.GetNewInstance(spawn);
+            Enemy enemy;
+            switch (spawn.EnemyType)
+            {
+                case EnemyTypeId.Tank:
+                    enemy = _tankFactory.GetNewInstance(spawn.transform);
+                    break;
+                case EnemyTypeId.Turret:
+                    enemy = _turretFactory.GetNewInstance(spawn.transform);
+                    break;
+                case EnemyTypeId.Random:
+                    int enemyType = UnityEngine.Random.Range(0, 2);
+                    enemy = enemyType == 0 ? _turretFactory.GetNewInstance(spawn.transform) : _tankFactory.GetNewInstance(spawn.transform);
+                    break;
+                default:
+                    enemy = _tankFactory.GetNewInstance(spawn.transform);
+                    break;
+            }
+
             _enemies.Add(enemy);
         }
     }
