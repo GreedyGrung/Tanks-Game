@@ -1,0 +1,17 @@
+{
+    "name": "TankGame.App",
+    "rootNamespace": "",
+    "references": [
+        "GUID:178ed746c0efee747ae2b5f1dee1fc41",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
