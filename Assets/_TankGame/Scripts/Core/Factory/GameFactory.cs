@@ -19,27 +19,52 @@ namespace Assets.Scripts.Factory
         }
 
         public GameObject CreatePlayer(GameObject at) 
-            => _assetProvider.Instantiate(Constants.PlayerPath, at.transform.position);
+            => InstantiateRegistered(Constants.PlayerPath, at.transform.position);
 
         public GameObject CreateInput() 
-            => _assetProvider.Instantiate(Constants.UnityInputActionsPath);
+            => InstantiateRegistered(Constants.UnityInputActionsPath);
 
         public GameObject CreateHud() 
-            => _assetProvider.Instantiate(Constants.HudPath);
+            => InstantiateRegistered(Constants.HudPath);
 
-        public void FindProgressWatchers()
+        public void Register(ISavedProgressReader progressReader)
         {
-            var readers = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISavedProgressReader>();
-            var writers = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISavedProgress>();
+            if (progressReader is ISavedProgress progressWriter)
+            {
+                ProgressWriters.Add(progressWriter);
+            }
 
-            ProgressReaders.AddRange(readers);
-            ProgressWriters.AddRange(writers);
+            ProgressReaders.Add(progressReader);
         }
 
         public void CleanupProgressWatchers()
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
+        }
+
+        private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
+        {
+            var playerObject = _assetProvider.Instantiate(prefabPath, at);
+            RegisterProgressWatchers(playerObject);
+
+            return playerObject;
+        }
+
+        private GameObject InstantiateRegistered(string prefabPath)
+        {
+            var playerObject = _assetProvider.Instantiate(prefabPath);
+            RegisterProgressWatchers(playerObject);
+
+            return playerObject;
+        }
+
+        private void RegisterProgressWatchers(GameObject playerObject)
+        {
+            foreach (var progressReader in playerObject.GetComponentsInChildren<ISavedProgressReader>())
+            {
+                Register(progressReader);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Factory
         GameObject CreateHud();
         GameObject CreateInput();
         GameObject CreatePlayer(GameObject at);
-        void FindProgressWatchers();
+        void Register(ISavedProgressReader progressReader);
         void CleanupProgressWatchers();
     }
 }

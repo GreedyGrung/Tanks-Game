@@ -1,49 +1,21 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using System.Linq;
 
 public class EnemiesController : MonoBehaviour
 {
     public static event Action OnAllEnemiesKilled;
 
-    [SerializeField] private List<EnemySpawner> _spawns;
+    [SerializeField] private Transform _spawnersRoot;
 
-    private TurretFactory _turretFactory;
-    private TankFactory _tankFactory;
-    private List<Enemy> _enemies = new();
+    [SerializeField] private List<Enemy> _enemies = new();
+    private List<EnemySpawner> _spawners = new();
 
-    [Inject]
-    private void Construct(TurretFactory turretFactory, TankFactory tankFactory)
+    public void Init()
     {
-        _turretFactory = turretFactory;
-        _tankFactory = tankFactory;
-    }
-
-    private void Start()
-    {
-        foreach (var spawn in _spawns)
-        {
-            Enemy enemy;
-            switch (spawn.EnemyType)
-            {
-                case EnemyTypeId.Tank:
-                    enemy = _tankFactory.GetNewInstance(spawn.transform);
-                    break;
-                case EnemyTypeId.Turret:
-                    enemy = _turretFactory.GetNewInstance(spawn.transform);
-                    break;
-                case EnemyTypeId.Random:
-                    int enemyType = UnityEngine.Random.Range(0, 2);
-                    enemy = enemyType == 0 ? _turretFactory.GetNewInstance(spawn.transform) : _tankFactory.GetNewInstance(spawn.transform);
-                    break;
-                default:
-                    enemy = _tankFactory.GetNewInstance(spawn.transform);
-                    break;
-            }
-
-            _enemies.Add(enemy);
-        }
+        FindSpawners();
+        GetEnemies();
     }
 
     private void OnEnable()
@@ -56,9 +28,29 @@ public class EnemiesController : MonoBehaviour
         Enemy.OnEnemyDestroyed -= RemoveEnemyFromList;
     }
 
+    private void FindSpawners()
+    {
+        foreach (Transform transform in _spawnersRoot)
+        {
+            if (transform.TryGetComponent(out EnemySpawner spawner))
+            {
+                _spawners.Add(spawner);
+            }
+        }
+    }
+
+    private void GetEnemies()
+    {
+        Debug.LogError("get");
+        _enemies.AddRange(_spawners
+            .Where(spawner => spawner.Enemy != null)
+            .Select(spawner => spawner.Enemy));
+    }
+
     private void RemoveEnemyFromList(Enemy enemy)
     {
         _enemies.Remove(enemy);
+        _spawners.First(spawner => spawner.Enemy == enemy).SetIsSlain();
 
         if (_enemies.Count == 0)
         {

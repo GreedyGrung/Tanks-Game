@@ -18,7 +18,7 @@ public class LoadProgressState : IState
     public void Enter()
     {
         LoadOrInitProgress();
-        _gameStateMachine.Enter<LoadLevelState, string>(GameSceneName);
+        _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.PlayerData.PositionOnLevel.Level);
     }
 
     public void Exit()
@@ -31,5 +31,5 @@ public class LoadProgressState : IState
         _progressService.Progress = _saveLoadService.LoadProgress() ?? InitNewProgress();
     }
 
-    private PlayerProgress InitNewProgress() => new();
+    private PlayerProgress InitNewProgress() => new(GameSceneName);
 }

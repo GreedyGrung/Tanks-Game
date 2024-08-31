@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Data;
+using UnityEngine;
 
 namespace Assets.Scripts.Utils
 {
@@ -9,5 +10,11 @@ namespace Assets.Scripts.Utils
 
         public static string ToJson(this object obj) 
             => JsonUtility.ToJson(obj);
+
+        public static Vector3Data AsVectorData(this Vector3 vector) 
+            => new(vector.x, vector.y, vector.z);
+
+        public static Vector3 AsUnityVector3(this Vector3Data vector)
+            => new(vector.X, vector.Y, vector.Z);
     }
 }

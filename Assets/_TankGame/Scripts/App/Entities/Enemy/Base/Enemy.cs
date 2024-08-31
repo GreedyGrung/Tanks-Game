@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using System;
-using Zenject;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -34,8 +33,6 @@ public class Enemy : MonoBehaviour, IDamageable
         Health = new EnemyHealth(_enemyData.MaxHealth);
         Rigidbody = GetComponent<Rigidbody2D>();
         _enemyVisuals = GetComponent<EnemyVisuals>();
-
-        LoadLevelState.OnPlayerSpawned += RecievePlayer;
     }
 
     public virtual void Update()
@@ -58,9 +55,9 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-    public virtual void OnDestroy()
+    public void Init(Player player)
     {
-        LoadLevelState.OnPlayerSpawned -= RecievePlayer;
+        Player = player.transform;
     }
 
     public bool ObstacleBetweenEnemyAndPlayer()
@@ -132,10 +129,4 @@ public class Enemy : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(_enemyData.ReloadTime);
         CanShoot = true;
     }
-
-    private void RecievePlayer(Player player)
-    {
-        Player = player.transform;
-    }
-
 }

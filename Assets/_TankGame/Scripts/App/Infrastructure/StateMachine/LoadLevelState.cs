@@ -7,6 +7,7 @@ public class LoadLevelState : IPayloadedState<string>
     public static event Action<Player> OnPlayerSpawned;
 
     private const string PlayerSpawnTag = "PlayerSpawnPoint";
+    private const string EnemySpawnerTag = "EnemySpawner";
 
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
@@ -45,6 +46,9 @@ public class LoadLevelState : IPayloadedState<string>
         InitGameWorld();
         InformProgressReaders();
 
+        var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
+        enemiesController.Init();
+
         _gameStateMachine.Enter<GameLoopState>();
     }
 
@@ -57,8 +61,19 @@ public class LoadLevelState : IPayloadedState<string>
         player.Init(input);
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
+        InitSpawners(player);
+
         OnPlayerSpawned?.Invoke(player);
-        _gameFactory.FindProgressWatchers();
+    }
+
+    private void InitSpawners(Player player)
+    {
+        foreach (var spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag))
+        {
+            var spawner = spawnerObject.GetComponent<EnemySpawner>();
+            spawner.InitPlayer(player);
+            _gameFactory.Register(spawner);
+        }
     }
 
     private void InformProgressReaders()
