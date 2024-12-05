@@ -6,13 +6,15 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     public static event Action<Enemy> OnEnemyDestroyed;
 
-    [SerializeField] private EnemyData _enemyData;
+    [SerializeField] private EnemyTypeId _enemyTypeId;
     [SerializeField] private Transform _bulletSpawn;
+    [SerializeField] private EnemyHealthBar _healthBar;
     [SerializeField] private float _rotationInterpolationFactor = 0.05f;
 
     private EnemyVisuals _enemyVisuals;
     private readonly float _rotationThreshold = 10f;
     private bool _isExploding = false;
+    private bool _isInit;
 
     public StateMachine StateMachine { get; private set; }
     public Transform Player { get; private set; }
@@ -21,7 +23,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Projectile Projectile { get; protected set; }
     public IHealth Health { get; private set; }
 
-    public EnemyData EnemyData => _enemyData;
+    public BaseEnemyStaticData EnemyData { get; private set; }
     public Transform BulletSpawn => _bulletSpawn;
 
     public bool CanShoot { get; private set; } = true;
@@ -30,14 +32,13 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void Awake()
     {
         StateMachine = new();
-        Health = new EnemyHealth(_enemyData.MaxHealth);
         Rigidbody = GetComponent<Rigidbody2D>();
         _enemyVisuals = GetComponent<EnemyVisuals>();
     }
 
     public virtual void Update()
     {
-        if (_isExploding || Player == null)
+        if (_isExploding || _isInit == false)
         {
             return;
         }
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void FixedUpdate()
     {
-        if (_isExploding || Player == null)
+        if (_isExploding || _isInit == false)
         {
             return;
         }
@@ -55,9 +56,21 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-    public void Init(Player player)
+    public virtual void Init(Player player)
     {
         Player = player.transform;
+        Health = new EnemyHealth(EnemyData.MaxHealth);
+        _healthBar.Construct(this);
+    }
+
+    protected void SetIsInit()
+    {
+        _isInit = true;
+    }
+
+    public void SetData(BaseEnemyStaticData data)
+    {
+        EnemyData = data;
     }
 
     public bool ObstacleBetweenEnemyAndPlayer()
@@ -126,7 +139,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private IEnumerator Reload()
     {
         CanShoot = false;
-        yield return new WaitForSeconds(_enemyData.ReloadTime);
+        yield return new WaitForSeconds(EnemyData.ReloadTime);
         CanShoot = true;
     }
 }

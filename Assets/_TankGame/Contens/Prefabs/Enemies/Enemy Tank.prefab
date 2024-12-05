@@ -208,10 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16636b76df195a544863ed9f83c0ccba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: ce2aec2caf65a534386eed0843495740, type: 2}
+  _enemyTypeId: 0
   _bulletSpawn: {fileID: 2175387049254632777}
+  _healthBar: {fileID: 6776280313794259209}
   _rotationInterpolationFactor: 0.05
-  _moveStateData: {fileID: 11400000, guid: 71fcc1bcab0b4e54aa988f1b6c4d65b0, type: 2}
   _wallCheck: {fileID: 6714585758611052621}
   _tower: {fileID: 2175387048401603442}
 --- !u!114 &8149823529364320649
@@ -670,7 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65582612850a0945969104f545a554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 3762691060938788043}
   _healthValue: {fileID: 996980392226892803}
   _offset: {x: 0, y: 0.6, z: 0}
 --- !u!224 &7926750583178477131 stripped

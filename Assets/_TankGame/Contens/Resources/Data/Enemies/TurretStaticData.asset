@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a324cfc8fc1ed9649bad934b629cec08, type: 3}
-  m_Name: TankData
+  m_Script: {fileID: 11500000, guid: 35b00f3d7e110fe4f849524b52a088e0, type: 3}
+  m_Name: TurretStaticData
   m_EditorClassIdentifier: 
-  _maxHealth: 20
-  _bodyRotationSpeed: 150
+  _enemyType: 1
+  _enemyPrefab: {fileID: 4675705461098127101, guid: 3f242c1ebc571fd42a1c78f30f379284, type: 3}
+  _maxHealth: 30
   _towerRotationSpeed: 90
-  _reloadTime: 1.5
-  _wallCheckDistance: 0.5
-  _detectionDistance: 4
+  _reloadTime: 1
+  _wallCheckDistance: 0
+  _detectionDistance: 5
   _playerLayer:
     serializedVersion: 2
     m_Bits: 256

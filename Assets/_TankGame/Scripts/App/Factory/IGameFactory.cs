@@ -13,6 +13,7 @@ namespace Assets.Scripts.Factory
         GameObject CreateHud();
         GameObject CreateInput();
         GameObject CreatePlayer(GameObject at);
+        Enemy CreateEnemy(EnemyTypeId type, Transform parent);
         void Register(ISavedProgressReader progressReader);
         void CleanupProgressWatchers();
     }

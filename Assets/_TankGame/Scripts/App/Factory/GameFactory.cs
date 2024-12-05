@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Services.AssetManagement;
 using Assets.Scripts.Services.PersistentProgress;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Factory
@@ -9,13 +8,15 @@ namespace Assets.Scripts.Factory
     public class GameFactory : IGameFactory
     {
         private readonly IAssetProvider _assetProvider;
+        private readonly IStaticDataService _staticData;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IAssetProvider assetProvider)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData)
         {
             _assetProvider = assetProvider;
+            _staticData = staticData;
         }
 
         public GameObject CreatePlayer(GameObject at) 
@@ -26,6 +27,15 @@ namespace Assets.Scripts.Factory
 
         public GameObject CreateHud() 
             => InstantiateRegistered(Constants.HudPath);
+
+        public Enemy CreateEnemy(EnemyTypeId type, Transform parent)
+        {
+            var enemyData = _staticData.ForEnemy(type);
+            var enemy = Object.Instantiate(enemyData.EnemyPrefab, parent.position, Quaternion.identity, parent);
+            enemy.SetData(enemyData);
+
+            return enemy;
+        }
 
         public void Register(ISavedProgressReader progressReader)
         {

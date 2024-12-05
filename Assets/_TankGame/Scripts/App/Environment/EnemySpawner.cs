@@ -1,32 +1,28 @@
 ﻿using Assets.Scripts.Data;
+using Assets.Scripts.Factory;
+using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.PersistentProgress;
 using TankGame.Scripts.App.Utils;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(UniqueId))]
 public class EnemySpawner : MonoBehaviour, ISavedProgress
 {
     [SerializeField] private EnemyTypeId _enemyType;
+    [SerializeField] private bool _isRandom;
 
     private string _id;
+    private IGameFactory _gameFactory;
     private bool _IsSlain;
-    private TurretFactory _turretFactory;
-    private TankFactory _tankFactory;
     private Player _player;
 
     public Enemy Enemy { get; private set; }
 
-    [Inject]
-    private void Construct(TurretFactory turretFactory, TankFactory tankFactory)
-    {
-        _turretFactory = turretFactory;
-        _tankFactory = tankFactory;
-    }
-
     private void Awake()
     {
         _id = GetComponent<UniqueId>().Id;
+
+        _gameFactory = ServiceLocator.Instance.Single<IGameFactory>();
     }
 
     public void InitPlayer(Player player)
@@ -56,23 +52,24 @@ public class EnemySpawner : MonoBehaviour, ISavedProgress
 
     private void Spawn()
     {
-        switch (_enemyType)
+        if (_isRandom)
         {
-            case EnemyTypeId.Tank:
-                Enemy = _tankFactory.GetNewInstance(transform);
-                break;
-            case EnemyTypeId.Turret:
-                Enemy = _turretFactory.GetNewInstance(transform);
-                break;
-            case EnemyTypeId.Random:
-                int enemyType = Random.Range(0, 2);
-                Enemy = enemyType == 0 ? _turretFactory.GetNewInstance(transform) : _tankFactory.GetNewInstance(transform);
-                break;
-            default:
-                Enemy = _tankFactory.GetNewInstance(transform);
-                break;
+            SpawnRandom();
+
+            return;
         }
 
+        Enemy = _gameFactory.CreateEnemy(_enemyType, transform);
+
+        Enemy.Init(_player);
+    }
+
+    private void SpawnRandom()
+    {
+        int enemyType = Random.Range(0, 2);
+        Enemy = enemyType == 0 
+            ? _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform) 
+            : _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
         Enemy.Init(_player);
     }
 

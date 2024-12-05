@@ -16,7 +16,7 @@ public class GameOverCanvas : MonoBehaviour
 
     private void Start()
     {
-        _victoryButton.onClick.AddListener(ReloadScene);
+        _victoryButton.onClick.AddListener(ReloadSceneAfterVictory);
         _failureButton.onClick.AddListener(ReloadScene);
 
         LoadLevelState.OnPlayerSpawned += RecievePlayer;
@@ -31,6 +31,9 @@ public class GameOverCanvas : MonoBehaviour
 
     private void OnDestroy()
     {
+        _victoryButton.onClick.RemoveListener(ReloadSceneAfterVictory);
+        _failureButton.onClick.RemoveListener(ReloadScene);
+
         EnemiesController.OnAllEnemiesKilled -= ShowVictoryPanel;
         LoadLevelState.OnPlayerSpawned -= RecievePlayer;
         _player.Health.OnDied -= ShowFailurePanel;
@@ -49,5 +52,11 @@ public class GameOverCanvas : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void ReloadSceneAfterVictory()
+    {
+        PlayerPrefs.DeleteAll();
+        ReloadScene();
     }
 }

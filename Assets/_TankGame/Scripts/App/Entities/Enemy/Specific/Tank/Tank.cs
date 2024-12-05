@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class Tank : Enemy
 {
-    public TankMoveState MoveState { get; private set; }
-    public TankAttackState AttackState { get; private set; }
-
-    [SerializeField] private MoveStateData _moveStateData;
     [SerializeField] private Transform _wallCheck;
     [SerializeField] private Transform _tower;
 
     private Rigidbody2D _rigidbody;
+    private MovingEnemyStaticData _movingEnemyData;
 
     public Transform Tower => _tower;
+
+    public TankMoveState MoveState { get; private set; }
+    public TankAttackState AttackState { get; private set; }
 
     public override void Awake()
     {
@@ -19,16 +19,25 @@ public class Tank : Enemy
 
         _rigidbody = GetComponent<Rigidbody2D>();
         ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
+    }
 
-        MoveState = new(this, StateMachine, _moveStateData);
+    public override void Init(Player player)
+    {
+        base.Init(player);
+
+        _movingEnemyData = EnemyData as MovingEnemyStaticData;
+
+        MoveState = new(this, StateMachine);
         AttackState = new(this, StateMachine);
 
         StateMachine.Initialize(MoveState);
+
+        SetIsInit();
     }
 
     public void Move()
     {
-        Vector2 movement = transform.up * _moveStateData.MovementSpeed * Time.deltaTime;
+        Vector2 movement = transform.up * _movingEnemyData.MovementSpeed * Time.deltaTime;
         _rigidbody.MovePosition(_rigidbody.position + movement);
     }
 

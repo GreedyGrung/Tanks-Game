@@ -31,10 +31,19 @@ public class BootstrapState : IState
 
     private void RegisterServices()
     {
+        RegisterStaticData();
+    
         _serviceLocator.RegisterSingle<IAssetProvider>(new AssetProvider());
-        _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>()));
+        _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
         _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
         _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
+    }
+
+    private void RegisterStaticData()
+    {
+        IStaticDataService staticData = new StaticDataService();
+        staticData.LoadEnemies();
+        _serviceLocator.RegisterSingle(staticData);
     }
 
     private void EnterLoadLevel() 

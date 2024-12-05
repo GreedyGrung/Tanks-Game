@@ -1,14 +1,12 @@
 public class TankMoveState : MoveState
 {
     private Tank _tank;
-    private MoveStateData _data;
     private bool _playerDetected;
     private bool _obstacleBetweenEnemyAndPlayer;
 
-    public TankMoveState(Tank tank, StateMachine stateMachine, MoveStateData data) : base(tank, stateMachine)
+    public TankMoveState(Tank tank, StateMachine stateMachine) : base(tank, stateMachine)
     {
         _tank = tank;
-        _data = data;
     }
 
     public override void DoChecks()

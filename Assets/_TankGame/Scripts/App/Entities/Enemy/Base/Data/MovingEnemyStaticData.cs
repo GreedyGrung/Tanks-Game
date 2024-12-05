@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "MoveStateData", menuName = "Data/Enemy Data/Move State Data")]
-public class MoveStateData : ScriptableObject
+[CreateAssetMenu(fileName = "MovingEnemyStaticData", menuName = "Data/Enemy Data/Moving Enemy Static Data")]
+public class MovingEnemyStaticData : BaseEnemyStaticData
 {
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] private float _rotationSpeed = 90f;

@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "Data/Enemy Data/Base Data")]
-public class EnemyData : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyStaticData", menuName = "Data/Enemy Data/Static Data")]
+public class BaseEnemyStaticData : ScriptableObject
 {
+    [SerializeField] private EnemyTypeId _enemyType;
+    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private float _maxHealth;
-    [SerializeField] private float _bodyRotationSpeed;
     [SerializeField] private float _towerRotationSpeed;
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _wallCheckDistance;
@@ -13,8 +14,9 @@ public class EnemyData : ScriptableObject
     [SerializeField] private LayerMask _obstacleLayer;
     [SerializeField] private LayerMask _detectionObstacleLayer;
 
+    public EnemyTypeId EnemyType => _enemyType;
+    public Enemy EnemyPrefab => _enemyPrefab;
     public float MaxHealth => _maxHealth;
-    public float BodyRotationSpeed => _bodyRotationSpeed;
     public float TowerRotationSpeed => _towerRotationSpeed;
     public float ReloadTime => _reloadTime;
     public float WallCheckDistance => _wallCheckDistance;

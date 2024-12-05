@@ -17,12 +17,19 @@ public class Turret : Enemy
         base.Awake();
 
         ProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
+    }
+
+    public override void Init(Player player)
+    {
+        base.Init(player);
 
         IdleState = new(this, StateMachine);
         AttackState = new(this, StateMachine);
         DeadState = new(this, StateMachine);
 
         StateMachine.Initialize(IdleState);
+
+        SetIsInit();
     }
 
     public void RotateTower()

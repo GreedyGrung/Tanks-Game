@@ -18112,8 +18112,6 @@ GameObject:
   - component: {fileID: 316001970}
   - component: {fileID: 316001972}
   - component: {fileID: 316001971}
-  - component: {fileID: 316001974}
-  - component: {fileID: 316001973}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -18164,8 +18162,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 316001971}
-  - {fileID: 316001974}
-  - {fileID: 316001973}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -18183,32 +18179,6 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
---- !u!114 &316001973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316001969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf744de499f8bf847a31ac2b56bced9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _turretFactory: {fileID: 1105163624}
---- !u!114 &316001974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316001969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 904e6f0af805bd24eabe3fbd548317a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tankFactory: {fileID: 571142386}
 --- !u!1 &341984615
 GameObject:
   m_ObjectHideFlags: 0
@@ -18531,51 +18501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followingTarget: {fileID: 0}
---- !u!1 &571142384
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 571142385}
-  - component: {fileID: 571142386}
-  m_Layer: 0
-  m_Name: Tank Factory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &571142385
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571142384}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1543852102}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &571142386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571142384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f85d1d894686d47aa7c21a786eee3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3762691060938788043, guid: 9ce3480b62705dc44810e476bcbe2387, type: 3}
 --- !u!1 &592281808
 GameObject:
   m_ObjectHideFlags: 0
@@ -18800,8 +18725,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4645850917201679581, guid: 2bf830bd2f7c60141966f67505df999c, type: 3}
+      propertyPath: _isRandom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645850917201679581, guid: 2bf830bd2f7c60141966f67505df999c, type: 3}
       propertyPath: _enemyType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20370,8 +20299,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4645850917201679581, guid: 2bf830bd2f7c60141966f67505df999c, type: 3}
+      propertyPath: _isRandom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645850917201679581, guid: 2bf830bd2f7c60141966f67505df999c, type: 3}
       propertyPath: _enemyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20505,51 +20438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a2e116fcd6bc940be63989b8ebe9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1105163622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1105163623}
-  - component: {fileID: 1105163624}
-  m_Layer: 0
-  m_Name: Turret Factory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1105163623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105163622}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1543852102}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1105163624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105163622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d86c87e15ddff74dabb808ea5b8611d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 4675705461098127101, guid: 3f242c1ebc571fd42a1c78f30f379284, type: 3}
 --- !u!1 &1248219377
 GameObject:
   m_ObjectHideFlags: 0
@@ -20935,8 +20823,6 @@ Transform:
   - {fileID: 9849001}
   - {fileID: 366667115}
   - {fileID: 1696709528}
-  - {fileID: 1105163623}
-  - {fileID: 571142385}
   - {fileID: 2004471736}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21416,7 +21302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4645850917201679581, guid: 2bf830bd2f7c60141966f67505df999c, type: 3}
       propertyPath: _enemyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
