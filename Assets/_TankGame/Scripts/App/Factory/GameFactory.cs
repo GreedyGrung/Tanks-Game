@@ -37,14 +37,13 @@ namespace Assets.Scripts.Factory
             return enemy;
         }
 
-        public void Register(ISavedProgressReader progressReader)
+        public void CreateSpawner(EnemySpawnerData spawnerData, Player player)
         {
-            if (progressReader is ISavedProgress progressWriter)
-            {
-                ProgressWriters.Add(progressWriter);
-            }
-
-            ProgressReaders.Add(progressReader);
+            var spanwer = InstantiateRegistered(Constants.SpawnerPath, spawnerData.Position).GetComponent<SpawnPoint>();
+            
+            spanwer.Construct(this);
+            spanwer.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId);
+            spanwer.InitPlayer(player);
         }
 
         public void CleanupProgressWatchers()
@@ -75,6 +74,16 @@ namespace Assets.Scripts.Factory
             {
                 Register(progressReader);
             }
+        }
+
+        private void Register(ISavedProgressReader progressReader)
+        {
+            if (progressReader is ISavedProgress progressWriter)
+            {
+                ProgressWriters.Add(progressWriter);
+            }
+
+            ProgressReaders.Add(progressReader);
         }
     }
 }

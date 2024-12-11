@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyStaticData", menuName = "Data/Enemy Data/Static Data")]
+[CreateAssetMenu(fileName = "BaseEnemyStaticData", menuName = "Static Data/Enemy Data/Base Enemy Static Data")]
 public class BaseEnemyStaticData : ScriptableObject
 {
     [SerializeField] private EnemyTypeId _enemyType;

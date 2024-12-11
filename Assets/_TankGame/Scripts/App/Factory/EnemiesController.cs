@@ -7,52 +7,32 @@ public class EnemiesController : MonoBehaviour
 {
     public static event Action OnAllEnemiesKilled;
 
-    [SerializeField] private Transform _spawnersRoot;
+    [SerializeField] private List<SpawnPoint> _spawners = new();
 
-    [SerializeField] private List<Enemy> _enemies = new();
-    private List<EnemySpawner> _spawners = new();
+    private int _killedEnemies;
 
     public void Init()
     {
         FindSpawners();
-        GetEnemies();
-    }
-
-    private void OnEnable()
-    {
-        Enemy.OnEnemyDestroyed += RemoveEnemyFromList;
-    }
-
-    private void OnDisable()
-    {
-        Enemy.OnEnemyDestroyed -= RemoveEnemyFromList;
     }
 
     private void FindSpawners()
     {
-        foreach (Transform transform in _spawnersRoot)
+        _spawners = FindObjectsOfType<SpawnPoint>().ToList();
+
+        foreach (var spawnPoint in _spawners)
         {
-            if (transform.TryGetComponent(out EnemySpawner spawner))
-            {
-                _spawners.Add(spawner);
-            }
+            spawnPoint.OnEnemyInSpawnerKilled += CheckForEnemies;
         }
     }
 
-    private void GetEnemies()
+    private void CheckForEnemies(SpawnPoint point)
     {
-        Debug.LogError("get");
-        _enemies.AddRange(_spawners
-            .Where(spawner => spawner.Enemy != null)
-            .Select(spawner => spawner.Enemy));
-    }
+        point.OnEnemyInSpawnerKilled -= CheckForEnemies;
 
-    private void RemoveEnemyFromList(Enemy enemy)
-    {
-        _enemies.Remove(enemy);
-        _spawners.First(spawner => spawner.Enemy == enemy).SetIsSlain();
+        _killedEnemies++;
 
-        if (_enemies.Count == 0)
+        if (_killedEnemies == _spawners.Count)
         {
             OnAllEnemiesKilled?.Invoke();
         }

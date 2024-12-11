@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35b00f3d7e110fe4f849524b52a088e0, type: 3}
-  m_Name: TurretStaticData
+  m_Name: BaseEnemyStaticData
   m_EditorClassIdentifier: 
   _enemyType: 1
   _enemyPrefab: {fileID: 4675705461098127101, guid: 3f242c1ebc571fd42a1c78f30f379284, type: 3}
-  _maxHealth: 30
-  _towerRotationSpeed: 90
+  _maxHealth: 10
+  _towerRotationSpeed: 60
   _reloadTime: 1
-  _wallCheckDistance: 0
-  _detectionDistance: 5
+  _wallCheckDistance: 0.5
+  _detectionDistance: 4
   _playerLayer:
     serializedVersion: 2
     m_Bits: 256

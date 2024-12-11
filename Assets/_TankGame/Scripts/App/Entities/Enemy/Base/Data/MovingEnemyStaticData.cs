@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "MovingEnemyStaticData", menuName = "Data/Enemy Data/Moving Enemy Static Data")]
+[CreateAssetMenu(fileName = "MovingEnemyStaticData", menuName = "Static Data/Enemy Data/Moving Enemy Static Data")]
 public class MovingEnemyStaticData : BaseEnemyStaticData
 {
     [SerializeField] private float _movementSpeed = 2f;

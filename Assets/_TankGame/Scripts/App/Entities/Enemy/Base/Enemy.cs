@@ -4,7 +4,7 @@ using System;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public static event Action<Enemy> OnEnemyDestroyed;
+    public event Action OnKilled;
 
     [SerializeField] private EnemyTypeId _enemyTypeId;
     [SerializeField] private Transform _bulletSpawn;
@@ -127,7 +127,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             _isExploding = true;
             _enemyVisuals.PlayExplosionAnimation();
-            OnEnemyDestroyed?.Invoke(this);
+            OnKilled?.Invoke();
         }
     }
 

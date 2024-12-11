@@ -10,10 +10,15 @@ public class GameStateMachine
 
     public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen, ServiceLocator serviceLocator)
     {
+        IGameFactory gameFactory = serviceLocator.Single<IGameFactory>();
+        IPersistentProgressService progressService = serviceLocator.Single<IPersistentProgressService>();
+        IStaticDataService staticData = serviceLocator.Single<IStaticDataService>();
+        ISaveLoadService saveLoadService = serviceLocator.Single<ISaveLoadService>();
+
         _states = new Dictionary<Type, IBaseState>()
         {
             [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, serviceLocator),
-            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen, serviceLocator.Single<IGameFactory>(), serviceLocator.Single<IPersistentProgressService>()),
+            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen, serviceLocator.Single<IGameFactory>(), serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<IStaticDataService>()),
             [typeof(LoadProgressState)] = new LoadProgressState(this, serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<ISaveLoadService>()),
             [typeof(GameLoopState)] = new GameLoopState(this)
         };

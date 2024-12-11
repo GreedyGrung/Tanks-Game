@@ -1,32 +1,35 @@
 ﻿using Assets.Scripts.Factory;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
 {
     public static event Action<Player> OnPlayerSpawned;
 
     private const string PlayerSpawnTag = "PlayerSpawnPoint";
-    private const string EnemySpawnerTag = "EnemySpawner";
 
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingScreen _loadingScreen;
     private readonly IGameFactory _gameFactory;
     private readonly IPersistentProgressService _progressService;
+    private readonly IStaticDataService _staticData;
 
     public LoadLevelState(
         GameStateMachine gameStateMachine, 
         SceneLoader sceneLoader, 
         LoadingScreen loadingScreen, 
         IGameFactory gameFactory, 
-        IPersistentProgressService progressService)
+        IPersistentProgressService progressService,
+        IStaticDataService staticData)
     {
         _sceneLoader = sceneLoader;
         _loadingScreen = loadingScreen;
         _gameStateMachine = gameStateMachine;
         _gameFactory = gameFactory;
         _progressService = progressService;
+        _staticData = staticData;
     }
 
     public void Enter(string sceneName)
@@ -45,9 +48,6 @@ public class LoadLevelState : IPayloadedState<string>
     {
         InitGameWorld();
         InformProgressReaders();
-
-        var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
-        enemiesController.Init();
 
         _gameStateMachine.Enter<GameLoopState>();
     }
@@ -68,12 +68,16 @@ public class LoadLevelState : IPayloadedState<string>
 
     private void InitSpawners(Player player)
     {
-        foreach (var spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag))
+        string sceneKey = SceneManager.GetActiveScene().name;
+        LevelStaticData levelData = _staticData.ForLevel(sceneKey);
+
+        foreach (var spawnerData in levelData.EnemySpawners)
         {
-            var spawner = spawnerObject.GetComponent<EnemySpawner>();
-            spawner.InitPlayer(player);
-            _gameFactory.Register(spawner);
+            _gameFactory.CreateSpawner(spawnerData, player);
         }
+
+        var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
+        enemiesController.Init();
     }
 
     private void InformProgressReaders()
