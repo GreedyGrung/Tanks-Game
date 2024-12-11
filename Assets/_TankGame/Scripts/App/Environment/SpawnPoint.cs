@@ -10,6 +10,7 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
 
     private string _id;
     private EnemyTypeId _enemyType;
+    private bool _isRandom;
     private IGameFactory _gameFactory;
     private bool _IsSlain;
     private Player _player;
@@ -21,10 +22,11 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
         _gameFactory = gameFactory;
     }
 
-    public void SetSpawnData(string id, EnemyTypeId enemyType)
+    public void SetSpawnData(string id, EnemyTypeId enemyType, bool isRandom)
     {
         _id = id;
         _enemyType = enemyType;
+        _isRandom = isRandom;
     }
 
     public void InitPlayer(Player player)
@@ -54,35 +56,29 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
 
     private void Spawn()
     {
-        // TODO: Implement it later
-        /*if (_isRandom)
-        {
-            SpawnRandom();
+        Enemy = _isRandom 
+            ? CreateRandomEnemy() 
+            : _gameFactory.CreateEnemy(_enemyType, transform);
 
-            return;
-        }*/
-
-        Enemy = _gameFactory.CreateEnemy(_enemyType, transform);
         Enemy.OnKilled += KillEnemy;
-
         Enemy.Init(_player);
+    }
+
+    private Enemy CreateRandomEnemy()
+    {
+        int enemyType = UnityEngine.Random.Range(0, 2);
+        Enemy = enemyType == 0
+            ? _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform)
+            : _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
+
+        return Enemy;
     }
 
     private void KillEnemy()
     {
         Enemy.OnKilled -= KillEnemy;
         _IsSlain = true;
-        Debug.LogError(gameObject.name + " slain!");
 
         OnEnemyInSpawnerKilled?.Invoke(this);
-    }
-
-    private void SpawnRandom()
-    {
-        int enemyType = UnityEngine.Random.Range(0, 2);
-        Enemy = enemyType == 0 
-            ? _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform) 
-            : _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
-        Enemy.Init(_player);
     }
 }

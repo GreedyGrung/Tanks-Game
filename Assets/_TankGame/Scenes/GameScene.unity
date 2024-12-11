@@ -18071,6 +18071,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
+      propertyPath: _isRandom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: _enemyType
       value: 1
       objectReference: {fileID: 0}
@@ -20865,8 +20869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23dacab6de10214a9768659c0c5ab1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnersRoot: {fileID: 366667115}
-  _enemies: []
+  _spawners: []
 --- !u!1 &1875566073
 GameObject:
   m_ObjectHideFlags: 0
@@ -21235,6 +21238,10 @@ PrefabInstance:
     - target: {fileID: 3493377679040849271, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
+      propertyPath: _isRandom
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9131435506235099915, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: Id

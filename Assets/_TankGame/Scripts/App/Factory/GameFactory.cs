@@ -42,7 +42,7 @@ namespace Assets.Scripts.Factory
             var spanwer = InstantiateRegistered(Constants.SpawnerPath, spawnerData.Position).GetComponent<SpawnPoint>();
             
             spanwer.Construct(this);
-            spanwer.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId);
+            spanwer.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
             spanwer.InitPlayer(player);
         }
 

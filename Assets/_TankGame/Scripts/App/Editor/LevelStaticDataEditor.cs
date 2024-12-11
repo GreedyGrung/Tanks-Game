@@ -18,7 +18,7 @@ namespace TankGame.Scripts.App.Editor
             if (GUILayout.Button("Collect"))
             {
                 var spawners = FindObjectsOfType<SpawnMarker>()
-                    .Select(x => new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.EnemyType, x.transform.position))
+                    .Select(x => new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.EnemyType, x.transform.position, x.IsRandom))
                     .ToList();
 
                 levelData.SetEnemySpawners_Editor(spawners);
