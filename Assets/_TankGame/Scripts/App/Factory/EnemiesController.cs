@@ -10,10 +10,16 @@ public class EnemiesController : MonoBehaviour
     [SerializeField] private List<SpawnPoint> _spawners = new();
 
     private int _killedEnemies;
+    private IUIService _uiService;
 
     public void Init()
     {
         FindSpawners();
+    }
+
+    public void Construct(IUIService uiService)
+    {
+        _uiService = uiService;
     }
 
     private void FindSpawners()
@@ -35,6 +41,7 @@ public class EnemiesController : MonoBehaviour
         if (_killedEnemies == _spawners.Count)
         {
             OnAllEnemiesKilled?.Invoke();
+            _uiService.Open(UIPanelId.VictoryPanel);
         }
     }
 }

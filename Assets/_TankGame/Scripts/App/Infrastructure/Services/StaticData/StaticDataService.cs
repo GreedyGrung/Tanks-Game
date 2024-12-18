@@ -6,9 +6,11 @@ public class StaticDataService : IStaticDataService
 {
     private const string EnemiesStaticDataPath = "Data/Enemies";
     private const string LevelsStaticDataPath = "Data/Levels";
+    private const string UIPanelsStaticDataPath = "Data/UI/UIPanelsStaticData";
 
     private Dictionary<EnemyTypeId, BaseEnemyStaticData> _enemies;
     private Dictionary<string, LevelStaticData> _levels;
+    private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
 
     public void LoadEnemies()
     {
@@ -19,6 +21,11 @@ public class StaticDataService : IStaticDataService
         _levels = Resources
             .LoadAll<LevelStaticData>(LevelsStaticDataPath)
             .ToDictionary(config => config.LevelKey, config => config);
+
+        _uiPanelsConfigs = Resources
+            .Load<UIPanelsStaticData>(UIPanelsStaticDataPath)
+            .Configs
+            .ToDictionary(config => config.Id, config => config);
     }
 
     public BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId) =>
@@ -29,5 +36,10 @@ public class StaticDataService : IStaticDataService
     public LevelStaticData ForLevel(string sceneKey) =>
         _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
         ? staticData
+        : null;
+
+    public UIPanelConfig ForUIPanel(UIPanelId id) =>
+        _uiPanelsConfigs.TryGetValue(id, out UIPanelConfig config)
+        ? config
         : null;
 }

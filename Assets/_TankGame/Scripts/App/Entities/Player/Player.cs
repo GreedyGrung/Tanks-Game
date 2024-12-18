@@ -1,6 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.PersistentProgress;
 using Assets.Scripts.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,21 +13,24 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
     [SerializeField] private PlayerHealthData _healthData;
 
     private PlayerMovement _playerMovement;
+    private IUIService _uiService;
 
     private string CurrentLevel => SceneManager.GetActiveScene().name;
 
     public IHealth Health { get; private set; }
     public PlayerWeapon Weapon => _playerWeapon;
 
-    public void Init(IInputService inputService)
+    public void Init(IInputService inputService, IUIService uiService)
     {
         Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
         _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init(inputService);
         _playerWeapon.Init(inputService);
+        _uiService = uiService;
 
         EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
         Health.OnDied += DeactivatePlayer;
+        Health.OnDied += ShowFailurePanel;
     }
 
     public void UpdateProgress(PlayerProgress playerProgress)
@@ -52,6 +56,11 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
         Health.Subtract(damage);
     }
 
+    private void ShowFailurePanel()
+    {
+        _uiService.Open(UIPanelId.FailurePanel);
+    }
+
     private void DeactivatePlayer()
     {
         _playerMovement.enabled = false;
@@ -63,5 +72,6 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
     {
         EnemiesController.OnAllEnemiesKilled -= DeactivatePlayer;
         Health.OnDied -= DeactivatePlayer;
+        Health.OnDied -= ShowFailurePanel;
     }
 }

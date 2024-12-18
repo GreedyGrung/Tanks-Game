@@ -15,14 +15,18 @@ public class LoadLevelState : IPayloadedState<string>
     private readonly IGameFactory _gameFactory;
     private readonly IPersistentProgressService _progressService;
     private readonly IStaticDataService _staticData;
+    private readonly IUIService _uiService;
+    private readonly IUIFactory _uiFactory;
 
     public LoadLevelState(
-        GameStateMachine gameStateMachine, 
-        SceneLoader sceneLoader, 
-        LoadingScreen loadingScreen, 
-        IGameFactory gameFactory, 
+        GameStateMachine gameStateMachine,
+        SceneLoader sceneLoader,
+        LoadingScreen loadingScreen,
+        IGameFactory gameFactory,
         IPersistentProgressService progressService,
-        IStaticDataService staticData)
+        IStaticDataService staticData,
+        IUIService uIService,
+        IUIFactory uiFactory)
     {
         _sceneLoader = sceneLoader;
         _loadingScreen = loadingScreen;
@@ -30,6 +34,8 @@ public class LoadLevelState : IPayloadedState<string>
         _gameFactory = gameFactory;
         _progressService = progressService;
         _staticData = staticData;
+        _uiService = uIService;
+        _uiFactory = uiFactory;
     }
 
     public void Enter(string sceneName)
@@ -46,6 +52,7 @@ public class LoadLevelState : IPayloadedState<string>
 
     private void OnLoaded()
     {
+        InitGameUI();
         InitGameWorld();
         InformProgressReaders();
 
@@ -58,7 +65,7 @@ public class LoadLevelState : IPayloadedState<string>
 
         UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
         Player player = _gameFactory.CreatePlayer(initialPoint).GetComponent<Player>();
-        player.Init(input);
+        player.Init(input, _uiService);
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
         InitSpawners(player);
@@ -78,6 +85,13 @@ public class LoadLevelState : IPayloadedState<string>
 
         var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
         enemiesController.Init();
+        enemiesController.Construct(_uiService);
+    }
+
+    private void InitGameUI()
+    {
+        _uiFactory.CreateUIRoot();
+        _uiService.ReceivePanels(_uiFactory.CreateUIPanels());
     }
 
     private void InformProgressReaders()
