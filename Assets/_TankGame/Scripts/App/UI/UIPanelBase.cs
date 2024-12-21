@@ -5,6 +5,11 @@ public abstract class UIPanelBase : MonoBehaviour
 {
     [SerializeField] private Button _closeButton;
 
+    private void Awake()
+    {
+        Initialize();
+    }
+
     private void OnEnable()
     {
         Subscribe();
@@ -13,6 +18,11 @@ public abstract class UIPanelBase : MonoBehaviour
     private void OnDisable()
     {
         Unsubscribe();
+    }
+
+    protected virtual void Initialize()
+    {
+
     }
 
     protected virtual void Subscribe()

@@ -2,8 +2,6 @@
 
 public class LoadProgressState : IState
 {
-    private const string GameSceneName = "GameScene";
-
     private readonly GameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadService;
@@ -31,5 +29,5 @@ public class LoadProgressState : IState
         _progressService.Progress = _saveLoadService.LoadProgress() ?? InitNewProgress();
     }
 
-    private PlayerProgress InitNewProgress() => new(GameSceneName);
+    private PlayerProgress InitNewProgress() => new(SceneNames.Game);
 }

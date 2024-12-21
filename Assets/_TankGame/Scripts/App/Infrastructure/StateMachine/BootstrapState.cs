@@ -4,8 +4,6 @@ using Assets.Scripts.Services.AssetManagement;
 
 public class BootstrapState : IState
 {
-    private const string BootstrapSceneName = "BootstrapScene";
-
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly ServiceLocator _serviceLocator;
@@ -21,7 +19,7 @@ public class BootstrapState : IState
 
     public void Enter()
     {
-        _sceneLoader.Load(BootstrapSceneName, EnterLoadLevel);
+        _sceneLoader.Load(SceneNames.Bootstrap.ToString(), EnterLoadLevel);
     }
 
     public void Exit()
@@ -32,7 +30,8 @@ public class BootstrapState : IState
     private void RegisterServices()
     {
         RegisterStaticData();
-    
+
+        _serviceLocator.RegisterSingle<IGameStateMachine>(_stateMachine);
         _serviceLocator.RegisterSingle<IAssetProvider>(new AssetProvider());
         _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
         _serviceLocator.RegisterSingle<IUIFactory>(new UIFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));

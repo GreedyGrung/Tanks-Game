@@ -3,7 +3,7 @@ using Assets.Scripts.Infrastructure;
 using System;
 using System.Collections.Generic;
 
-public class GameStateMachine
+public class GameStateMachine : IGameStateMachine
 {
     private readonly Dictionary<Type, IBaseState> _states;
     private IBaseState _activeState;
@@ -13,9 +13,9 @@ public class GameStateMachine
         _states = new Dictionary<Type, IBaseState>()
         {
             [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, serviceLocator),
-            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen, 
-                serviceLocator.Single<IGameFactory>(), 
-                serviceLocator.Single<IPersistentProgressService>(), 
+            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen,
+                serviceLocator.Single<IGameFactory>(),
+                serviceLocator.Single<IPersistentProgressService>(),
                 serviceLocator.Single<IStaticDataService>(),
                 serviceLocator.Single<IUIService>(),
                 serviceLocator.Single<IUIFactory>()),
@@ -24,10 +24,10 @@ public class GameStateMachine
         };
     }
 
-    public void Enter<TState>() where TState : class, IState 
+    public void Enter<TState>() where TState : class, IState
         => ChangeState<TState>().Enter();
 
-    public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload> 
+    public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         => ChangeState<TState>().Enter(payload);
 
     private TState ChangeState<TState>() where TState : class, IBaseState
@@ -40,6 +40,6 @@ public class GameStateMachine
         return state;
     }
 
-    private TState GetState<TState>() where TState : class, IBaseState 
+    private TState GetState<TState>() where TState : class, IBaseState
         => _states[typeof(TState)] as TState;
 }

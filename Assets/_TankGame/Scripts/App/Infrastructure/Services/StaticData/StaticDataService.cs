@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class StaticDataService : IStaticDataService
 {
-    private const string EnemiesStaticDataPath = "Data/Enemies";
-    private const string LevelsStaticDataPath = "Data/Levels";
-    private const string UIPanelsStaticDataPath = "Data/UI/UIPanelsStaticData";
-
     private Dictionary<EnemyTypeId, BaseEnemyStaticData> _enemies;
     private Dictionary<string, LevelStaticData> _levels;
     private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
@@ -15,15 +11,15 @@ public class StaticDataService : IStaticDataService
     public void LoadEnemies()
     {
         _enemies = Resources
-            .LoadAll<BaseEnemyStaticData>(EnemiesStaticDataPath)
+            .LoadAll<BaseEnemyStaticData>(Constants.EnemiesStaticDataPath)
             .ToDictionary(config => config.EnemyType, config => config);
 
         _levels = Resources
-            .LoadAll<LevelStaticData>(LevelsStaticDataPath)
+            .LoadAll<LevelStaticData>(Constants.LevelsStaticDataPath)
             .ToDictionary(config => config.LevelKey, config => config);
 
         _uiPanelsConfigs = Resources
-            .Load<UIPanelsStaticData>(UIPanelsStaticDataPath)
+            .Load<UIPanelsStaticData>(Constants.UIPanelsStaticDataPath)
             .Configs
             .ToDictionary(config => config.Id, config => config);
     }

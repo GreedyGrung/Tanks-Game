@@ -1,7 +1,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.PersistentProgress;
-using Assets.Scripts.Utils;
 using System;
+using TankGame.Core.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

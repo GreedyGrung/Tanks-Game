@@ -162,8 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: e66dc0e258e39c94a85de1a393475eee, type: 2}
-  _armorPiercingProjectilePool: {fileID: 0}
-  _highExplosiveProjectilePool: {fileID: 0}
   _bulletSpawn: {fileID: 222042298354757817}
 --- !u!1 &3530735475488196010
 GameObject:
@@ -264,7 +262,7 @@ GameObject:
   - component: {fileID: 4591901492265942086}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

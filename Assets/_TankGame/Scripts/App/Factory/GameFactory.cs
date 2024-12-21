@@ -19,8 +19,8 @@ namespace Assets.Scripts.Factory
             _staticData = staticData;
         }
 
-        public GameObject CreatePlayer(GameObject at) 
-            => InstantiateRegistered(Constants.PlayerPath, at.transform.position);
+        public GameObject CreatePlayer(Vector3 at) 
+            => InstantiateRegistered(Constants.PlayerPath, at);
 
         public GameObject CreateInput() 
             => InstantiateRegistered(Constants.UnityInputActionsPath);

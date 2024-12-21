@@ -7,8 +7,6 @@ public class LoadLevelState : IPayloadedState<string>
 {
     public static event Action<Player> OnPlayerSpawned;
 
-    private const string PlayerSpawnTag = "PlayerSpawnPoint";
-
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingScreen _loadingScreen;
@@ -61,23 +59,21 @@ public class LoadLevelState : IPayloadedState<string>
 
     private void InitGameWorld()
     {
-        var initialPoint = GameObject.FindGameObjectWithTag(PlayerSpawnTag);
+        string sceneKey = SceneManager.GetActiveScene().name;
+        LevelStaticData levelData = _staticData.ForLevel(sceneKey);
 
         UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
-        Player player = _gameFactory.CreatePlayer(initialPoint).GetComponent<Player>();
+        Player player = _gameFactory.CreatePlayer(levelData.PlayerPosition).GetComponent<Player>();
         player.Init(input, _uiService);
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
-        InitSpawners(player);
+        InitSpawners(player, levelData);
 
         OnPlayerSpawned?.Invoke(player);
     }
 
-    private void InitSpawners(Player player)
+    private void InitSpawners(Player player, LevelStaticData levelData)
     {
-        string sceneKey = SceneManager.GetActiveScene().name;
-        LevelStaticData levelData = _staticData.ForLevel(sceneKey);
-
         foreach (var spawnerData in levelData.EnemySpawners)
         {
             _gameFactory.CreateSpawner(spawnerData, player);

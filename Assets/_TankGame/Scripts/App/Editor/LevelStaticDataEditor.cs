@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TankGame.Core.Utils.Enums.Generated;
 using TankGame.Scripts.App.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -21,8 +22,11 @@ namespace TankGame.Scripts.App.Editor
                     .Select(x => new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.EnemyType, x.transform.position, x.IsRandom))
                     .ToList();
 
+                var initialPoint = GameObject.FindGameObjectWithTag(Tags.PlayerSpawnPoint.ToString());
+
                 levelData.SetEnemySpawners_Editor(spawners);
                 levelData.SetLevelKey_Editor(SceneManager.GetActiveScene().name);
+                levelData.SetPlayerPosition_Editor(initialPoint.transform.position);
             }
 
             EditorUtility.SetDirty(target);
