@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using TankGame.Core.Utils.Enums.Generated;
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class PlayerWeapon : MonoBehaviour
 
         OnPlayerShot?.Invoke();
         _projectile = _activePool.Pool.TakeFromPool();
-        _projectile.gameObject.layer = Constants.PlayerProjectileLayer;
+        _projectile.gameObject.layer = (int)Layers.PlayerProjectile;
         _projectile.transform.position = _bulletSpawn.position;
         _projectile.transform.rotation = _bulletSpawn.rotation;
         

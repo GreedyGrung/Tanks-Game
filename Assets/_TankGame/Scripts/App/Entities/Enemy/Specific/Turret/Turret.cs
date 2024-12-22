@@ -1,3 +1,4 @@
+using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
 public class Turret : Enemy
@@ -47,7 +48,7 @@ public class Turret : Enemy
     {
         base.Shoot();
         Projectile = ProjectilePool.Pool.TakeFromPool();
-        Projectile.gameObject.layer = Constants.EnemyProjectileLayer;
+        Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
         Projectile.transform.position = BulletSpawn.position;
         Projectile.transform.rotation = BulletSpawn.rotation;
     }
