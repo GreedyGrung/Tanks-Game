@@ -16,7 +16,17 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: efdd61f4e276ee04e8d69a245e0c3ef0
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 3f242c1ebc571fd42a1c78f30f379284
+    m_Address: EnemyTurret
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ce3480b62705dc44810e476bcbe2387
+    m_Address: EnemyTank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ec99787e7d43b7b40835e76d75bc65f3, type: 2}
   m_SchemaSet:

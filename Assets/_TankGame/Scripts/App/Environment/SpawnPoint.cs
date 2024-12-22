@@ -2,6 +2,7 @@
 using Assets.Scripts.Factory;
 using Assets.Scripts.Services.PersistentProgress;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour, ISavedProgress
@@ -55,22 +56,22 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
         }
     }
 
-    private void Spawn()
+    private async void Spawn()
     {
         _enemy = _isRandom 
-            ? CreateRandomEnemy() 
-            : _gameFactory.CreateEnemy(_enemyType, transform);
+            ? await CreateRandomEnemy() 
+            : await _gameFactory.CreateEnemy(_enemyType, transform);
 
         _enemy.OnKilled += KillEnemy;
         _enemy.Init(_player);
     }
 
-    private Enemy CreateRandomEnemy()
+    private async Task<Enemy> CreateRandomEnemy()
     {
         int enemyType = UnityEngine.Random.Range(0, 2);
         _enemy = enemyType == 0
-            ? _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform)
-            : _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
+            ? await _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform)
+            : await _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
 
         return _enemy;
     }

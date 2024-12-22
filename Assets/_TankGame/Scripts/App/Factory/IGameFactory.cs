@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.PersistentProgress;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Factory
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Factory
         GameObject CreateHud();
         GameObject CreateInput();
         GameObject CreatePlayer(Vector3 at);
-        Enemy CreateEnemy(EnemyTypeId type, Transform parent);
+        Task<Enemy> CreateEnemy(EnemyTypeId type, Transform parent);
         SpawnPoint CreateSpawner(EnemySpawnerData spawnerData, Player player);
         void CleanupProgressWatchers();
     }

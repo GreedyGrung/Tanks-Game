@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "BaseEnemyStaticData", menuName = "Static Data/Enemy Data/Base Enemy Static Data")]
 public class BaseEnemyStaticData : ScriptableObject
 {
     [SerializeField] private EnemyTypeId _enemyType;
-    [SerializeField] private Enemy _enemyPrefab;
+    [SerializeField] private AssetReferenceGameObject _prefabReference;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _towerRotationSpeed;
     [SerializeField] private float _reloadTime;
@@ -15,7 +16,7 @@ public class BaseEnemyStaticData : ScriptableObject
     [SerializeField] private LayerMask _detectionObstacleLayer;
 
     public EnemyTypeId EnemyType => _enemyType;
-    public Enemy EnemyPrefab => _enemyPrefab;
+    public AssetReferenceGameObject PrefabReference => _prefabReference;
     public float MaxHealth => _maxHealth;
     public float TowerRotationSpeed => _towerRotationSpeed;
     public float ReloadTime => _reloadTime;

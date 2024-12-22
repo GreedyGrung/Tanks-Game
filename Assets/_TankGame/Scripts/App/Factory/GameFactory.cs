@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Services.AssetManagement;
 using Assets.Scripts.Services.PersistentProgress;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Assets.Scripts.Factory
 {
@@ -28,10 +30,12 @@ namespace Assets.Scripts.Factory
         public GameObject CreateHud() 
             => InstantiateRegistered(Constants.HudPath);
 
-        public Enemy CreateEnemy(EnemyTypeId type, Transform parent)
+        public async Task<Enemy> CreateEnemy(EnemyTypeId type, Transform parent)
         {
             var enemyData = _staticData.ForEnemy(type);
-            var enemy = Object.Instantiate(enemyData.EnemyPrefab, parent.position, Quaternion.identity, parent);
+            GameObject prefab = await _assetProvider.Load<GameObject>(enemyData.PrefabReference);
+
+            var enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent).GetComponent<Enemy>();
             enemy.SetData(enemyData);
 
             return enemy;
@@ -52,6 +56,8 @@ namespace Assets.Scripts.Factory
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
+
+            _assetProvider.Cleanup();
         }
 
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
