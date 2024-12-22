@@ -1,6 +1,5 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Services.PersistentProgress;
-using System;
 using TankGame.Core.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,21 +13,23 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
 
     private PlayerMovement _playerMovement;
     private IUIService _uiService;
+    private ISpawnersObserverService _spawnersObserverService;
 
     private string CurrentLevel => SceneManager.GetActiveScene().name;
 
     public IHealth Health { get; private set; }
     public PlayerWeapon Weapon => _playerWeapon;
 
-    public void Init(IInputService inputService, IUIService uiService)
+    public void Init(IInputService inputService, IUIService uiService, ISpawnersObserverService spawnersObserverService)
     {
         Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
         _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init(inputService);
         _playerWeapon.Init(inputService);
         _uiService = uiService;
+        _spawnersObserverService = spawnersObserverService;
 
-        EnemiesController.OnAllEnemiesKilled += DeactivatePlayer;
+        _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
         Health.OnDied += DeactivatePlayer;
         Health.OnDied += ShowFailurePanel;
     }
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
 
     private void OnDestroy()
     {
-        EnemiesController.OnAllEnemiesKilled -= DeactivatePlayer;
+        _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
         Health.OnDied -= DeactivatePlayer;
         Health.OnDied -= ShowFailurePanel;
     }

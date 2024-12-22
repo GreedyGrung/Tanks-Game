@@ -14,7 +14,7 @@ namespace Assets.Scripts.Factory
         GameObject CreateInput();
         GameObject CreatePlayer(Vector3 at);
         Enemy CreateEnemy(EnemyTypeId type, Transform parent);
-        void CreateSpawner(EnemySpawnerData spawnerData, Player player);
+        SpawnPoint CreateSpawner(EnemySpawnerData spawnerData, Player player);
         void CleanupProgressWatchers();
     }
 }

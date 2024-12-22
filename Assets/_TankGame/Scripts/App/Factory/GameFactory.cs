@@ -37,13 +37,15 @@ namespace Assets.Scripts.Factory
             return enemy;
         }
 
-        public void CreateSpawner(EnemySpawnerData spawnerData, Player player)
+        public SpawnPoint CreateSpawner(EnemySpawnerData spawnerData, Player player)
         {
             var spanwer = InstantiateRegistered(Constants.SpawnerPath, spawnerData.Position).GetComponent<SpawnPoint>();
             
             spanwer.Construct(this);
             spanwer.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
             spanwer.InitPlayer(player);
+
+            return spanwer;
         }
 
         public void CleanupProgressWatchers()

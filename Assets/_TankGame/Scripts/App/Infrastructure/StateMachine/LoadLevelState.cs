@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Factory;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,8 @@ public class LoadLevelState : IPayloadedState<string>
     private readonly IStaticDataService _staticData;
     private readonly IUIService _uiService;
     private readonly IUIFactory _uiFactory;
+    private readonly ISpawnersObserverService _spawnersObserverService;
+    private List<SpawnPoint> _spawnPoints = new();
 
     public LoadLevelState(
         GameStateMachine gameStateMachine,
@@ -24,7 +27,8 @@ public class LoadLevelState : IPayloadedState<string>
         IPersistentProgressService progressService,
         IStaticDataService staticData,
         IUIService uIService,
-        IUIFactory uiFactory)
+        IUIFactory uiFactory,
+        ISpawnersObserverService spawnersObserverService)
     {
         _sceneLoader = sceneLoader;
         _loadingScreen = loadingScreen;
@@ -34,6 +38,7 @@ public class LoadLevelState : IPayloadedState<string>
         _staticData = staticData;
         _uiService = uIService;
         _uiFactory = uiFactory;
+        _spawnersObserverService = spawnersObserverService;
     }
 
     public void Enter(string sceneName)
@@ -53,7 +58,7 @@ public class LoadLevelState : IPayloadedState<string>
         InitGameUI();
         InitGameWorld();
         InformProgressReaders();
-        InitEnemiesController();
+        InitSpawnersObserverService();
 
         _gameStateMachine.Enter<GameLoopState>();
     }
@@ -65,7 +70,7 @@ public class LoadLevelState : IPayloadedState<string>
 
         UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
         Player player = _gameFactory.CreatePlayer(levelData.PlayerPosition).GetComponent<Player>();
-        player.Init(input, _uiService);
+        player.Init(input, _uiService, _spawnersObserverService);
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
         InitSpawners(player, levelData);
@@ -77,15 +82,13 @@ public class LoadLevelState : IPayloadedState<string>
     {
         foreach (var spawnerData in levelData.EnemySpawners)
         {
-            _gameFactory.CreateSpawner(spawnerData, player);
+            _spawnPoints.Add(_gameFactory.CreateSpawner(spawnerData, player));
         }
     }
 
-    private void InitEnemiesController()
+    private void InitSpawnersObserverService()
     {
-        var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
-        enemiesController.Init();
-        enemiesController.Construct(_uiService);
+        _spawnersObserverService.Init(_spawnPoints);
     }
 
     private void InitGameUI()

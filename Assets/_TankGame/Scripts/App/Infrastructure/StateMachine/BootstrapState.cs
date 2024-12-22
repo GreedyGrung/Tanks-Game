@@ -38,6 +38,7 @@ public class BootstrapState : IState
         _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
         _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
         _serviceLocator.RegisterSingle<IUIService>(new UIService());
+        _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService(_serviceLocator.Single<IUIService>()));
     }
 
     private void RegisterStaticData()

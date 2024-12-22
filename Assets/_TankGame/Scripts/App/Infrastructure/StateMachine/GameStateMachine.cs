@@ -18,7 +18,8 @@ public class GameStateMachine : IGameStateMachine
                 serviceLocator.Single<IPersistentProgressService>(),
                 serviceLocator.Single<IStaticDataService>(),
                 serviceLocator.Single<IUIService>(),
-                serviceLocator.Single<IUIFactory>()),
+                serviceLocator.Single<IUIFactory>(),
+                serviceLocator.Single<ISpawnersObserverService>()),
             [typeof(LoadProgressState)] = new LoadProgressState(this, serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<ISaveLoadService>()),
             [typeof(GameLoopState)] = new GameLoopState(this)
         };
