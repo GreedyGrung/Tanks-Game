@@ -53,6 +53,7 @@ public class LoadLevelState : IPayloadedState<string>
         InitGameUI();
         InitGameWorld();
         InformProgressReaders();
+        InitEnemiesController();
 
         _gameStateMachine.Enter<GameLoopState>();
     }
@@ -78,7 +79,10 @@ public class LoadLevelState : IPayloadedState<string>
         {
             _gameFactory.CreateSpawner(spawnerData, player);
         }
+    }
 
+    private void InitEnemiesController()
+    {
         var enemiesController = GameObject.FindObjectOfType<EnemiesController>();
         enemiesController.Init();
         enemiesController.Construct(_uiService);

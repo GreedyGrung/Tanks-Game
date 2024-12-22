@@ -14,8 +14,9 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
     private IGameFactory _gameFactory;
     private bool _IsSlain;
     private Player _player;
+    private Enemy _enemy;
 
-    public Enemy Enemy { get; private set; }
+    public bool IsSlain => _IsSlain;
 
     public void Construct(IGameFactory gameFactory)
     {
@@ -56,27 +57,27 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
 
     private void Spawn()
     {
-        Enemy = _isRandom 
+        _enemy = _isRandom 
             ? CreateRandomEnemy() 
             : _gameFactory.CreateEnemy(_enemyType, transform);
 
-        Enemy.OnKilled += KillEnemy;
-        Enemy.Init(_player);
+        _enemy.OnKilled += KillEnemy;
+        _enemy.Init(_player);
     }
 
     private Enemy CreateRandomEnemy()
     {
         int enemyType = UnityEngine.Random.Range(0, 2);
-        Enemy = enemyType == 0
+        _enemy = enemyType == 0
             ? _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform)
             : _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
 
-        return Enemy;
+        return _enemy;
     }
 
     private void KillEnemy()
     {
-        Enemy.OnKilled -= KillEnemy;
+        _enemy.OnKilled -= KillEnemy;
         _IsSlain = true;
 
         OnEnemyInSpawnerKilled?.Invoke(this);
