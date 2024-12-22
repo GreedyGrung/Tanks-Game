@@ -26,7 +26,7 @@ public class LevelSwitcherTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag(Tags.Player))
         {
-            _stateMachine.Enter<LoadLevelState, string>(_sceneName.ToString());
+            _stateMachine.Enter<LoadLevelState, string>(_sceneName);
             _triggered = true;
         }
     }
