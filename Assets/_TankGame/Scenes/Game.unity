@@ -17836,7 +17836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: _isRandom
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: _enemyType
@@ -20240,7 +20240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623222292429130343, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: _isRandom
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9131435506235099915, guid: c33e97c8e340ab04a9b3f18aac488057, type: 3}
       propertyPath: Id

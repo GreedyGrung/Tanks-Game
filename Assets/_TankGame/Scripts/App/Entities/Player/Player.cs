@@ -31,7 +31,6 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
 
         _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
         Health.OnDied += DeactivatePlayer;
-        Health.OnDied += ShowFailurePanel;
     }
 
     public void UpdateProgress(PlayerProgress playerProgress)
@@ -57,11 +56,6 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
         Health.Subtract(damage);
     }
 
-    private void ShowFailurePanel()
-    {
-        _uiService.Open(UIPanelId.FailurePanel);
-    }
-
     private void DeactivatePlayer()
     {
         _playerMovement.enabled = false;
@@ -73,6 +67,5 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
     {
         _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
         Health.OnDied -= DeactivatePlayer;
-        Health.OnDied -= ShowFailurePanel;
     }
 }

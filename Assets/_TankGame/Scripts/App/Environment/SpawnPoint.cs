@@ -58,9 +58,7 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
 
     private async void Spawn()
     {
-        _enemy = _isRandom 
-            ? await CreateRandomEnemy() 
-            : await _gameFactory.CreateEnemy(_enemyType, transform);
+        _enemy = await _gameFactory.CreateEnemy(_enemyType, transform);
 
         _enemy.OnKilled += KillEnemy;
         _enemy.Init(_player);

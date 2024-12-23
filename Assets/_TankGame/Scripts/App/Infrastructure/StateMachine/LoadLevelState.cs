@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Factory;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
@@ -74,6 +73,8 @@ public class LoadLevelState : IPayloadedState<string>
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
         InitSpawners(player, levelData);
+
+        UIMediator uIMediator = new(_uiService, player, _spawnersObserverService);
 
         OnPlayerSpawned?.Invoke(player);
     }

@@ -40,7 +40,6 @@ public class SpawnersObserverService : ISpawnersObserverService
         if (_killedEnemies == _nonSlainSpawnersCount)
         {
             OnAllEnemiesKilled?.Invoke();
-            _uiService.Open(UIPanelId.VictoryPanel);
         }
     }
 }

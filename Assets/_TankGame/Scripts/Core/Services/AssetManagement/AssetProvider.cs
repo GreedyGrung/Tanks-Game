@@ -52,6 +52,9 @@ namespace Assets.Scripts.Services.AssetManagement
                     Addressables.Release(handle);
                 }
             }
+
+            _completedCache.Clear();
+            _handles.Clear();
         }
 
         private void AddHandle<T>(string key, AsyncOperationHandle<T> handle) where T : class
