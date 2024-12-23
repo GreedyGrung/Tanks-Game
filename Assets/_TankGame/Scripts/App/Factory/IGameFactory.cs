@@ -15,7 +15,8 @@ namespace Assets.Scripts.Factory
         GameObject CreateInput();
         GameObject CreatePlayer(Vector3 at);
         Task<Enemy> CreateEnemy(EnemyTypeId type, Transform parent);
-        SpawnPoint CreateSpawner(EnemySpawnerData spawnerData, Player player);
+        Task<SpawnPoint> CreateSpawner(EnemySpawnerData spawnerData, Player player);
         void CleanupProgressWatchers();
+        Task WarmUp();
     }
 }

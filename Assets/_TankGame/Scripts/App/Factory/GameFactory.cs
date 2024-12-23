@@ -21,6 +21,11 @@ namespace Assets.Scripts.Factory
             _staticData = staticData;
         }
 
+        public async Task WarmUp()
+        {
+            await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
+        }
+
         public GameObject CreatePlayer(Vector3 at) 
             => InstantiateRegistered(Constants.PlayerPath, at);
 
@@ -41,15 +46,16 @@ namespace Assets.Scripts.Factory
             return enemy;
         }
 
-        public SpawnPoint CreateSpawner(EnemySpawnerData spawnerData, Player player)
+        public async Task<SpawnPoint> CreateSpawner(EnemySpawnerData spawnerData, Player player)
         {
-            var spanwer = InstantiateRegistered(Constants.SpawnerPath, spawnerData.Position).GetComponent<SpawnPoint>();
+            var prefab = await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
+            var spawner = InstantiateRegistered(prefab, spawnerData.Position).GetComponent<SpawnPoint>();
             
-            spanwer.Construct(this);
-            spanwer.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
-            spanwer.InitPlayer(player);
+            spawner.Construct(this);
+            spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
+            spawner.InitPlayer(player);
 
-            return spanwer;
+            return spawner;
         }
 
         public void CleanupProgressWatchers()
@@ -74,6 +80,14 @@ namespace Assets.Scripts.Factory
             RegisterProgressWatchers(playerObject);
 
             return playerObject;
+        }
+
+        private GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
+        {
+            var gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
+            RegisterProgressWatchers(gameObject);
+
+            return gameObject;
         }
 
         private void RegisterProgressWatchers(GameObject playerObject)

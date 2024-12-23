@@ -11,6 +11,11 @@ namespace Assets.Scripts.Services.AssetManagement
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
+        public void Initialize()
+        {
+            Addressables.InitializeAsync();
+        }
+
         public GameObject Instantiate(string resourcePath)
         {
             var prefab = Resources.Load<GameObject>(resourcePath);
@@ -32,15 +37,21 @@ namespace Assets.Scripts.Services.AssetManagement
                 return completedHandle.Result as T;
             }
 
-            var handle = Addressables.LoadAssetAsync<T>(assetReference);
-            handle.Completed += newHandle =>
+            var operationToRun = Addressables.LoadAssetAsync<T>(assetReference);
+
+            return await RunWithCacheOnComplete(operationToRun, cacheKey: assetReference.AssetGUID);
+        }
+
+        public async Task<T> Load<T>(string address) where T : class
+        {
+            if (_completedCache.TryGetValue(address, out var completedHandle))
             {
-                _completedCache[assetReference.AssetGUID] = newHandle;
-            };
+                return completedHandle.Result as T;
+            }
 
-            AddHandle(assetReference.AssetGUID, handle);
+            var operationToRun = Addressables.LoadAssetAsync<T>(address);
 
-            return await handle.Task;
+            return await RunWithCacheOnComplete(operationToRun, cacheKey: address);
         }
 
         public void Cleanup()
@@ -55,6 +66,15 @@ namespace Assets.Scripts.Services.AssetManagement
 
             _completedCache.Clear();
             _handles.Clear();
+        }
+
+        private async Task<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cacheKey) where T : class
+        {
+            handle.Completed += newHandle => _completedCache[cacheKey] = newHandle;
+
+            AddHandle(cacheKey, handle);
+
+            return await handle.Task;
         }
 
         private void AddHandle<T>(string key, AsyncOperationHandle<T> handle) where T : class

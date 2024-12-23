@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Factory;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
@@ -43,6 +44,7 @@ public class LoadLevelState : IPayloadedState<string>
     public void Enter(string sceneName)
     {
         _gameFactory.CleanupProgressWatchers();
+        _gameFactory.WarmUp();
         _loadingScreen.Show();
         _sceneLoader.Load(sceneName, OnLoaded);
     }
@@ -52,17 +54,17 @@ public class LoadLevelState : IPayloadedState<string>
         _loadingScreen.Hide();
     }
 
-    private void OnLoaded()
+    private async void OnLoaded()
     {
         InitGameUI();
-        InitGameWorld();
+        await InitGameWorld();
         InformProgressReaders();
         InitSpawnersObserverService();
 
         _gameStateMachine.Enter<GameLoopState>();
     }
 
-    private void InitGameWorld()
+    private async Task InitGameWorld()
     {
         string sceneKey = SceneManager.GetActiveScene().name;
         LevelStaticData levelData = _staticData.ForLevel(sceneKey);
@@ -72,18 +74,18 @@ public class LoadLevelState : IPayloadedState<string>
         player.Init(input, _uiService, _spawnersObserverService);
         _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
 
-        InitSpawners(player, levelData);
+        await InitSpawners(player, levelData);
 
         UIMediator uIMediator = new(_uiService, player, _spawnersObserverService);
 
         OnPlayerSpawned?.Invoke(player);
     }
 
-    private void InitSpawners(Player player, LevelStaticData levelData)
+    private async Task InitSpawners(Player player, LevelStaticData levelData)
     {
         foreach (var spawnerData in levelData.EnemySpawners)
         {
-            _spawnPoints.Add(_gameFactory.CreateSpawner(spawnerData, player));
+            _spawnPoints.Add(await _gameFactory.CreateSpawner(spawnerData, player));
         }
     }
 

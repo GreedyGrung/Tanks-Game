@@ -10,6 +10,8 @@ namespace Assets.Scripts.Services.AssetManagement
         GameObject Instantiate(string resourcePath);
         GameObject Instantiate(string resourcePath, Vector3 at);
         Task<T> Load<T>(AssetReference assetReference) where T : class;
+        Task<T> Load<T>(string address) where T : class;
         void Cleanup();
+        void Initialize();
     }
 }

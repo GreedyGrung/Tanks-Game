@@ -30,15 +30,21 @@ public class BootstrapState : IState
     private void RegisterServices()
     {
         RegisterStaticData();
-
         _serviceLocator.RegisterSingle<IGameStateMachine>(_stateMachine);
-        _serviceLocator.RegisterSingle<IAssetProvider>(new AssetProvider());
+        RegisterAssetProvider();
         _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
         _serviceLocator.RegisterSingle<IUIFactory>(new UIFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
         _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
         _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
         _serviceLocator.RegisterSingle<IUIService>(new UIService());
         _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService(_serviceLocator.Single<IUIService>()));
+    }
+
+    private void RegisterAssetProvider()
+    {
+        var assetProvider = new AssetProvider();
+        assetProvider.Initialize();
+        _serviceLocator.RegisterSingle<IAssetProvider>(assetProvider);
     }
 
     private void RegisterStaticData()
