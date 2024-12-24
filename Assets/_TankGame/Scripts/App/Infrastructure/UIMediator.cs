@@ -3,10 +3,10 @@ using System;
 public class UIMediator : IDisposable
 {
     private readonly IUIService _uiService;
-    private readonly Player _player;
+    private readonly IPlayer _player;
     private readonly ISpawnersObserverService _spawnersObserverService;
 
-    public UIMediator(IUIService uiService, Player player, ISpawnersObserverService spawnersObserverService)
+    public UIMediator(IUIService uiService, IPlayer player, ISpawnersObserverService spawnersObserverService)
     {
         _uiService = uiService;
         _player = player;

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Factory
             return enemy;
         }
 
-        public async Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, Player player)
+        public async Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player)
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
             var spawner = InstantiateRegistered(prefab, spawnerData.Position).GetComponent<SpawnPoint>();

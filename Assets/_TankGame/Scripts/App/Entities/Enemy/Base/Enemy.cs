@@ -56,9 +56,9 @@ public class Enemy : MonoBehaviour, IDamageable
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-    public virtual void Init(Player player)
+    public virtual void Init(IPlayer player)
     {
-        Player = player.transform;
+        Player = player.Transform;
         Health = new EnemyHealth(EnemyData.MaxHealth);
         _healthBar.Construct(this);
     }

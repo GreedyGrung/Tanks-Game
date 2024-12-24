@@ -20,7 +20,7 @@ public class Turret : Enemy
         ProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
     }
 
-    public override void Init(Player player)
+    public override void Init(IPlayer player)
     {
         base.Init(player);
 

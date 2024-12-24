@@ -8,6 +8,8 @@ public static class Constants
     public const string SpawnerAddress = "Spawner";
     public const string UIRootAddress = "UIRoot";
 
+    public const string SaveKey = "testSave";
+
     public const string EnemiesStaticDataPath = "Data/Enemies";
     public const string LevelsStaticDataPath = "Data/Levels";
     public const string UIPanelsStaticDataPath = "Data/UI/UIPanelsStaticData";

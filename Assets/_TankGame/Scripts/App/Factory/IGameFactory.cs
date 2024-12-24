@@ -15,7 +15,7 @@ namespace Assets.Scripts.Factory
         Task<GameObject> CreateInputAsync();
         Task<GameObject> CreateHudAsync();
         Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent);
-        Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, Player player);
+        Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player);
         void CleanupProgressWatchers();
         Task WarmUp();
     }

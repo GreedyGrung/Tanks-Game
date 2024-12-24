@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class SaveLoadService : ISaveLoadService
 {
-    private const string TestSaveKey = "testSave";
-
     private readonly IGameFactory _gameFactory;
     private readonly IPersistentProgressService _progressService;
 
@@ -23,13 +21,10 @@ public class SaveLoadService : ISaveLoadService
             writer.UpdateProgress(_progressService.Progress);
         }
 
-        Debug.Log("saved at " + TestSaveKey);
-        PlayerPrefs.SetString(TestSaveKey, _progressService.Progress.ToJson());
+        Debug.Log("saved at " + Constants.SaveKey);
+        PlayerPrefs.SetString(Constants.SaveKey, _progressService.Progress.ToJson());
     }
 
-    public PlayerProgress LoadProgress()
-    {
-        Debug.Log("SERVICE: " + PlayerPrefs.GetString(TestSaveKey));
-        return PlayerPrefs.GetString(TestSaveKey)?.ToDeserizalized<PlayerProgress>();
-    }
+    public PlayerProgress LoadProgress() 
+        => PlayerPrefs.GetString(Constants.SaveKey)?.ToDeserizalized<PlayerProgress>();
 }

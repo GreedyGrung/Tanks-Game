@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,9 +14,9 @@ public class PlayerStatsPanel : MonoBehaviour
     [SerializeField] private Color _activeProjectile;
     [SerializeField] private Color _inactiveProjectile;
 
-    private Player _player;
+    private IPlayer _player;
 
-    public void Init(Player player)
+    public void Init(IPlayer player)
     {
         _player = player;
         SetupPanel();

@@ -6,27 +6,26 @@ using UnityEngine.SceneManagement;
 
 [SelectionBase]
 [RequireComponent(typeof(PlayerMovement))]
-public class Player : MonoBehaviour, IDamageable, ISavedProgress
+public class Player : MonoBehaviour, IDamageable, ISavedProgress, IPlayer
 {
-    [SerializeField] private PlayerWeapon _playerWeapon;
+    [SerializeField] private PlayerWeapon _weapon;
     [SerializeField] private PlayerHealthData _healthData;
 
     private PlayerMovement _playerMovement;
-    private IUIService _uiService;
     private ISpawnersObserverService _spawnersObserverService;
 
     private string CurrentLevel => SceneManager.GetActiveScene().name;
 
     public IHealth Health { get; private set; }
-    public PlayerWeapon Weapon => _playerWeapon;
+    public PlayerWeapon Weapon => _weapon;
+    public Transform Transform => transform;
 
-    public void Init(IInputService inputService, IUIService uiService, ISpawnersObserverService spawnersObserverService)
+    public void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService)
     {
         Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
         _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init(inputService);
-        _playerWeapon.Init(inputService);
-        _uiService = uiService;
+        _weapon.Init(inputService);
         _spawnersObserverService = spawnersObserverService;
 
         _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
@@ -59,7 +58,7 @@ public class Player : MonoBehaviour, IDamageable, ISavedProgress
     private void DeactivatePlayer()
     {
         _playerMovement.enabled = false;
-        _playerWeapon.enabled = false;
+        _weapon.enabled = false;
         gameObject.SetActive(false);
     }
 

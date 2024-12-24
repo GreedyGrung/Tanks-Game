@@ -14,7 +14,7 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
     private bool _isRandom;
     private IGameFactory _gameFactory;
     private bool _IsSlain;
-    private Player _player;
+    private IPlayer _player;
     private Enemy _enemy;
 
     public bool IsSlain => _IsSlain;
@@ -31,7 +31,7 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
         _isRandom = isRandom;
     }
 
-    public void InitPlayer(Player player)
+    public void InitPlayer(IPlayer player)
     {
         _player = player;
     }

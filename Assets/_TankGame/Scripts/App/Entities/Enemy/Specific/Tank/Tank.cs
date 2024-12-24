@@ -22,7 +22,7 @@ public class Tank : Enemy
         ProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
     }
 
-    public override void Init(Player player)
+    public override void Init(IPlayer player)
     {
         base.Init(player);
 

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
 {
-    public static event Action<Player> OnPlayerSpawned;
+    public static event Action<IPlayer> OnPlayerSpawned;
 
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
@@ -74,8 +74,8 @@ public class LoadLevelState : IPayloadedState<string>
         UnityActionsInputService input = inputObject.GetComponent<UnityActionsInputService>();
 
         GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
-        Player player = playerObject.GetComponent<Player>();
-        player.Init(input, _uiService, _spawnersObserverService);
+        IPlayer player = playerObject.GetComponent<IPlayer>();
+        player.Init(input, _spawnersObserverService);
 
         GameObject hud = await _gameFactory.CreateHudAsync();
         hud.GetComponent<PlayerStatsPanel>().Init(player);
@@ -87,7 +87,7 @@ public class LoadLevelState : IPayloadedState<string>
         OnPlayerSpawned?.Invoke(player);
     }
 
-    private async Task InitSpawners(Player player, LevelStaticData levelData)
+    private async Task InitSpawners(IPlayer player, LevelStaticData levelData)
     {
         foreach (var spawnerData in levelData.EnemySpawners)
         {

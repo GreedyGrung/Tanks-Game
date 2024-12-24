@@ -16,9 +16,9 @@ public class CameraFollow : MonoBehaviour
         LoadLevelState.OnPlayerSpawned -= RecievePlayer;
     }
 
-    private void RecievePlayer(Player player)
+    private void RecievePlayer(IPlayer player)
     {
-        _followingTarget = player.transform;
+        _followingTarget = player.Transform;
     }
 
     private void LateUpdate()
