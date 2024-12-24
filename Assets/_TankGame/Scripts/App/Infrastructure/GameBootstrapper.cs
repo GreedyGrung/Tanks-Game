@@ -11,6 +11,5 @@ public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
         _game = new Game(this, _loadingScreen);
         _game.StateMachine.Enter<BootstrapState>();
         DontDestroyOnLoad(this);
-        //_player.Init(_actionsInputService);
     }
 }

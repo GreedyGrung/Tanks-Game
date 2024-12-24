@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.Services.AssetManagement;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Factory
 {
     public class UIFactory : IUIFactory
     {
-        private const string UIRootPath = "UI/UIRoot";
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
 
@@ -17,8 +17,12 @@ namespace Assets.Scripts.Factory
             _assetProvider = assetProvider;
             _staticData = staticData;
         }
-        public void CreateUIRoot() 
-            => _uiRoot = _assetProvider.Instantiate(UIRootPath).transform;
+
+        public async Task CreateUIRootAsync()
+        {
+            GameObject uiRootObject = await _assetProvider.Instantiate(Constants.UIRootAddress);
+            _uiRoot = uiRootObject.transform;
+        }
 
         public Dictionary<UIPanelId, UIPanelBase> CreateUIPanels() 
             => new()

@@ -2,10 +2,11 @@ public static class Constants
 {
     public const string ProjectRootPath = "Assets/_TankGame";
     public const string WallTag = "Wall";
-    public const string PlayerPath = "Player/Player";
-    public const string UnityInputActionsPath = "Player/UnityActionsInputService";
-    public const string HudPath = "UI/HUD";
+    public const string PlayerAddress = "Player";
+    public const string UnityInputActionsAddress = "UnityActionsInputService";
+    public const string HudAddress = "HUD";
     public const string SpawnerAddress = "Spawner";
+    public const string UIRootAddress = "UIRoot";
 
     public const string EnemiesStaticDataPath = "Data/Enemies";
     public const string LevelsStaticDataPath = "Data/Levels";

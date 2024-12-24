@@ -58,7 +58,7 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
 
     private async void Spawn()
     {
-        _enemy = await _gameFactory.CreateEnemy(_enemyType, transform);
+        _enemy = await _gameFactory.CreateEnemyAsync(_enemyType, transform);
 
         _enemy.OnKilled += KillEnemy;
         _enemy.Init(_player);
@@ -68,8 +68,8 @@ public class SpawnPoint : MonoBehaviour, ISavedProgress
     {
         int enemyType = UnityEngine.Random.Range(0, 2);
         _enemy = enemyType == 0
-            ? await _gameFactory.CreateEnemy(EnemyTypeId.Tank, transform)
-            : await _gameFactory.CreateEnemy(EnemyTypeId.Turret, transform);
+            ? await _gameFactory.CreateEnemyAsync(EnemyTypeId.Tank, transform)
+            : await _gameFactory.CreateEnemyAsync(EnemyTypeId.Turret, transform);
 
         return _enemy;
     }

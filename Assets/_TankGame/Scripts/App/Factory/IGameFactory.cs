@@ -11,11 +11,11 @@ namespace Assets.Scripts.Factory
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
 
-        GameObject CreateHud();
-        GameObject CreateInput();
-        GameObject CreatePlayer(Vector3 at);
-        Task<Enemy> CreateEnemy(EnemyTypeId type, Transform parent);
-        Task<SpawnPoint> CreateSpawner(EnemySpawnerData spawnerData, Player player);
+        Task<GameObject> CreatePlayerAsync(Vector3 at);
+        Task<GameObject> CreateInputAsync();
+        Task<GameObject> CreateHudAsync();
+        Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent);
+        Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, Player player);
         void CleanupProgressWatchers();
         Task WarmUp();
     }

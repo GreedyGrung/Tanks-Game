@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
@@ -56,7 +57,7 @@ public class LoadLevelState : IPayloadedState<string>
 
     private async void OnLoaded()
     {
-        InitGameUI();
+        await InitGameUIAsync();
         await InitGameWorld();
         InformProgressReaders();
         InitSpawnersObserverService();
@@ -69,14 +70,19 @@ public class LoadLevelState : IPayloadedState<string>
         string sceneKey = SceneManager.GetActiveScene().name;
         LevelStaticData levelData = _staticData.ForLevel(sceneKey);
 
-        UnityActionsInputService input = _gameFactory.CreateInput().GetComponent<UnityActionsInputService>();
-        Player player = _gameFactory.CreatePlayer(levelData.PlayerPosition).GetComponent<Player>();
+        GameObject inputObject = await _gameFactory.CreateInputAsync();
+        UnityActionsInputService input = inputObject.GetComponent<UnityActionsInputService>();
+
+        GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
+        Player player = playerObject.GetComponent<Player>();
         player.Init(input, _uiService, _spawnersObserverService);
-        _gameFactory.CreateHud().GetComponent<PlayerStatsPanel>().Init(player);
+
+        GameObject hud = await _gameFactory.CreateHudAsync();
+        hud.GetComponent<PlayerStatsPanel>().Init(player);
 
         await InitSpawners(player, levelData);
 
-        UIMediator uIMediator = new(_uiService, player, _spawnersObserverService);
+        UIMediator uiMediator = new(_uiService, player, _spawnersObserverService);
 
         OnPlayerSpawned?.Invoke(player);
     }
@@ -85,7 +91,7 @@ public class LoadLevelState : IPayloadedState<string>
     {
         foreach (var spawnerData in levelData.EnemySpawners)
         {
-            _spawnPoints.Add(await _gameFactory.CreateSpawner(spawnerData, player));
+            _spawnPoints.Add(await _gameFactory.CreateSpawnerAsync(spawnerData, player));
         }
     }
 
@@ -94,9 +100,10 @@ public class LoadLevelState : IPayloadedState<string>
         _spawnersObserverService.Init(_spawnPoints);
     }
 
-    private void InitGameUI()
+    private async Task InitGameUIAsync()
     {
-        _uiFactory.CreateUIRoot();
+        await _uiFactory.CreateUIRootAsync();
+
         _uiService.ReceivePanels(_uiFactory.CreateUIPanels());
     }
 

@@ -11,24 +11,14 @@ namespace Assets.Scripts.Services.AssetManagement
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
-        public void Initialize()
-        {
-            Addressables.InitializeAsync();
-        }
+        public void Initialize() 
+            => Addressables.InitializeAsync();
 
-        public GameObject Instantiate(string resourcePath)
-        {
-            var prefab = Resources.Load<GameObject>(resourcePath);
+        public Task<GameObject> Instantiate(string address)
+            => Addressables.InstantiateAsync(address).Task;
 
-            return Object.Instantiate(prefab);
-        }
-
-        public GameObject Instantiate(string resourcePath, Vector3 at)
-        {
-            var prefab = Resources.Load<GameObject>(resourcePath);
-
-            return Object.Instantiate(prefab, at, Quaternion.identity);
-        }
+        public Task<GameObject> Instantiate(string address, Vector3 at) 
+            => Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
 
         public async Task<T> Load<T>(AssetReference assetReference) where T : class
         {

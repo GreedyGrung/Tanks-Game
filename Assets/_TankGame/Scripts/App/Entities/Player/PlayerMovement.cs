@@ -25,12 +25,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (_inputService == null)
+        {
+            return;
+        }
+
         CalculateTowerRotationAngle();
         HandleTowerRotation();
     }
 
     private void FixedUpdate()
     {
+        if (_inputService == null)
+        {
+            return;
+        }
+
         HandleBodyMovement();
     }
 
