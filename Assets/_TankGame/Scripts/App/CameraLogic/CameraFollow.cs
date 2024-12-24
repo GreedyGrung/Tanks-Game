@@ -1,22 +1,13 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
     private const float OffsetZ = -10;
 
     [SerializeField] private Transform _followingTarget;
 
-    private void OnEnable()
-    {
-        LoadLevelState.OnPlayerSpawned += RecievePlayer;
-    }
-
-    private void OnDisable()
-    {
-        LoadLevelState.OnPlayerSpawned -= RecievePlayer;
-    }
-
-    private void RecievePlayer(IPlayer player)
+    public void Init(IPlayer player)
     {
         _followingTarget = player.Transform;
     }

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Factory;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadLevelState : IPayloadedState<string>
 {
-    public static event Action<IPlayer> OnPlayerSpawned;
-
     private readonly GameStateMachine _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly LoadingScreen _loadingScreen;
@@ -18,7 +15,7 @@ public class LoadLevelState : IPayloadedState<string>
     private readonly IUIService _uiService;
     private readonly IUIFactory _uiFactory;
     private readonly ISpawnersObserverService _spawnersObserverService;
-    private List<SpawnPoint> _spawnPoints = new();
+    private readonly List<SpawnPoint> _spawnPoints = new();
 
     public LoadLevelState(
         GameStateMachine gameStateMachine,
@@ -80,11 +77,12 @@ public class LoadLevelState : IPayloadedState<string>
         GameObject hud = await _gameFactory.CreateHudAsync();
         hud.GetComponent<PlayerStatsPanel>().Init(player);
 
+        var cameraFollow = UnityEngine.Object.FindObjectOfType<CameraFollow>();
+        cameraFollow.Init(player);
+
         await InitSpawners(player, levelData);
 
         UIMediator uiMediator = new(_uiService, player, _spawnersObserverService);
-
-        OnPlayerSpawned?.Invoke(player);
     }
 
     private async Task InitSpawners(IPlayer player, LevelStaticData levelData)
