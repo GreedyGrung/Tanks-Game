@@ -1,12 +1,16 @@
+using TankGame.App.Projectiles;
 using UnityEngine;
 
-public class ArmorPiercingProjectilePool : BaseProjectilePool
+namespace TankGame.App.Object_Pool
 {
-    [SerializeField] private ArmorPiercingProjectile _projectile;
-
-    private void Start()
+    public class ArmorPiercingProjectilePool : BaseProjectilePool
     {
-        Pool = new(_projectile, PoolSize, transform);
-        Pool.AutoExpand = AutoExpand;
+        [SerializeField] private ArmorPiercingProjectile _projectile;
+
+        private void Start()
+        {
+            Pool = new(_projectile, PoolSize, transform);
+            Pool.AutoExpand = AutoExpand;
+        }
     }
 }

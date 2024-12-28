@@ -1,41 +1,48 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TankGame.App.Entities.Enemies.Base.Data;
+using TankGame.App.StaticData;
+using TankGame.Core.Utils;
+using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-public class StaticDataService : IStaticDataService
+namespace TankGame.App.Infrastructure.Services.StaticData
 {
-    private Dictionary<EnemyTypeId, BaseEnemyStaticData> _enemies;
-    private Dictionary<string, LevelStaticData> _levels;
-    private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
-
-    public void LoadEnemies()
+    public class StaticDataService : IStaticDataService
     {
-        _enemies = Resources
-            .LoadAll<BaseEnemyStaticData>(Constants.EnemiesStaticDataPath)
-            .ToDictionary(config => config.EnemyType, config => config);
+        private Dictionary<EnemyTypeId, BaseEnemyStaticData> _enemies;
+        private Dictionary<string, LevelStaticData> _levels;
+        private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
 
-        _levels = Resources
-            .LoadAll<LevelStaticData>(Constants.LevelsStaticDataPath)
-            .ToDictionary(config => config.LevelKey, config => config);
+        public void LoadEnemies()
+        {
+            _enemies = Resources
+                .LoadAll<BaseEnemyStaticData>(Constants.EnemiesStaticDataPath)
+                .ToDictionary(config => config.EnemyType, config => config);
 
-        _uiPanelsConfigs = Resources
-            .Load<UIPanelsStaticData>(Constants.UIPanelsStaticDataPath)
-            .Configs
-            .ToDictionary(config => config.Id, config => config);
+            _levels = Resources
+                .LoadAll<LevelStaticData>(Constants.LevelsStaticDataPath)
+                .ToDictionary(config => config.LevelKey, config => config);
+
+            _uiPanelsConfigs = Resources
+                .Load<UIPanelsStaticData>(Constants.UIPanelsStaticDataPath)
+                .Configs
+                .ToDictionary(config => config.Id, config => config);
+        }
+
+        public BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId) =>
+            _enemies.TryGetValue(enemyTypeId, out BaseEnemyStaticData staticData)
+                ? staticData
+                : null;
+
+        public LevelStaticData ForLevel(string sceneKey) =>
+            _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
+                ? staticData
+                : null;
+
+        public UIPanelConfig ForUIPanel(UIPanelId id) =>
+            _uiPanelsConfigs.TryGetValue(id, out UIPanelConfig config)
+                ? config
+                : null;
     }
-
-    public BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId) =>
-        _enemies.TryGetValue(enemyTypeId, out BaseEnemyStaticData staticData)
-        ? staticData
-        : null;
-
-    public LevelStaticData ForLevel(string sceneKey) =>
-        _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
-        ? staticData
-        : null;
-
-    public UIPanelConfig ForUIPanel(UIPanelId id) =>
-        _uiPanelsConfigs.TryGetValue(id, out UIPanelConfig config)
-        ? config
-        : null;
 }

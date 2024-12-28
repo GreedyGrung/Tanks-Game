@@ -1,7 +1,6 @@
 ﻿using System;
-using TankGame.Core.Scripts.Data;
 
-namespace Assets.Scripts.Data
+namespace TankGame.Core.Data
 {
     [Serializable]
     public class PlayerProgress

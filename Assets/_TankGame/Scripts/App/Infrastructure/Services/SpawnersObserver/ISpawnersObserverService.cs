@@ -1,10 +1,14 @@
-﻿using Assets.Scripts.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using TankGame.App.Environment;
+using TankGame.Core.Services;
 
-public interface ISpawnersObserverService : IService
+namespace TankGame.App.Infrastructure.Services.SpawnersObserver
 {
-    event Action OnAllEnemiesKilled;
+    public interface ISpawnersObserverService : IService
+    {
+        event Action OnAllEnemiesKilled;
 
-    void Init(List<SpawnPoint> spawnPoints);
+        void Init(List<SpawnPoint> spawnPoints);
+    }
 }

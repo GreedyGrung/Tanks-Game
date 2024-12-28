@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Infrastructure
+﻿namespace TankGame.Core.Services
 {
     public interface IService
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Assets.Scripts.Services.AssetManagement
+namespace TankGame.Core.Services.AssetManagement
 {
     public class AssetProvider : IAssetProvider
     {

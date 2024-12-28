@@ -1,8 +1,13 @@
-﻿using Assets.Scripts.Infrastructure;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TankGame.App.UI;
+using TankGame.Core.Services;
+using TankGame.Core.Utils.Enums;
 
-public interface IUIService : IService
+namespace TankGame.App.Infrastructure.Services.UI
 {
-    void Open(UIPanelId id);
-    void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels);
+    public interface IUIService : IService
+    {
+        void Open(UIPanelId id);
+        void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels);
+    }
 }

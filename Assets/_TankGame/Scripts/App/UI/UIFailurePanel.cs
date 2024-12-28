@@ -1,11 +1,14 @@
 ﻿using UnityEngine.SceneManagement;
 
-public class UIFailurePanel : UIPanelBase
+namespace TankGame.App.UI
 {
-    protected override void Close()
+    public class UIFailurePanel : UIPanelBase
     {
-        base.Close();
+        protected override void Close()
+        {
+            base.Close();
 
-        SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);
+        }
     }
 }

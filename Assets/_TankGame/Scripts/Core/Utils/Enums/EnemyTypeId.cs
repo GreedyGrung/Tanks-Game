@@ -1,5 +1,8 @@
-public enum EnemyTypeId 
+namespace TankGame.Core.Utils.Enums
 {
-    Tank = 0,
-    Turret = 1
+    public enum EnemyTypeId 
+    {
+        Tank = 0,
+        Turret = 1
+    }
 }

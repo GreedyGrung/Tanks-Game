@@ -1,19 +1,23 @@
 ﻿using System;
+using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-[Serializable]
-public class EnemySpawnerData
+namespace TankGame.App.StaticData
 {
-    public string Id;
-    public EnemyTypeId EnemyTypeId;
-    public Vector3 Position;
-    public bool IsRandom;
-
-    public EnemySpawnerData(string id, EnemyTypeId enemyTypeId, Vector3 position, bool isRandom)
+    [Serializable]
+    public class EnemySpawnerData
     {
-        Id = id;
-        EnemyTypeId = enemyTypeId;
-        Position = position;
-        IsRandom = isRandom;
+        public string Id;
+        public EnemyTypeId EnemyTypeId;
+        public Vector3 Position;
+        public bool IsRandom;
+
+        public EnemySpawnerData(string id, EnemyTypeId enemyTypeId, Vector3 position, bool isRandom)
+        {
+            Id = id;
+            EnemyTypeId = enemyTypeId;
+            Position = position;
+            IsRandom = isRandom;
+        }
     }
 }

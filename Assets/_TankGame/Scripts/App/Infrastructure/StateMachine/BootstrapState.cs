@@ -1,59 +1,68 @@
-﻿using Assets.Scripts.Factory;
-using Assets.Scripts.Infrastructure;
-using Assets.Scripts.Services.AssetManagement;
+﻿using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.SavingLoading;
+using TankGame.App.Infrastructure.Services.SpawnersObserver;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.Infrastructure.Services.UI;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.Core.Services.AssetManagement;
+using TankGame.Core.Services.PersistentProgress;
+using TankGame.Core.Utils;
 
-public class BootstrapState : IState
+namespace TankGame.App.Infrastructure.StateMachine
 {
-    private readonly GameStateMachine _stateMachine;
-    private readonly SceneLoader _sceneLoader;
-    private readonly ServiceLocator _serviceLocator;
-
-    public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ServiceLocator serviceLocator)
+    public class BootstrapState : IState
     {
-        _stateMachine = gameStateMachine;
-        _sceneLoader = sceneLoader;
-        _serviceLocator = serviceLocator;
+        private readonly GameStateMachine _stateMachine;
+        private readonly SceneLoader _sceneLoader;
+        private readonly ServiceLocator _serviceLocator;
 
-        RegisterServices();
+        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ServiceLocator serviceLocator)
+        {
+            _stateMachine = gameStateMachine;
+            _sceneLoader = sceneLoader;
+            _serviceLocator = serviceLocator;
+
+            RegisterServices();
+        }
+
+        public void Enter()
+        {
+            _sceneLoader.Load(SceneNames.Bootstrap.ToString(), EnterLoadLevel);
+        }
+
+        public void Exit()
+        {
+
+        }
+
+        private void RegisterServices()
+        {
+            RegisterStaticData();
+            _serviceLocator.RegisterSingle<IGameStateMachine>(_stateMachine);
+            RegisterAssetProvider();
+            _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
+            _serviceLocator.RegisterSingle<IUIFactory>(new UIFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
+            _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+            _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
+            _serviceLocator.RegisterSingle<IUIService>(new UIService());
+            _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService());
+        }
+
+        private void RegisterAssetProvider()
+        {
+            var assetProvider = new AssetProvider();
+            assetProvider.Initialize();
+            _serviceLocator.RegisterSingle<IAssetProvider>(assetProvider);
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.LoadEnemies();
+            _serviceLocator.RegisterSingle(staticData);
+        }
+
+        private void EnterLoadLevel()
+            => _stateMachine.Enter<LoadProgressState>();
     }
-
-    public void Enter()
-    {
-        _sceneLoader.Load(SceneNames.Bootstrap.ToString(), EnterLoadLevel);
-    }
-
-    public void Exit()
-    {
-
-    }
-
-    private void RegisterServices()
-    {
-        RegisterStaticData();
-        _serviceLocator.RegisterSingle<IGameStateMachine>(_stateMachine);
-        RegisterAssetProvider();
-        _serviceLocator.RegisterSingle<IGameFactory>(new GameFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
-        _serviceLocator.RegisterSingle<IUIFactory>(new UIFactory(_serviceLocator.Single<IAssetProvider>(), _serviceLocator.Single<IStaticDataService>()));
-        _serviceLocator.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-        _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
-        _serviceLocator.RegisterSingle<IUIService>(new UIService());
-        _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService(_serviceLocator.Single<IUIService>()));
-    }
-
-    private void RegisterAssetProvider()
-    {
-        var assetProvider = new AssetProvider();
-        assetProvider.Initialize();
-        _serviceLocator.RegisterSingle<IAssetProvider>(assetProvider);
-    }
-
-    private void RegisterStaticData()
-    {
-        IStaticDataService staticData = new StaticDataService();
-        staticData.LoadEnemies();
-        _serviceLocator.RegisterSingle(staticData);
-    }
-
-    private void EnterLoadLevel() 
-        => _stateMachine.Enter<LoadProgressState>();
 }

@@ -1,9 +1,15 @@
-﻿using Assets.Scripts.Infrastructure;
+﻿using TankGame.App.Entities.Enemies.Base.Data;
+using TankGame.App.StaticData;
+using TankGame.Core.Services;
+using TankGame.Core.Utils.Enums;
 
-public interface IStaticDataService : IService
+namespace TankGame.App.Infrastructure.Services.StaticData
 {
-    BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId);
-    LevelStaticData ForLevel(string sceneKey);
-    UIPanelConfig ForUIPanel(UIPanelId victoryPanel);
-    void LoadEnemies();
+    public interface IStaticDataService : IService
+    {
+        BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId);
+        LevelStaticData ForLevel(string sceneKey);
+        UIPanelConfig ForUIPanel(UIPanelId victoryPanel);
+        void LoadEnemies();
+    }
 }

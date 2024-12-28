@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TankGame.Core.Scripts.Data
+namespace TankGame.Core.Data
 {
     [Serializable]
     public class KillData

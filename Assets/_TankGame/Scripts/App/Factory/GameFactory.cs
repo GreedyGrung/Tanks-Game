@@ -1,10 +1,17 @@
-﻿using Assets.Scripts.Services.AssetManagement;
-using Assets.Scripts.Services.PersistentProgress;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Environment;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.StaticData;
+using TankGame.Core.Services.AssetManagement;
+using TankGame.Core.Services.PersistentProgress;
+using TankGame.Core.Utils;
+using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Factory
+namespace TankGame.App.Factory
 {
     public class GameFactory : IGameFactory
     {
@@ -21,17 +28,15 @@ namespace Assets.Scripts.Factory
         }
 
         public async Task WarmUp()
-        {
-            await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
-        }
+            => await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
 
-        public async Task<GameObject> CreatePlayerAsync(Vector3 at) 
+        public async Task<GameObject> CreatePlayerAsync(Vector3 at)
             => await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
 
-        public async Task<GameObject> CreateInputAsync() 
+        public async Task<GameObject> CreateInputAsync()
             => await InstantiateRegisteredAsync(Constants.UnityInputActionsAddress);
 
-        public async Task<GameObject> CreateHudAsync() 
+        public async Task<GameObject> CreateHudAsync()
             => await InstantiateRegisteredAsync(Constants.HudAddress);
 
         public async Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent)
@@ -49,7 +54,7 @@ namespace Assets.Scripts.Factory
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
             var spawner = InstantiateRegistered(prefab, spawnerData.Position).GetComponent<SpawnPoint>();
-            
+
             spawner.Construct(this);
             spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
             spawner.InitPlayer(player);

@@ -1,9 +1,13 @@
-﻿using Assets.Scripts.Services.AssetManagement;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.UI;
+using TankGame.Core.Services.AssetManagement;
+using TankGame.Core.Utils;
+using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Factory
+namespace TankGame.App.Factory
 {
     public class UIFactory : IUIFactory
     {
@@ -24,7 +28,7 @@ namespace Assets.Scripts.Factory
             _uiRoot = uiRootObject.transform;
         }
 
-        public Dictionary<UIPanelId, UIPanelBase> CreateUIPanels() 
+        public Dictionary<UIPanelId, UIPanelBase> CreateUIPanels()
             => new()
             {
                 { UIPanelId.VictoryPanel, CreateVictoryPanel() },

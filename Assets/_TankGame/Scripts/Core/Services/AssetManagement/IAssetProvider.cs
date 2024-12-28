@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Infrastructure;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Assets.Scripts.Services.AssetManagement
+namespace TankGame.Core.Services.AssetManagement
 {
     public interface IAssetProvider : IService
     {

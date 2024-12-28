@@ -1,8 +1,13 @@
 ﻿using System;
+using TankGame.App.UI;
+using TankGame.Core.Utils.Enums;
 
-[Serializable]
-public class UIPanelConfig
+namespace TankGame.App.StaticData
 {
-    public UIPanelId Id;
-    public UIPanelBase Prefab;
+    [Serializable]
+    public class UIPanelConfig
+    {
+        public UIPanelId Id;
+        public UIPanelBase Prefab;
+    }
 }

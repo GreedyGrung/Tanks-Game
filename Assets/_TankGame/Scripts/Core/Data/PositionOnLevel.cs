@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Data
+namespace TankGame.Core.Data
 {
     [Serializable]
     public class PositionOnLevel

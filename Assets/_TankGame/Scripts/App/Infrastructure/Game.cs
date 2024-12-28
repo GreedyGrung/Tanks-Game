@@ -1,11 +1,15 @@
-using Assets.Scripts.Infrastructure;
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.UI;
 
-public class Game 
+namespace TankGame.App.Infrastructure
 {
-    public Game(ICoroutineRunner coroutineRunner, LoadingScreen loadingScreen)
+    public class Game
     {
-        StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingScreen, ServiceLocator.Instance);
-    }
+        public Game(ICoroutineRunner coroutineRunner, LoadingScreen loadingScreen)
+        {
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingScreen, ServiceLocator.Instance);
+        }
 
-    public GameStateMachine StateMachine { get; private set; }
+        public GameStateMachine StateMachine { get; private set; }
+    }
 }

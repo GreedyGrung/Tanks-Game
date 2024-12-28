@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Data;
+﻿using TankGame.Core.Data;
 
-namespace Assets.Scripts.Services.PersistentProgress
+namespace TankGame.Core.Services.PersistentProgress
 {
     public interface ISavedProgress : ISavedProgressReader
     {

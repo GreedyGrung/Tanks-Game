@@ -1,45 +1,42 @@
 using System;
 using System.Collections.Generic;
+using TankGame.App.Environment;
 
-public class SpawnersObserverService : ISpawnersObserverService
+namespace TankGame.App.Infrastructure.Services.SpawnersObserver
 {
-    public event Action OnAllEnemiesKilled;
-
-    private readonly IUIService _uiService;
-
-    private int _killedEnemies;
-    private int _nonSlainSpawnersCount;
-
-    public SpawnersObserverService(IUIService uiService)
+    public class SpawnersObserverService : ISpawnersObserverService
     {
-        _uiService = uiService;
-    }
+        public event Action OnAllEnemiesKilled;
 
-    public void Init(List<SpawnPoint> spawnPoints) 
-        => FindSpawners(spawnPoints);
+        private int _killedEnemies;
+        private int _nonSlainSpawnersCount;
 
-    private void FindSpawners(List<SpawnPoint> spawnPoints)
-    {
-        foreach (var spawnPoint in spawnPoints)
+        public void Init(List<SpawnPoint> spawnPoints)
+            => FindSpawners(spawnPoints);
+
+        private void FindSpawners(List<SpawnPoint> spawnPoints)
         {
-            spawnPoint.OnEnemyInSpawnerKilled += CheckForLeftEnemies;
-
-            if (!spawnPoint.IsSlain)
+            foreach (var spawnPoint in spawnPoints)
             {
-                _nonSlainSpawnersCount++;
+                spawnPoint.OnEnemyInSpawnerKilled += CheckForLeftEnemies;
+
+                if (!spawnPoint.IsSlain)
+                {
+                    _nonSlainSpawnersCount++;
+                }
             }
         }
-    }
 
-    private void CheckForLeftEnemies(SpawnPoint point)
-    {
-        point.OnEnemyInSpawnerKilled -= CheckForLeftEnemies;
-
-        _killedEnemies++;
-
-        if (_killedEnemies == _nonSlainSpawnersCount)
+        private void CheckForLeftEnemies(SpawnPoint point)
         {
-            OnAllEnemiesKilled?.Invoke();
+            point.OnEnemyInSpawnerKilled -= CheckForLeftEnemies;
+
+            _killedEnemies++;
+
+            if (_killedEnemies == _nonSlainSpawnersCount)
+            {
+                OnAllEnemiesKilled?.Invoke();
+            }
         }
     }
 }

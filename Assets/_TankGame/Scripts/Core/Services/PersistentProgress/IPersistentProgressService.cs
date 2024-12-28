@@ -1,7 +1,9 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure;
+﻿using TankGame.Core.Data;
 
-public interface IPersistentProgressService : IService
+namespace TankGame.Core.Services.PersistentProgress
 {
-    PlayerProgress Progress { get; set; }
+    public interface IPersistentProgressService : IService
+    {
+        PlayerProgress Progress { get; set; }
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Data
+﻿namespace TankGame.Core.Data
 {
     public class Vector3Data
     {

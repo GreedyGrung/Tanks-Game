@@ -1,40 +1,43 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class LoadingScreen : MonoBehaviour
+namespace TankGame.App.UI
 {
-    private CanvasGroup _canvasGroup;
-
-    private void Awake()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class LoadingScreen : MonoBehaviour
     {
-        DontDestroyOnLoad(this);
-    }
+        private CanvasGroup _canvasGroup;
 
-    public void Show()
-    {
-        if (_canvasGroup == null)
+        private void Awake()
         {
-            _canvasGroup = GetComponent<CanvasGroup>();
+            DontDestroyOnLoad(this);
         }
 
-        gameObject.SetActive(true);
-        _canvasGroup.alpha = 1;
-    }
-
-    public void Hide()
-    {
-        StartCoroutine(FadeIn());
-    }
-
-    private IEnumerator FadeIn()
-    {
-        while (_canvasGroup.alpha > 0)
+        public void Show()
         {
-            _canvasGroup.alpha -= 0.03f;
-            yield return new WaitForSeconds(0.03f);
+            if (_canvasGroup == null)
+            {
+                _canvasGroup = GetComponent<CanvasGroup>();
+            }
+
+            gameObject.SetActive(true);
+            _canvasGroup.alpha = 1;
         }
 
-        gameObject.SetActive(false);
+        public void Hide()
+        {
+            StartCoroutine(FadeIn());
+        }
+
+        private IEnumerator FadeIn()
+        {
+            while (_canvasGroup.alpha > 0)
+            {
+                _canvasGroup.alpha -= 0.03f;
+                yield return new WaitForSeconds(0.03f);
+            }
+
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -1,47 +1,50 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 
-public class UnityActionsInputService : MonoBehaviour, IInputService
+namespace TankGame.Core.Services.Input
 {
-    public event Action OnLeftMouseButtonClicked;
-    public event Action OnFirstProjectileTypeSelected;
-    public event Action OnSecondProjectileTypeSelected;
-
-    public Vector2 MovementInput { get; private set; }
-    public Vector2 MousePosition { get; private set; }
-
-    public void OnMoveInput(InputAction.CallbackContext context)
+    public class UnityActionsInputService : MonoBehaviour, IInputService
     {
-        MovementInput = context.ReadValue<Vector2>();
-    }
+        public event Action OnLeftMouseButtonClicked;
+        public event Action OnFirstProjectileTypeSelected;
+        public event Action OnSecondProjectileTypeSelected;
 
-    public void OnMouseInput(InputAction.CallbackContext context)
-    {
-        MousePosition = context.ReadValue<Vector2>();
-    }
+        public Vector2 MovementInput { get; private set; }
+        public Vector2 MousePosition { get; private set; }
 
-    public void OnMouseLeftButtonClick(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
+        public void OnMoveInput(InputAction.CallbackContext context)
         {
-            OnLeftMouseButtonClicked?.Invoke();
+            MovementInput = context.ReadValue<Vector2>();
         }
-    }
 
-    public void ChooseFirstProjectileType(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
+        public void OnMouseInput(InputAction.CallbackContext context)
         {
-            OnFirstProjectileTypeSelected?.Invoke();
+            MousePosition = context.ReadValue<Vector2>();
         }
-    }
 
-    public void ChooseSecondProjectileType(InputAction.CallbackContext context)
-    {
-        if (context.canceled)
+        public void OnMouseLeftButtonClick(InputAction.CallbackContext context)
         {
-            OnSecondProjectileTypeSelected?.Invoke();
+            if (context.canceled)
+            {
+                OnLeftMouseButtonClicked?.Invoke();
+            }
+        }
+
+        public void ChooseFirstProjectileType(InputAction.CallbackContext context)
+        {
+            if (context.canceled)
+            {
+                OnFirstProjectileTypeSelected?.Invoke();
+            }
+        }
+
+        public void ChooseSecondProjectileType(InputAction.CallbackContext context)
+        {
+            if (context.canceled)
+            {
+                OnSecondProjectileTypeSelected?.Invoke();
+            }
         }
     }
 }

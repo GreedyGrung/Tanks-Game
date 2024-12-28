@@ -1,33 +1,38 @@
-﻿using Assets.Scripts.Infrastructure;
+﻿using TankGame.App.Infrastructure;
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using TankGame.Core.Editor;
 using TankGame.Core.Utils;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
-public class LevelSwitcherTrigger : MonoBehaviour
+namespace TankGame.App.Environment
 {
-    [SceneNameSelector]
-    [SerializeField] private string _sceneName;
-
-    private IGameStateMachine _stateMachine;
-    private bool _triggered;
-
-    private void Awake()
+    public class LevelSwitcherTrigger : MonoBehaviour
     {
-        _stateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
-    }
+        [SceneNameSelector]
+        [SerializeField] private string _sceneName;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (_triggered)
+        private IGameStateMachine _stateMachine;
+        private bool _triggered;
+
+        private void Awake()
         {
-            return;
+            _stateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
         }
 
-        if (other.gameObject.CompareTag(Tags.Player))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            _stateMachine.Enter<LoadLevelState, string>(_sceneName);
-            _triggered = true;
+            if (_triggered)
+            {
+                return;
+            }
+
+            if (other.gameObject.CompareTag(Tags.Player))
+            {
+                _stateMachine.Enter<LoadLevelState, string>(_sceneName);
+                _triggered = true;
+            }
         }
     }
 }

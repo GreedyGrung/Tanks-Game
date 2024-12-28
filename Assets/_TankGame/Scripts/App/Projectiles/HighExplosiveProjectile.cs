@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class HighExplosiveProjectile : Projectile
+namespace TankGame.App.Projectiles
 {
-    public override void Explode()
+    public class HighExplosiveProjectile : Projectile
     {
-        Debug.Log("HighExplosiveProjectile explode");
+        public override void Explode()
+        {
+            Debug.Log("HighExplosiveProjectile explode");
+        }
     }
 }

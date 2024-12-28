@@ -1,42 +1,45 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class UIPanelBase : MonoBehaviour
+namespace TankGame.App.UI
 {
-    [SerializeField] private Button _closeButton;
-
-    private void Awake()
+    public abstract class UIPanelBase : MonoBehaviour
     {
-        Initialize();
-    }
+        [SerializeField] private Button _closeButton;
 
-    private void OnEnable()
-    {
-        Subscribe();
-    }
+        private void Awake()
+        {
+            Initialize();
+        }
 
-    private void OnDisable()
-    {
-        Unsubscribe();
-    }
+        private void OnEnable()
+        {
+            Subscribe();
+        }
 
-    protected virtual void Initialize()
-    {
+        private void OnDisable()
+        {
+            Unsubscribe();
+        }
 
-    }
+        protected virtual void Initialize()
+        {
 
-    protected virtual void Subscribe()
-    {
-        _closeButton.onClick.AddListener(Close);
-    }
+        }
 
-    protected virtual void Unsubscribe()
-    {
-        _closeButton.onClick.RemoveListener(Close);
-    }
+        protected virtual void Subscribe()
+        {
+            _closeButton.onClick.AddListener(Close);
+        }
 
-    protected virtual void Close()
-    {
-        gameObject.SetActive(false);
+        protected virtual void Unsubscribe()
+        {
+            _closeButton.onClick.RemoveListener(Close);
+        }
+
+        protected virtual void Close()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

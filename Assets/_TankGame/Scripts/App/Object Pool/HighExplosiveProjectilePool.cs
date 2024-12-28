@@ -1,12 +1,16 @@
+using TankGame.App.Projectiles;
 using UnityEngine;
 
-public class HighExplosiveProjectilePool : BaseProjectilePool
+namespace TankGame.App.Object_Pool
 {
-    [SerializeField] private HighExplosiveProjectile _projectile;
-
-    private void Start()
+    public class HighExplosiveProjectilePool : BaseProjectilePool
     {
-        Pool = new(_projectile, PoolSize, transform);
-        Pool.AutoExpand = AutoExpand;
+        [SerializeField] private HighExplosiveProjectile _projectile;
+
+        private void Start()
+        {
+            Pool = new(_projectile, PoolSize, transform);
+            Pool.AutoExpand = AutoExpand;
+        }
     }
 }

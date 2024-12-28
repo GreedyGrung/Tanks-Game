@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIVictoryPanel : UIPanelBase
+namespace TankGame.App.UI
 {
-    protected override void Close()
+    public class UIVictoryPanel : UIPanelBase
     {
-        base.Close();
+        protected override void Close()
+        {
+            base.Close();
 
-        PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(0);
+            PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene(0);
+        }
     }
 }

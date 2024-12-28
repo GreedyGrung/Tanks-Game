@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Static Data/UI panels static data", fileName = "UIPanelsStaticData")]
-public class UIPanelsStaticData : ScriptableObject
+namespace TankGame.App.StaticData
 {
-    [SerializeField] private List<UIPanelConfig> _configs;
+    [CreateAssetMenu(menuName = "Static Data/UI panels static data", fileName = "UIPanelsStaticData")]
+    public class UIPanelsStaticData : ScriptableObject
+    {
+        [SerializeField] private List<UIPanelConfig> _configs;
 
-    public IReadOnlyList<UIPanelConfig> Configs => _configs;
+        public IReadOnlyList<UIPanelConfig> Configs => _configs;
+    }
 }

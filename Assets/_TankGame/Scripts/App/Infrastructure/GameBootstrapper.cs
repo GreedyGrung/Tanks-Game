@@ -1,15 +1,20 @@
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.UI;
 using UnityEngine;
 
-public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
+namespace TankGame.App.Infrastructure
 {
-    [SerializeField] private LoadingScreen _loadingScreen;
-
-    private Game _game;
-
-    private void Awake()
+    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        _game = new Game(this, _loadingScreen);
-        _game.StateMachine.Enter<BootstrapState>();
-        DontDestroyOnLoad(this);
+        [SerializeField] private LoadingScreen _loadingScreen;
+
+        private Game _game;
+
+        private void Awake()
+        {
+            _game = new Game(this, _loadingScreen);
+            _game.StateMachine.Enter<BootstrapState>();
+            DontDestroyOnLoad(this);
+        }
     }
 }

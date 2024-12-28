@@ -1,33 +1,40 @@
-﻿using Assets.Scripts.Data;
+﻿using TankGame.App.Infrastructure.Services.SavingLoading;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.Core.Data;
+using TankGame.Core.Services.PersistentProgress;
+using TankGame.Core.Utils;
 
-public class LoadProgressState : IState
+namespace TankGame.App.Infrastructure.StateMachine
 {
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly IPersistentProgressService _progressService;
-    private readonly ISaveLoadService _saveLoadService;
-
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+    public class LoadProgressState : IState
     {
-        _gameStateMachine = gameStateMachine;
-        _progressService = progressService;
-        _saveLoadService = saveLoadService;
-    }
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly IPersistentProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadService;
 
-    public void Enter()
-    {
-        LoadOrInitProgress();
-        _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.PlayerData.PositionOnLevel.Level);
-    }
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+        {
+            _gameStateMachine = gameStateMachine;
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
+        }
 
-    public void Exit()
-    {
-        
-    }
+        public void Enter()
+        {
+            LoadOrInitProgress();
+            _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.PlayerData.PositionOnLevel.Level);
+        }
 
-    private void LoadOrInitProgress()
-    {
-        _progressService.Progress = _saveLoadService.LoadProgress() ?? InitNewProgress();
-    }
+        public void Exit()
+        {
 
-    private PlayerProgress InitNewProgress() => new(SceneNames.Game);
+        }
+
+        private void LoadOrInitProgress()
+        {
+            _progressService.Progress = _saveLoadService.LoadProgress() ?? InitNewProgress();
+        }
+
+        private PlayerProgress InitNewProgress() => new(SceneNames.Game);
+    }
 }

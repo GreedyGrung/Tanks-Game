@@ -1,6 +1,9 @@
-using Assets.Scripts.Data;
+using TankGame.Core.Data;
 
-public class PersistentProgressService : IPersistentProgressService
+namespace TankGame.Core.Services.PersistentProgress
 {
-    public PlayerProgress Progress { get; set; }
+    public class PersistentProgressService : IPersistentProgressService
+    {
+        public PlayerProgress Progress { get; set; }
+    }
 }

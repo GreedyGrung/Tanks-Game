@@ -1,8 +1,11 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure;
+﻿using TankGame.Core.Data;
+using TankGame.Core.Services;
 
-public interface ISaveLoadService : IService
+namespace TankGame.App.Infrastructure.Services.SavingLoading
 {
-    void SaveProgress();
-    PlayerProgress LoadProgress();
+    public interface ISaveLoadService : IService
+    {
+        void SaveProgress();
+        PlayerProgress LoadProgress();
+    }
 }

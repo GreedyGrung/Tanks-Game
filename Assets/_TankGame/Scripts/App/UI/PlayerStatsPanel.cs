@@ -1,86 +1,90 @@
 using System.Collections;
+using TankGame.App.Entities.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatsPanel : MonoBehaviour
+namespace TankGame.App.UI
 {
-    [Header("Images")]
-    [SerializeField] private Image _healthValue;
-    [SerializeField] private Image _reloadValue;
-    [SerializeField] private Image _apProjectileBackground;
-    [SerializeField] private Image _hexProjectileBackground;
-
-    [Header("Colors")]
-    [SerializeField] private Color _activeProjectile;
-    [SerializeField] private Color _inactiveProjectile;
-
-    private IPlayer _player;
-
-    public void Init(IPlayer player)
+    public class PlayerStatsPanel : MonoBehaviour
     {
-        _player = player;
-        SetupPanel();
-        SubscribeToPlayerEvents();
-    }
+        [Header("Images")]
+        [SerializeField] private Image _healthValue;
+        [SerializeField] private Image _reloadValue;
+        [SerializeField] private Image _apProjectileBackground;
+        [SerializeField] private Image _hexProjectileBackground;
 
-    private void SubscribeToPlayerEvents()
-    {
-        _player.Health.OnValueChanged += ChangePlayerHealthValue;
-        _player.Weapon.OnPlayerShot += StartReloading;
-        _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
-        _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
-    }
+        [Header("Colors")]
+        [SerializeField] private Color _activeProjectile;
+        [SerializeField] private Color _inactiveProjectile;
 
-    private void OnDestroy()
-    {
-        _player.Health.OnValueChanged -= ChangePlayerHealthValue;
-        _player.Weapon.OnPlayerShot -= StartReloading;
-        _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
-        _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
-    }
+        private IPlayer _player;
 
-    private void SetupPanel()
-    {
-        ChooseApProjectileType();
-        _healthValue.fillAmount = 1;
-        _reloadValue.fillAmount = 1;
-    }
-
-    private void ChangePlayerHealthValue(float currentHealth, float maxHealth)
-    {
-        _healthValue.fillAmount = currentHealth / maxHealth;
-    }
-
-    private void StartReloading()
-    {
-        _reloadValue.fillAmount = 0;
-        StartCoroutine(FillReloadingBar());
-    }
-
-    private IEnumerator FillReloadingBar()
-    {
-        float timer = 0f;
-
-        while (timer < _player.Weapon.WeaponData.ReloadTime)
+        public void Init(IPlayer player)
         {
-            timer += Time.deltaTime;
-            float progress = timer / _player.Weapon.WeaponData.ReloadTime;
-            _reloadValue.fillAmount = progress;
-            yield return null;
+            _player = player;
+            SetupPanel();
+            SubscribeToPlayerEvents();
         }
 
-        _reloadValue.fillAmount = 1;
-    } 
+        private void SubscribeToPlayerEvents()
+        {
+            _player.Health.OnValueChanged += ChangePlayerHealthValue;
+            _player.Weapon.OnPlayerShot += StartReloading;
+            _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
+            _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
+        }
 
-    private void ChooseHexProjectileType()
-    {
-        _apProjectileBackground.color = _inactiveProjectile;
-        _hexProjectileBackground.color = _activeProjectile;
-    }
+        private void OnDestroy()
+        {
+            _player.Health.OnValueChanged -= ChangePlayerHealthValue;
+            _player.Weapon.OnPlayerShot -= StartReloading;
+            _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
+            _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
+        }
 
-    private void ChooseApProjectileType()
-    {
-        _apProjectileBackground.color = _activeProjectile;
-        _hexProjectileBackground.color = _inactiveProjectile;
+        private void SetupPanel()
+        {
+            ChooseApProjectileType();
+            _healthValue.fillAmount = 1;
+            _reloadValue.fillAmount = 1;
+        }
+
+        private void ChangePlayerHealthValue(float currentHealth, float maxHealth)
+        {
+            _healthValue.fillAmount = currentHealth / maxHealth;
+        }
+
+        private void StartReloading()
+        {
+            _reloadValue.fillAmount = 0;
+            StartCoroutine(FillReloadingBar());
+        }
+
+        private IEnumerator FillReloadingBar()
+        {
+            float timer = 0f;
+
+            while (timer < _player.Weapon.WeaponData.ReloadTime)
+            {
+                timer += Time.deltaTime;
+                float progress = timer / _player.Weapon.WeaponData.ReloadTime;
+                _reloadValue.fillAmount = progress;
+                yield return null;
+            }
+
+            _reloadValue.fillAmount = 1;
+        } 
+
+        private void ChooseHexProjectileType()
+        {
+            _apProjectileBackground.color = _inactiveProjectile;
+            _hexProjectileBackground.color = _activeProjectile;
+        }
+
+        private void ChooseApProjectileType()
+        {
+            _apProjectileBackground.color = _activeProjectile;
+            _hexProjectileBackground.color = _inactiveProjectile;
+        }
     }
 }

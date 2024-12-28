@@ -1,30 +1,33 @@
 using UnityEngine;
 
-public class ProjectileAnimation : MonoBehaviour
+namespace TankGame.App.Projectiles
 {
-    private Animator _animator;
-    private Projectile _projectile;
-
-    private void Awake()
+    public class ProjectileAnimation : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-        _projectile = GetComponentInParent<Projectile>();
-    }
+        private Animator _animator;
+        private Projectile _projectile;
 
-    private void OnEnable()
-    {
-        PlayAnimation();
-    }
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+            _projectile = GetComponentInParent<Projectile>();
+        }
 
-    public void PlayAnimation()
-    {
-        _animator.enabled = true;
-    }
+        private void OnEnable()
+        {
+            PlayAnimation();
+        }
 
-    public virtual void DisableObject()
-    {
-        _animator.enabled = false;
-        gameObject.SetActive(false);
-        _projectile.gameObject.SetActive(false);
+        public void PlayAnimation()
+        {
+            _animator.enabled = true;
+        }
+
+        public virtual void DisableObject()
+        {
+            _animator.enabled = false;
+            gameObject.SetActive(false);
+            _projectile.gameObject.SetActive(false);
+        }
     }
 }

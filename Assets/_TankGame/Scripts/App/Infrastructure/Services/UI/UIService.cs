@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using TankGame.App.UI;
+using TankGame.Core.Utils.Enums;
 
-public class UIService : IUIService
+namespace TankGame.App.Infrastructure.Services.UI
 {
-    private Dictionary<UIPanelId, UIPanelBase> _panels;
+    public class UIService : IUIService
+    {
+        private Dictionary<UIPanelId, UIPanelBase> _panels;
 
-    public void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels) 
-        => _panels = new(panels);
+        public void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels)
+            => _panels = new(panels);
 
-    public void Open(UIPanelId id) 
-        => _panels[id].gameObject.SetActive(true);
+        public void Open(UIPanelId id)
+            => _panels[id].gameObject.SetActive(true);
+    }
 }

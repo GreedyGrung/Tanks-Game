@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Data;
+﻿using TankGame.Core.Data;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 

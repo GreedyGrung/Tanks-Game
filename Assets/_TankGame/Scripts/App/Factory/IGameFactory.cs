@@ -1,10 +1,15 @@
-﻿using Assets.Scripts.Infrastructure;
-using Assets.Scripts.Services.PersistentProgress;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Environment;
+using TankGame.App.StaticData;
+using TankGame.Core.Services;
+using TankGame.Core.Services.PersistentProgress;
+using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Factory
+namespace TankGame.App.Factory
 {
     public interface IGameFactory : IService
     {

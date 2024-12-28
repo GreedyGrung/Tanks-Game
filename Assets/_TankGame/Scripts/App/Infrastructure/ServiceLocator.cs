@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Infrastructure
+﻿using TankGame.Core.Services;
+
+namespace TankGame.App.Infrastructure
 {
     public class ServiceLocator
     {

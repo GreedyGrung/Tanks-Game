@@ -3,35 +3,38 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader
+namespace TankGame.App.Infrastructure
 {
-    private readonly ICoroutineRunner _coroutineRunner;
-
-    public SceneLoader(ICoroutineRunner coroutineRunner)
+    public class SceneLoader
     {
-        _coroutineRunner = coroutineRunner;
-    }
+        private readonly ICoroutineRunner _coroutineRunner;
 
-    public void Load(string nextScene, Action onLoaded = null)
-    {
-        _coroutineRunner.StartCoroutine(LoadScene(nextScene, onLoaded));
-    }
-
-    private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
-    {
-        if (SceneManager.GetActiveScene().name == nextScene)
+        public SceneLoader(ICoroutineRunner coroutineRunner)
         {
+            _coroutineRunner = coroutineRunner;
+        }
+
+        public void Load(string nextScene, Action onLoaded = null)
+        {
+            _coroutineRunner.StartCoroutine(LoadScene(nextScene, onLoaded));
+        }
+
+        private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
+        {
+            if (SceneManager.GetActiveScene().name == nextScene)
+            {
+                onLoaded?.Invoke();
+                yield break;
+            }
+
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+
+            while (!waitNextScene.isDone)
+            {
+                yield return null;
+            }
+
             onLoaded?.Invoke();
-            yield break;
         }
-
-        AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
-
-        while (!waitNextScene.isDone)
-        {
-            yield return null;
-        }
-
-        onLoaded?.Invoke();
     }
 }

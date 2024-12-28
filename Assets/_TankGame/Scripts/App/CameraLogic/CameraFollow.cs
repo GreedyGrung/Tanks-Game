@@ -1,31 +1,35 @@
+using TankGame.App.Entities.Interfaces;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class CameraFollow : MonoBehaviour
+namespace TankGame.App.CameraLogic
 {
-    private const float OffsetZ = -10;
-
-    [SerializeField] private Transform _followingTarget;
-
-    public void Init(IPlayer player)
+    [RequireComponent(typeof(Camera))]
+    public class CameraFollow : MonoBehaviour
     {
-        _followingTarget = player.Transform;
-    }
+        private const float OffsetZ = -10;
 
-    private void LateUpdate()
-    {
-        if (_followingTarget == null)
+        [SerializeField] private Transform _followingTarget;
+
+        public void Init(IPlayer player)
         {
-            return;
+            _followingTarget = player.Transform;
         }
 
-        var rotation = Quaternion.Euler(0, 0, 0);
-        var position = new Vector3(
-            _followingTarget.position.x, 
-            _followingTarget.position.y, 
-            _followingTarget.position.z + OffsetZ);
+        private void LateUpdate()
+        {
+            if (_followingTarget == null)
+            {
+                return;
+            }
 
-        transform.rotation = rotation;
-        transform.position = position;
+            var rotation = Quaternion.Euler(0, 0, 0);
+            var position = new Vector3(
+                _followingTarget.position.x,
+                _followingTarget.position.y,
+                _followingTarget.position.z + OffsetZ);
+
+            transform.rotation = rotation;
+            transform.position = position;
+        }
     }
 }

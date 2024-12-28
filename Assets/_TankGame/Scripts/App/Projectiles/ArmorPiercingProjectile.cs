@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class ArmorPiercingProjectile : Projectile
+namespace TankGame.App.Projectiles
 {
-    public override void Explode()
+    public class ArmorPiercingProjectile : Projectile
     {
-        Debug.Log("ArmorPiercingProjectile explode");
+        public override void Explode()
+        {
+            Debug.Log("ArmorPiercingProjectile explode");
+        }
     }
 }

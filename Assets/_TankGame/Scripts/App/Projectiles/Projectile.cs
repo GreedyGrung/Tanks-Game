@@ -1,50 +1,54 @@
+using TankGame.App.Interfaces;
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour
+namespace TankGame.App.Projectiles
 {
-    [SerializeField] private float _moveSpeed = 10;
-    [SerializeField] private float _damage;
-    [SerializeField] private float _lifetime;
-    [SerializeField] private ProjectileAnimation _projectileAnimation;
-    [SerializeField] private GameObject _visuals;
-
-    private float _timeFromSpawn;
-    private bool _exploded;
-
-    public virtual void Update()
+    public abstract class Projectile : MonoBehaviour
     {
-        if (_exploded)
+        [SerializeField] private float _moveSpeed = 10;
+        [SerializeField] private float _damage;
+        [SerializeField] private float _lifetime;
+        [SerializeField] private ProjectileAnimation _projectileAnimation;
+        [SerializeField] private GameObject _visuals;
+
+        private float _timeFromSpawn;
+        private bool _exploded;
+
+        public virtual void Update()
         {
-            return;
+            if (_exploded)
+            {
+                return;
+            }
+
+            transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime);
+            _timeFromSpawn += Time.deltaTime;
+
+            if (_timeFromSpawn >= _lifetime)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
-        transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime);
-        _timeFromSpawn += Time.deltaTime;
-
-        if (_timeFromSpawn >= _lifetime)
+        private void OnDisable()
         {
-            gameObject.SetActive(false);
+            _timeFromSpawn = 0f;
+            _exploded = false;
+            _visuals.SetActive(true);
         }
-    }
 
-    private void OnDisable()
-    {
-        _timeFromSpawn = 0f;
-        _exploded = false;
-        _visuals.SetActive(true);
-    }
+        public abstract void Explode();
 
-    public abstract void Explode();
-
-    public virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        _projectileAnimation.gameObject.SetActive(true);
-        _exploded = true;
-        _visuals.SetActive(false);
-
-        if (collision.TryGetComponent(out IDamageable damageable))
+        public virtual void OnTriggerEnter2D(Collider2D collision)
         {
-            damageable.TakeDamage(_damage);
+            _projectileAnimation.gameObject.SetActive(true);
+            _exploded = true;
+            _visuals.SetActive(false);
+
+            if (collision.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(_damage);
+            }
         }
     }
 }

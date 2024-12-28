@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using TankGame.App.Entities.Player;
+using TankGame.App.Infrastructure.Services.SpawnersObserver;
+using TankGame.Core.Services.Input;
+using UnityEngine;
 
-public interface IPlayer
+namespace TankGame.App.Entities.Interfaces
 {
-    IHealth Health { get; }
-    PlayerWeapon Weapon { get; }
-    Transform Transform { get; }
+    public interface IPlayer
+    {
+        IHealth Health { get; }
+        PlayerWeapon Weapon { get; }
+        Transform Transform { get; }
 
-    void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService);
+        void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService);
+    }
 }

@@ -1,11 +1,13 @@
 ﻿using System.Linq;
+using TankGame.App.Environment;
+using TankGame.App.StaticData;
+using TankGame.App.Utils;
 using TankGame.Core.Utils.Enums.Generated;
-using TankGame.Scripts.App.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TankGame.Scripts.App.Editor
+namespace TankGame.App.Editor
 {
     [CustomEditor(typeof(LevelStaticData))]
     public class LevelStaticDataEditor : UnityEditor.Editor

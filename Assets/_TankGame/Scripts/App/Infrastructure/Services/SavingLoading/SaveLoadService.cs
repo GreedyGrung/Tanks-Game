@@ -1,30 +1,34 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Factory;
+﻿using TankGame.App.Factory;
+using TankGame.Core.Data;
+using TankGame.Core.Services.PersistentProgress;
 using TankGame.Core.Utils;
 using UnityEngine;
 
-public class SaveLoadService : ISaveLoadService
+namespace TankGame.App.Infrastructure.Services.SavingLoading
 {
-    private readonly IGameFactory _gameFactory;
-    private readonly IPersistentProgressService _progressService;
-
-    public SaveLoadService(IGameFactory gameFactory, IPersistentProgressService progressService)
+    public class SaveLoadService : ISaveLoadService
     {
-        _gameFactory = gameFactory;
-        _progressService = progressService;
-    }
+        private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
 
-    public void SaveProgress()
-    {
-        foreach (var writer in _gameFactory.ProgressWriters)
+        public SaveLoadService(IGameFactory gameFactory, IPersistentProgressService progressService)
         {
-            writer.UpdateProgress(_progressService.Progress);
+            _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
-        Debug.Log("saved at " + Constants.SaveKey);
-        PlayerPrefs.SetString(Constants.SaveKey, _progressService.Progress.ToJson());
-    }
+        public void SaveProgress()
+        {
+            foreach (var writer in _gameFactory.ProgressWriters)
+            {
+                writer.UpdateProgress(_progressService.Progress);
+            }
 
-    public PlayerProgress LoadProgress() 
-        => PlayerPrefs.GetString(Constants.SaveKey)?.ToDeserizalized<PlayerProgress>();
+            Debug.Log("saved at " + Constants.SaveKey);
+            PlayerPrefs.SetString(Constants.SaveKey, _progressService.Progress.ToJson());
+        }
+
+        public PlayerProgress LoadProgress()
+            => PlayerPrefs.GetString(Constants.SaveKey)?.ToDeserizalized<PlayerProgress>();
+    }
 }

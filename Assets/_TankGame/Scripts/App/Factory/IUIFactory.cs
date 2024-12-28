@@ -1,8 +1,10 @@
-﻿using Assets.Scripts.Infrastructure;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TankGame.App.UI;
+using TankGame.Core.Services;
+using TankGame.Core.Utils.Enums;
 
-namespace Assets.Scripts.Factory
+namespace TankGame.App.Factory
 {
     public interface IUIFactory : IService
     {
