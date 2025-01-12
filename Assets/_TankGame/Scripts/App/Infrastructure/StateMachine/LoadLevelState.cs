@@ -63,6 +63,8 @@ namespace TankGame.App.Infrastructure.StateMachine
         public void Exit()
         {
             _loadingScreen.Hide();
+
+            _spawnPoints.Clear();
         }
 
         private async void OnLoaded()

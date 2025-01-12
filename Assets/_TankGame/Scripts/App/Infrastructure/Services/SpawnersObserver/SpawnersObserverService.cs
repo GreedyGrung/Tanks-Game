@@ -12,7 +12,12 @@ namespace TankGame.App.Infrastructure.Services.SpawnersObserver
         private int _nonSlainSpawnersCount;
 
         public void Init(List<SpawnPoint> spawnPoints)
-            => FindSpawners(spawnPoints);
+        {
+            _killedEnemies = 0;
+            _nonSlainSpawnersCount = 0;
+
+            FindSpawners(spawnPoints);
+        }
 
         private void FindSpawners(List<SpawnPoint> spawnPoints)
         {

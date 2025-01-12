@@ -18,11 +18,11 @@ namespace TankGame.App.Environment
         private EnemyTypeId _enemyType;
         private bool _isRandom;
         private IGameFactory _gameFactory;
-        private bool _IsSlain;
+        private bool _isSlain;
         private IPlayer _player;
         private Enemy _enemy;
 
-        public bool IsSlain => _IsSlain;
+        public bool IsSlain => _isSlain;
 
         public void Construct(IGameFactory gameFactory)
         {
@@ -45,7 +45,7 @@ namespace TankGame.App.Environment
         {
             if (playerProgress.KillData.ClearedSpawners.Contains(_id))
             {
-                _IsSlain = true;
+                _isSlain = true;
             }
             else
             {
@@ -55,7 +55,7 @@ namespace TankGame.App.Environment
 
         public void UpdateProgress(PlayerProgress playerProgress)
         {
-            if (_IsSlain)
+            if (_isSlain)
             {
                 playerProgress.KillData.ClearedSpawners.Add(_id);
             }
@@ -82,7 +82,7 @@ namespace TankGame.App.Environment
         private void KillEnemy()
         {
             _enemy.OnKilled -= KillEnemy;
-            _IsSlain = true;
+            _isSlain = true;
 
             OnEnemyInSpawnerKilled?.Invoke(this);
         }
