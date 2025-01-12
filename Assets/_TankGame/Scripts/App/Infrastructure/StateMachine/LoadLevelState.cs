@@ -70,14 +70,14 @@ namespace TankGame.App.Infrastructure.StateMachine
         private async void OnLoaded()
         {
             await InitGameUIAsync();
-            await InitGameWorld();
+            await InitGameWorldAsync();
             InformProgressReaders();
             InitSpawnersObserverService();
 
             _gameStateMachine.Enter<GameLoopState>();
         }
 
-        private async Task InitGameWorld()
+        private async Task InitGameWorldAsync()
         {
             string sceneKey = SceneManager.GetActiveScene().name;
             LevelStaticData levelData = _staticData.ForLevel(sceneKey);
@@ -95,12 +95,12 @@ namespace TankGame.App.Infrastructure.StateMachine
             var cameraFollow = Object.FindObjectOfType<CameraFollow>();
             cameraFollow.Init(player);
 
-            await InitSpawners(player, levelData);
+            await InitSpawnersAsync(player, levelData);
 
             UIMediator uiMediator = new(_uiService, player, _spawnersObserverService);
         }
 
-        private async Task InitSpawners(IPlayer player, LevelStaticData levelData)
+        private async Task InitSpawnersAsync(IPlayer player, LevelStaticData levelData)
         {
             foreach (var spawnerData in levelData.EnemySpawners)
             {

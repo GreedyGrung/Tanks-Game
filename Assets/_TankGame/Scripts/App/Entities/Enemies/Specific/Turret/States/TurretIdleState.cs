@@ -19,7 +19,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret.States
             base.DoChecks();
 
             _playerDetected = _turret.PlayerDetected();
-            _obstacleBetweenEnemyAndPlayer = _turret.ObstacleBetweenEnemyAndPlayer();
+            _obstacleBetweenEnemyAndPlayer = _turret.AnyObstacleBetweenEnemyAndPlayer();
         }
 
         public override void LogicUpdate()

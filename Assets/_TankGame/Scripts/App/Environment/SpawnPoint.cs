@@ -16,7 +16,6 @@ namespace TankGame.App.Environment
 
         private string _id;
         private EnemyTypeId _enemyType;
-        private bool _isRandom;
         private IGameFactory _gameFactory;
         private bool _isSlain;
         private IPlayer _player;
@@ -29,11 +28,10 @@ namespace TankGame.App.Environment
             _gameFactory = gameFactory;
         }
 
-        public void SetSpawnData(string id, EnemyTypeId enemyType, bool isRandom)
+        public void SetSpawnData(string id, EnemyTypeId enemyType)
         {
             _id = id;
             _enemyType = enemyType;
-            _isRandom = isRandom;
         }
 
         public void InitPlayer(IPlayer player)
@@ -67,16 +65,6 @@ namespace TankGame.App.Environment
 
             _enemy.OnKilled += KillEnemy;
             _enemy.Init(_player);
-        }
-
-        private async Task<Enemy> CreateRandomEnemy()
-        {
-            int enemyType = UnityEngine.Random.Range(0, 2);
-            _enemy = enemyType == 0
-                ? await _gameFactory.CreateEnemyAsync(EnemyTypeId.Tank, transform)
-                : await _gameFactory.CreateEnemyAsync(EnemyTypeId.Turret, transform);
-
-            return _enemy;
         }
 
         private void KillEnemy()

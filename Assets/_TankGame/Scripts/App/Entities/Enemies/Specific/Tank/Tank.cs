@@ -75,6 +75,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
         public override void Shoot()
         {
             base.Shoot();
+
             Projectile = ProjectilePool.Pool.TakeFromPool();
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;

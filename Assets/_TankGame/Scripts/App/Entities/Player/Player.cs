@@ -27,6 +27,17 @@ namespace TankGame.App.Entities.Player
         public PlayerWeapon Weapon => _weapon;
         public Transform Transform => transform;
 
+        private void OnDestroy()
+        {
+            Unsubscribe();
+        }
+
+        private void Unsubscribe()
+        {
+            _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
+            Health.OnDied -= DeactivatePlayer;
+        }
+
         public void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService)
         {
             Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
@@ -35,6 +46,11 @@ namespace TankGame.App.Entities.Player
             _weapon.Init(inputService);
             _spawnersObserverService = spawnersObserverService;
 
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
             _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
             Health.OnDied += DeactivatePlayer;
         }
@@ -67,12 +83,6 @@ namespace TankGame.App.Entities.Player
             _playerMovement.enabled = false;
             _weapon.enabled = false;
             gameObject.SetActive(false);
-        }
-
-        private void OnDestroy()
-        {
-            _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
-            Health.OnDied -= DeactivatePlayer;
         }
     }
 }

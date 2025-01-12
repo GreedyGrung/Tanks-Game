@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace TankGame.App.Entities.Player
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private PlayerMovementData _movementData;
@@ -12,15 +13,9 @@ namespace TankGame.App.Entities.Player
         private IInputService _inputService;
         private Camera _mainCamera;
         private Vector2 _mousePosition;
-        Quaternion _targetRotation;
+        private Quaternion _targetRotation;
         private int _bodyRotationInverseCoefficient;
         private Rigidbody2D _rigidbody;
-
-        public void Init(IInputService inputService)
-        {
-            _inputService = inputService;
-            _mainCamera = Camera.main;
-        }
 
         private void Awake()
         {
@@ -46,6 +41,12 @@ namespace TankGame.App.Entities.Player
             }
 
             HandleBodyMovement();
+        }
+
+        public void Init(IInputService inputService)
+        {
+            _inputService = inputService;
+            _mainCamera = Camera.main;
         }
 
         private void HandleBodyMovement()

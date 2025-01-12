@@ -43,14 +43,10 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
             _tower.rotation = Quaternion.Euler(0f, 0f, currentRotation.eulerAngles.z + EnemyData.TowerRotationSpeed * Time.deltaTime);
         }
 
-        public override void TakeDamage(float damage)
-        {
-            base.TakeDamage(damage);
-        }
-
         public override void Shoot()
         {
             base.Shoot();
+
             Projectile = ProjectilePool.Pool.TakeFromPool();
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;

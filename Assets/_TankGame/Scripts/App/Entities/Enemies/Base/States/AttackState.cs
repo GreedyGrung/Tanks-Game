@@ -15,7 +15,7 @@ namespace TankGame.App.Entities.Enemies.Base.States
         {
             base.DoChecks();
             PlayerDetected = Enemy.PlayerDetected();
-            ObstacleBetweenPlayerAndTurret = Enemy.ObstacleBetweenEnemyAndPlayer();
+            ObstacleBetweenPlayerAndTurret = Enemy.AnyObstacleBetweenEnemyAndPlayer();
         }
     }
 }

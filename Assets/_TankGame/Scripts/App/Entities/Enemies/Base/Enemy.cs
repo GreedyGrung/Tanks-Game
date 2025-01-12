@@ -20,8 +20,8 @@ namespace TankGame.App.Entities.Enemies.Base
         [SerializeField] private EnemyHealthBar _healthBar;
         [SerializeField] private float _rotationInterpolationFactor = 0.05f;
 
-        private EnemyVisuals _enemyVisuals;
         private readonly float _rotationThreshold = 10f;
+        private EnemyVisuals _enemyVisuals;
         private bool _isExploding = false;
         private bool _isInit;
 
@@ -38,6 +38,8 @@ namespace TankGame.App.Entities.Enemies.Base
         public bool CanShoot { get; private set; } = true;
         public bool IsRotatingTower { get; private set; }
 
+        private bool CanUpdate => _isExploding == false || _isInit == true;
+
         public virtual void Awake()
         {
             StateMachine = new();
@@ -47,7 +49,7 @@ namespace TankGame.App.Entities.Enemies.Base
 
         public virtual void Update()
         {
-            if (_isExploding || _isInit == false)
+            if (!CanUpdate)
             {
                 return;
             }
@@ -57,7 +59,7 @@ namespace TankGame.App.Entities.Enemies.Base
 
         public virtual void FixedUpdate()
         {
-            if (_isExploding || _isInit == false)
+            if (!CanUpdate)
             {
                 return;
             }
@@ -82,7 +84,7 @@ namespace TankGame.App.Entities.Enemies.Base
             EnemyData = data;
         }
 
-        public bool ObstacleBetweenEnemyAndPlayer()
+        public bool AnyObstacleBetweenEnemyAndPlayer()
         {
             if (Player == null)
             {

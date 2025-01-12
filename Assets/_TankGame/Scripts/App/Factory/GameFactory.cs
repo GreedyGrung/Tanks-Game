@@ -56,7 +56,7 @@ namespace TankGame.App.Factory
             var spawner = InstantiateRegistered(prefab, spawnerData.Position).GetComponent<SpawnPoint>();
 
             spawner.Construct(this);
-            spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId, spawnerData.IsRandom);
+            spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId);
             spawner.InitPlayer(player);
 
             return spawner;

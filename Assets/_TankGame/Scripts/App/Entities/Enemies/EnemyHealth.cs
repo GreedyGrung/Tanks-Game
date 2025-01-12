@@ -69,7 +69,9 @@ namespace TankGame.App.Entities.Enemies
 
         public void SetValue(float value)
         {
-            throw new NotImplementedException();
+            Value = value;
+            Mathf.Clamp(Value, 0, MaxValue);
+            OnValueChanged?.Invoke(Value, MaxValue);
         }
     }
 }

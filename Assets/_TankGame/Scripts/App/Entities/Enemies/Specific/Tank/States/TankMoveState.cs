@@ -18,7 +18,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank.States
         {
             base.DoChecks();
             _playerDetected = _tank.PlayerDetected();
-            _obstacleBetweenEnemyAndPlayer = _tank.ObstacleBetweenEnemyAndPlayer();
+            _obstacleBetweenEnemyAndPlayer = _tank.AnyObstacleBetweenEnemyAndPlayer();
         }
 
         public override void LogicUpdate()
