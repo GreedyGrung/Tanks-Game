@@ -7,5 +7,6 @@ namespace TankGame.App.Infrastructure.Services.SavingLoading
     {
         void SaveProgress();
         PlayerProgress LoadProgress();
+        void DeleteProgress();
     }
 }

@@ -30,5 +30,8 @@ namespace TankGame.App.Infrastructure.Services.SavingLoading
 
         public PlayerProgress LoadProgress()
             => PlayerPrefs.GetString(Constants.SaveKey)?.ToDeserizalized<PlayerProgress>();
+
+        public void DeleteProgress() 
+            => PlayerPrefs.DeleteAll();
     }
 }
