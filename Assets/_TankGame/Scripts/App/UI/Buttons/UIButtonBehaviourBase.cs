@@ -12,7 +12,7 @@ namespace TankGame.App.UI.Buttons
         {
             Button = GetComponent<Button>();
 
-            Construct();
+            Initialize();
         }
 
         private void OnEnable()
@@ -25,7 +25,7 @@ namespace TankGame.App.UI.Buttons
             Unsubscribe();
         }
 
-        protected virtual void Construct() { }
+        protected virtual void Initialize() { }
 
         protected abstract void HandleClick();
 

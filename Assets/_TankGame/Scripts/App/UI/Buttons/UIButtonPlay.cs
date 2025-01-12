@@ -8,9 +8,9 @@ namespace TankGame.App.UI.Buttons
     {
         private IGameStateMachine _gameStateMachine;
 
-        protected override void Construct()
+        protected override void Initialize()
         {
-            base.Construct();
+            base.Initialize();
 
             _gameStateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
         }
