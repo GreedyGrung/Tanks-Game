@@ -21,6 +21,7 @@ namespace TankGame.App.Infrastructure.StateMachine
             _states = new Dictionary<Type, IBaseState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, serviceLocator),
+                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen,
                     serviceLocator.Single<IGameFactory>(),
                     serviceLocator.Single<IPersistentProgressService>(),

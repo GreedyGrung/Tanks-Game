@@ -27,7 +27,7 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         public void Enter()
         {
-            _sceneLoader.Load(SceneNames.Bootstrap.ToString(), EnterLoadLevel);
+            _sceneLoader.Load(SceneNames.Bootstrap, onLoaded: EnterLoadLevel);
         }
 
         public void Exit()
@@ -63,6 +63,6 @@ namespace TankGame.App.Infrastructure.StateMachine
         }
 
         private void EnterLoadLevel()
-            => _stateMachine.Enter<LoadProgressState>();
+            => _stateMachine.Enter<MainMenuState>();
     }
 }
