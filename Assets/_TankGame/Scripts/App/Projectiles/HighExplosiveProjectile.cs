@@ -1,6 +1,5 @@
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.StaticData.Environment;
-using UnityEngine;
 
 namespace TankGame.App.Projectiles
 {
@@ -20,11 +19,6 @@ namespace TankGame.App.Projectiles
             base.ReturnToPool();
 
             _pool.Return(this);
-        }
-
-        public override void Explode()
-        {
-            Debug.Log("HighExplosiveProjectile explode");
         }
     }
 }

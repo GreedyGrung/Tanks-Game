@@ -16,8 +16,6 @@ namespace TankGame.App.Projectiles
 
         protected IPoolsService PoolsService { get; private set; }
 
-        public GameObject GameObjectRef => gameObject;
-
         public virtual void Initialize(ProjectileStaticData staticData, IPoolsService poolsService)
         {
             _projectileStaticData = staticData;
@@ -36,45 +34,43 @@ namespace TankGame.App.Projectiles
 
             if (_timeFromSpawn >= _projectileStaticData.Lifetime)
             {
-                gameObject.SetActive(false);
+                ReturnToPool();
             }
         }
 
-        private void OnDisable()
-        {
-            _timeFromSpawn = 0f;
-            _exploded = false;
-            _visuals.SetActive(true);
-            ReturnToPool();
-        }
-
-        public abstract void Explode();
-
-        public virtual void OnTriggerEnter2D(Collider2D collision)
+        public virtual void Explode()
         {
             _projectileAnimation.gameObject.SetActive(true);
             _exploded = true;
             _visuals.SetActive(false);
 
+            ReturnToPool();
+        }
+
+        public virtual void OnTriggerEnter2D(Collider2D collision)
+        {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(_projectileStaticData.Damage);
             }
+
+            Explode();
         }
 
         public void OnSpawned()
         {
+            _exploded = false;
             gameObject.SetActive(true);
+            _projectileAnimation.gameObject.SetActive(false);
+            _visuals.SetActive(true);
         }
 
         public void OnDespawned()
         {
-            gameObject.SetActive(false);
+            _timeFromSpawn = 0f;
+            _visuals.SetActive(true);
         }
 
-        public virtual void ReturnToPool()
-        {
-            
-        }
+        public virtual void ReturnToPool() { }
     }
 }
