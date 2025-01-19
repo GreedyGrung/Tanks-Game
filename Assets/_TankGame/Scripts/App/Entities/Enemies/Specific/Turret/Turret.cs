@@ -4,7 +4,6 @@ using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
-using TankGame.Core.Utils.Enums;
 
 namespace TankGame.App.Entities.Enemies.Specific.Turret
 {
@@ -18,11 +17,6 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
         [SerializeField] private Transform _tower;
 
         public Transform Tower => _tower;
-
-        public override void Awake()
-        {
-            base.Awake();
-        }
 
         public override void Init(IPlayer player, IPoolsService poolsService)
         {
@@ -46,7 +40,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
         {
             base.Shoot();
 
-            Projectile = PoolsService.GetProjectile(ProjectileTypeId.HEX);
+            Projectile = PoolsService.GetProjectile(EnemyData.ProjectileType);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;
             Projectile.transform.rotation = BulletSpawn.rotation;

@@ -14,6 +14,7 @@ namespace TankGame.App.Entities.Enemies.Base.Data
         [SerializeField] private float _reloadTime;
         [SerializeField] private float _wallCheckDistance;
         [SerializeField] private float _detectionDistance;
+        [SerializeField] private ProjectileTypeId _projectileType;
         [SerializeField] private LayerMask _playerLayer;
         [SerializeField] private LayerMask _obstacleLayer;
         [SerializeField] private LayerMask _detectionObstacleLayer;
@@ -25,6 +26,7 @@ namespace TankGame.App.Entities.Enemies.Base.Data
         public float ReloadTime => _reloadTime;
         public float WallCheckDistance => _wallCheckDistance;
         public float DetectionDistance => _detectionDistance;
+        public ProjectileTypeId ProjectileType => _projectileType;
         public LayerMask PlayerLayer => _playerLayer;
         public LayerMask ObstacleLayer => _obstacleLayer;
         public LayerMask DetectionObstacleLayer => _detectionObstacleLayer;

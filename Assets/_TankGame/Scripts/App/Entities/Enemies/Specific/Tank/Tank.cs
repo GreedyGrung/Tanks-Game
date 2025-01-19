@@ -77,7 +77,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
         {
             base.Shoot();
 
-            Projectile = PoolsService.GetProjectile(ProjectileTypeId.AP);
+            Projectile = PoolsService.GetProjectile(_movingEnemyData.ProjectileType);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;
             Projectile.transform.rotation = BulletSpawn.rotation;

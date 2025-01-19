@@ -23,6 +23,7 @@ MonoBehaviour:
   _reloadTime: 1
   _wallCheckDistance: 0.5
   _detectionDistance: 4
+  _projectileType: 1
   _playerLayer:
     serializedVersion: 2
     m_Bits: 256
