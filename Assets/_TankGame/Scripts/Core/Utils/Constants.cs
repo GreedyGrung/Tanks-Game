@@ -18,5 +18,6 @@ namespace TankGame.Core.Utils
         public const string LevelsStaticDataPath = "Data/Levels";
         public const string UIPanelsStaticDataPath = "Data/UI/UIPanelsStaticData";
         public const string ProjectilesStaticDataPath = "Data/Projectiles";
+        public const string ObjectPoolsStaticDataPath = "Data/Pools";
     }
 }

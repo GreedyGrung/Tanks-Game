@@ -9,7 +9,6 @@ using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Infrastructure.Services.UI;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.App.Object_Pool;
 using TankGame.App.Projectiles;
 using TankGame.App.StaticData;
 using TankGame.App.UI;
@@ -110,8 +109,8 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         private void InitObjectPools()
         {
-            _poolsService.RegisterPool<ArmorPiercingProjectile>("AP Pool");
-            _poolsService.RegisterPool<HighExplosiveProjectile>("HEX Pool");
+            _poolsService.RegisterPool<ArmorPiercingProjectile>();
+            _poolsService.RegisterPool<HighExplosiveProjectile>();
         }
 
         private async Task InitSpawnersAsync(IPlayer player, LevelStaticData levelData)

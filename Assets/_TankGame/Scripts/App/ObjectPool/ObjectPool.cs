@@ -4,7 +4,7 @@ using TankGame.App.Factory;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using UnityEngine;
 
-namespace TankGame.App.Object_Pool
+namespace TankGame.App.ObjectPool
 {
     public class ObjectPool<T> where T : IPoolableObject
     {
@@ -22,7 +22,9 @@ namespace TankGame.App.Object_Pool
 
             for (int i = 0; i < size; i++)
             {
+#pragma warning disable CS4014
                 CreateItem();
+#pragma warning restore CS4014
             }
         }
 
@@ -34,7 +36,9 @@ namespace TankGame.App.Object_Pool
 
                 if (_pool.Count == 0 && _autoExpand)
                 {
+#pragma warning disable CS4014
                     CreateItem();
+#pragma warning restore CS4014
                 }
 
                 return item;

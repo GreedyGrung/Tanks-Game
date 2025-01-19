@@ -2,8 +2,6 @@ using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Enemies.Specific.Turret.States;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Infrastructure;
-using TankGame.App.Object_Pool;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 using TankGame.Core.Utils.Enums;
@@ -48,7 +46,6 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
         {
             base.Shoot();
 
-            Debug.LogError(PoolsService);
             Projectile = PoolsService.GetProjectile(ProjectileTypeId.HEX);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;

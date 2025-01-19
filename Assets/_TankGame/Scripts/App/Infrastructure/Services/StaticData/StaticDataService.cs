@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TankGame.App.Entities.Enemies.Base.Data;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Projectiles;
 using TankGame.App.StaticData;
 using TankGame.Core.Utils;
 using TankGame.Core.Utils.Enums;
@@ -14,6 +16,7 @@ namespace TankGame.App.Infrastructure.Services.StaticData
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
+        private Dictionary<ObjectPoolTypeId, ObjectPoolStaticData> _objectPools;
 
         public void LoadEnemies()
         {
@@ -32,6 +35,10 @@ namespace TankGame.App.Infrastructure.Services.StaticData
 
             _projectiles = Resources
                 .LoadAll<ProjectileStaticData>(Constants.ProjectilesStaticDataPath)
+                .ToDictionary(config => config.Id, config => config);
+
+            _objectPools = Resources
+                .LoadAll<ObjectPoolStaticData>(Constants.ObjectPoolsStaticDataPath)
                 .ToDictionary(config => config.Id, config => config);
         }
 
@@ -54,5 +61,21 @@ namespace TankGame.App.Infrastructure.Services.StaticData
             _projectiles.TryGetValue(projectileTypeId, out ProjectileStaticData config)
                 ? config
                 : null;
+
+        public ObjectPoolStaticData ForPool<T>() where T : IPoolableObject
+        {
+            if (typeof(T) == typeof(ArmorPiercingProjectile))
+            {
+                return _objectPools[ObjectPoolTypeId.ProjectileAP];
+            }
+            else if (typeof(T) == typeof(HighExplosiveProjectile))
+            {
+                return _objectPools[ObjectPoolTypeId.ProjectileHEX];
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

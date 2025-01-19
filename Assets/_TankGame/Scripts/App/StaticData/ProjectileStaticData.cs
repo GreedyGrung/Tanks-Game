@@ -18,16 +18,4 @@ namespace TankGame.App.StaticData
         public float Lifetime => _lifetime;
         public Sprite Sprite => _sprite;
     }
-
-    [CreateAssetMenu(fileName = "objectPoolData", menuName = "StaticData/Pools")]
-    public class ObjectPoolStaticData : ScriptableObject
-    {
-        [SerializeField] private GameObject _prefab;
-        [SerializeField] private int _poolSize;
-        [SerializeField] private bool _autoExpand;
-
-        public GameObject Prefab => _prefab;
-        public int PoolSize => _poolSize;
-        public bool AutoExpand => _autoExpand;
-    }
 }

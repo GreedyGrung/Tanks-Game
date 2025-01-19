@@ -4,7 +4,7 @@ using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
 using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Object_Pool;
+using TankGame.App.ObjectPool;
 using TankGame.App.StaticData;
 using TankGame.Core.Services;
 using TankGame.Core.Services.PersistentProgress;
@@ -26,7 +26,7 @@ namespace TankGame.App.Factory
         GameObject CreateEmptyObjectWithName(string name);
         void CleanupProgressWatchers();
         Task WarmUp();
-        ObjectPool<T> CreatePool<T>(Transform parent, bool autoExpand) where T : IPoolableObject;
+        ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject;
         Task<T> CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
     }
 }

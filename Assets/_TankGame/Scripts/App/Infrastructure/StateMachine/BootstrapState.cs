@@ -47,7 +47,7 @@ namespace TankGame.App.Infrastructure.StateMachine
             _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
             _serviceLocator.RegisterSingle<IUIService>(new UIService());
             _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService());
-            _serviceLocator.RegisterSingle<IPoolsService>(new PoolsService(_serviceLocator.Single<IGameFactory>()));
+            _serviceLocator.RegisterSingle<IPoolsService>(new PoolsService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IStaticDataService>()));
         }
 
         private void RegisterAssetProvider()

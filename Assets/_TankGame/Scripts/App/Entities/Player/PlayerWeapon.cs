@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TankGame.App.Entities.Player.Data;
 using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Object_Pool;
 using TankGame.App.Projectiles;
 using TankGame.Core.Services.Input;
 using TankGame.Core.Utils.Enums;

@@ -7,7 +7,7 @@ using TankGame.App.Environment;
 using TankGame.App.Infrastructure;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.StaticData;
-using TankGame.App.Object_Pool;
+using TankGame.App.ObjectPool;
 using TankGame.App.Projectiles;
 using TankGame.App.StaticData;
 using TankGame.Core.Services.AssetManagement;
@@ -87,10 +87,8 @@ namespace TankGame.App.Factory
             throw new InvalidOperationException($"Unsupported type: {typeof(T)}");
         }
 
-        public ObjectPool<T> CreatePool<T>(Transform parent, bool autoExpand) where T : IPoolableObject
-        {
-            return new ObjectPool<T>(10, parent, autoExpand, this);
-        }
+        public ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject 
+            => new(staticData.PoolSize, parent, staticData.AutoExpand, this);
 
         public void CleanupProgressWatchers()
         {
