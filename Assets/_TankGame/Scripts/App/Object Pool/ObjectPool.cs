@@ -31,14 +31,14 @@ namespace TankGame.App.Object_Pool
             if (_pool.TryPop(out T item))
             {
                 item.OnSpawned();
+
+                if (_pool.Count == 0 && _autoExpand)
+                {
+                    CreateItem();
+                }
+
                 return item;
             }
-
-            /*if (_autoExpand)
-            {
-                await CreateItem(true);
-                _pool.Pop().OnSpawned();
-            }*/
 
             throw new System.Exception("The pool is empty!");
         }
