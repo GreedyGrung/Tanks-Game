@@ -1,18 +1,28 @@
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Interfaces;
+using TankGame.App.StaticData;
 using UnityEngine;
 
 namespace TankGame.App.Projectiles
 {
-    public abstract class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour, IPoolableObject
     {
-        [SerializeField] private float _moveSpeed = 10;
-        [SerializeField] private float _damage;
-        [SerializeField] private float _lifetime;
         [SerializeField] private ProjectileAnimation _projectileAnimation;
         [SerializeField] private GameObject _visuals;
 
+        private ProjectileStaticData _projectileStaticData;
         private float _timeFromSpawn;
         private bool _exploded;
+
+        protected IPoolsService PoolsService { get; private set; }
+
+        public GameObject GameObjectRef => gameObject;
+
+        public virtual void Initialize(ProjectileStaticData staticData, IPoolsService poolsService)
+        {
+            _projectileStaticData = staticData;
+            PoolsService = poolsService;
+        }
 
         public virtual void Update()
         {
@@ -21,10 +31,10 @@ namespace TankGame.App.Projectiles
                 return;
             }
 
-            transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime);
+            transform.Translate(Vector3.right * _projectileStaticData.MoveSpeed * Time.deltaTime);
             _timeFromSpawn += Time.deltaTime;
 
-            if (_timeFromSpawn >= _lifetime)
+            if (_timeFromSpawn >= _projectileStaticData.Lifetime)
             {
                 gameObject.SetActive(false);
             }
@@ -35,6 +45,7 @@ namespace TankGame.App.Projectiles
             _timeFromSpawn = 0f;
             _exploded = false;
             _visuals.SetActive(true);
+            ReturnToPool();
         }
 
         public abstract void Explode();
@@ -47,8 +58,23 @@ namespace TankGame.App.Projectiles
 
             if (collision.TryGetComponent(out IDamageable damageable))
             {
-                damageable.TakeDamage(_damage);
+                damageable.TakeDamage(_projectileStaticData.Damage);
             }
+        }
+
+        public void OnSpawned()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void OnDespawned()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public virtual void ReturnToPool()
+        {
+            
         }
     }
 }

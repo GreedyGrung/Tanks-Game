@@ -1,9 +1,12 @@
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Enemies.Specific.Turret.States;
 using TankGame.App.Entities.Interfaces;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Infrastructure;
 using TankGame.App.Object_Pool;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
+using TankGame.Core.Utils.Enums;
 
 namespace TankGame.App.Entities.Enemies.Specific.Turret
 {
@@ -21,13 +24,11 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
         public override void Awake()
         {
             base.Awake();
-
-            ProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
         }
 
-        public override void Init(IPlayer player)
+        public override void Init(IPlayer player, IPoolsService poolsService)
         {
-            base.Init(player);
+            base.Init(player, poolsService);
 
             IdleState = new(this, StateMachine);
             AttackState = new(this, StateMachine);
@@ -47,7 +48,8 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
         {
             base.Shoot();
 
-            Projectile = ProjectilePool.Pool.TakeFromPool();
+            Debug.LogError(PoolsService);
+            Projectile = PoolsService.GetProjectile(ProjectileTypeId.HEX);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;
             Projectile.transform.rotation = BulletSpawn.rotation;

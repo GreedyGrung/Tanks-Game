@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Object_Pool;
 using TankGame.App.StaticData;
 using TankGame.Core.Services;
 using TankGame.Core.Services.PersistentProgress;
@@ -21,7 +23,10 @@ namespace TankGame.App.Factory
         Task<GameObject> CreateHudAsync();
         Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent);
         Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player);
+        GameObject CreateEmptyObjectWithName(string name);
         void CleanupProgressWatchers();
         Task WarmUp();
+        ObjectPool<T> CreatePool<T>(Transform parent, bool autoExpand) where T : IPoolableObject;
+        Task<T> CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
     }
 }

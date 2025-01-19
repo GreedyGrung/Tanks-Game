@@ -1,5 +1,6 @@
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Entities.Player.Data;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Interfaces;
 using TankGame.Core.Data;
@@ -38,12 +39,12 @@ namespace TankGame.App.Entities.Player
             Health.OnDied -= DeactivatePlayer;
         }
 
-        public void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService)
+        public void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
         {
             Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
             _playerMovement = GetComponent<PlayerMovement>();
             _playerMovement.Init(inputService);
-            _weapon.Init(inputService);
+            _weapon.Init(inputService, poolsService);
             _spawnersObserverService = spawnersObserverService;
 
             Subscribe();

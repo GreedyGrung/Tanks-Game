@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TankGame.App.Entities.Player.Data;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Object_Pool;
 using TankGame.App.Projectiles;
 using TankGame.Core.Services.Input;
+using TankGame.Core.Utils.Enums;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
@@ -19,21 +22,18 @@ namespace TankGame.App.Entities.Player
         [SerializeField] private Transform _bulletSpawn;
 
         private IInputService _inputService;
+        private IPoolsService _poolsService;
+        private ProjectileTypeId _selectedProjectile;
         private Projectile _projectile;
-        private ArmorPiercingProjectilePool _armorPiercingProjectilePool;
-        private HighExplosiveProjectilePool _highExplosiveProjectilePool;
-        private BaseProjectilePool _activePool;
 
         private bool _canShoot = true;
 
         public PlayerWeaponData WeaponData => _weaponData;
 
-        public void Init(IInputService inputService)
+        public void Init(IInputService inputService, IPoolsService poolsService)
         {
-            _armorPiercingProjectilePool = FindObjectOfType<ArmorPiercingProjectilePool>();
-            _highExplosiveProjectilePool = FindObjectOfType<HighExplosiveProjectilePool>();
-            _activePool = _armorPiercingProjectilePool;
             _inputService = inputService;
+            _poolsService = poolsService;
 
             _inputService.OnLeftMouseButtonClicked += Shoot;
             _inputService.OnFirstProjectileTypeSelected += ChooseFirstProjectileType;
@@ -58,7 +58,7 @@ namespace TankGame.App.Entities.Player
                 return;
 
             OnPlayerShot?.Invoke();
-            _projectile = _activePool.Pool.TakeFromPool();
+            _projectile = _poolsService.GetProjectile(_selectedProjectile);
             _projectile.gameObject.layer = (int)Layers.PlayerProjectile;
             _projectile.transform.position = _bulletSpawn.position;
             _projectile.transform.rotation = _bulletSpawn.rotation;
@@ -78,13 +78,13 @@ namespace TankGame.App.Entities.Player
 
         private void ChooseFirstProjectileType()
         {
-            _activePool = _armorPiercingProjectilePool;
+            _selectedProjectile = ProjectileTypeId.AP;
             OnApProjectileTypeChosen?.Invoke();
         }
 
         private void ChooseSecondProjectileType()
         {
-            _activePool = _highExplosiveProjectilePool;
+            _selectedProjectile = ProjectileTypeId.HEX;
             OnHexProjectileTypeChosen?.Invoke();
         }
     }

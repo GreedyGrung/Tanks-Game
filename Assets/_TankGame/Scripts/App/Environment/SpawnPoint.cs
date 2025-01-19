@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.Core.Data;
 using TankGame.Core.Services.PersistentProgress;
 using TankGame.Core.Utils.Enums;
@@ -19,6 +20,7 @@ namespace TankGame.App.Environment
         private IGameFactory _gameFactory;
         private bool _isSlain;
         private IPlayer _player;
+        private IPoolsService _poolsService;
         private Enemy _enemy;
 
         public bool IsSlain => _isSlain;
@@ -34,9 +36,10 @@ namespace TankGame.App.Environment
             _enemyType = enemyType;
         }
 
-        public void InitPlayer(IPlayer player)
+        public void Initialize(IPlayer player, IPoolsService poolsService)
         {
             _player = player;
+            _poolsService = poolsService;
         }
 
         public void LoadProgress(PlayerProgress playerProgress)
@@ -64,7 +67,7 @@ namespace TankGame.App.Environment
             _enemy = await _gameFactory.CreateEnemyAsync(_enemyType, transform);
 
             _enemy.OnKilled += KillEnemy;
-            _enemy.Init(_player);
+            _enemy.Init(_player, _poolsService);
         }
 
         private void KillEnemy()

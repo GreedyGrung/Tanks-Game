@@ -13,6 +13,7 @@ namespace TankGame.App.Infrastructure.Services.StaticData
         private Dictionary<EnemyTypeId, BaseEnemyStaticData> _enemies;
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<UIPanelId, UIPanelConfig> _uiPanelsConfigs;
+        private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
 
         public void LoadEnemies()
         {
@@ -28,6 +29,10 @@ namespace TankGame.App.Infrastructure.Services.StaticData
                 .Load<UIPanelsStaticData>(Constants.UIPanelsStaticDataPath)
                 .Configs
                 .ToDictionary(config => config.Id, config => config);
+
+            _projectiles = Resources
+                .LoadAll<ProjectileStaticData>(Constants.ProjectilesStaticDataPath)
+                .ToDictionary(config => config.Id, config => config);
         }
 
         public BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId) =>
@@ -42,6 +47,11 @@ namespace TankGame.App.Infrastructure.Services.StaticData
 
         public UIPanelConfig ForUIPanel(UIPanelId id) =>
             _uiPanelsConfigs.TryGetValue(id, out UIPanelConfig config)
+                ? config
+                : null;
+
+        public ProjectileStaticData ForProjectile(ProjectileTypeId projectileTypeId) =>
+            _projectiles.TryGetValue(projectileTypeId, out ProjectileStaticData config)
                 ? config
                 : null;
     }

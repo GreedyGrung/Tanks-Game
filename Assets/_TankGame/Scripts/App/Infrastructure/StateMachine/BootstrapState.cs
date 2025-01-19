@@ -1,4 +1,5 @@
 ﻿using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SavingLoading;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
@@ -46,6 +47,7 @@ namespace TankGame.App.Infrastructure.StateMachine
             _serviceLocator.RegisterSingle<ISaveLoadService>(new SaveLoadService(_serviceLocator.Single<IGameFactory>(), _serviceLocator.Single<IPersistentProgressService>()));
             _serviceLocator.RegisterSingle<IUIService>(new UIService());
             _serviceLocator.RegisterSingle<ISpawnersObserverService>(new SpawnersObserverService());
+            _serviceLocator.RegisterSingle<IPoolsService>(new PoolsService(_serviceLocator.Single<IGameFactory>()));
         }
 
         private void RegisterAssetProvider()

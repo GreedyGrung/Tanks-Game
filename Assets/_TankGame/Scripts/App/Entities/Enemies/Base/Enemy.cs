@@ -3,6 +3,7 @@ using System.Collections;
 using TankGame.App.Entities.Enemies.Base.Data;
 using TankGame.App.Entities.Enemies.StateMachineScripts;
 using TankGame.App.Entities.Interfaces;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Interfaces;
 using TankGame.App.Object_Pool;
 using TankGame.App.Projectiles;
@@ -28,9 +29,9 @@ namespace TankGame.App.Entities.Enemies.Base
         public StateMachine StateMachine { get; private set; }
         public Transform Player { get; private set; }
         public Rigidbody2D Rigidbody { get; private set; }
-        public BaseProjectilePool ProjectilePool { get; protected set; }
         public Projectile Projectile { get; protected set; }
         public IHealth Health { get; private set; }
+        protected IPoolsService PoolsService { get; private set; }
 
         public BaseEnemyStaticData EnemyData { get; private set; }
         public Transform BulletSpawn => _bulletSpawn;
@@ -67,11 +68,12 @@ namespace TankGame.App.Entities.Enemies.Base
             StateMachine.CurrentState.PhysicsUpdate();
         }
 
-        public virtual void Init(IPlayer player)
+        public virtual void Init(IPlayer player, IPoolsService poolsService)
         {
             Player = player.Transform;
             Health = new EnemyHealth(EnemyData.MaxHealth);
             _healthBar.Construct(this);
+            PoolsService = poolsService;
         }
 
         protected void SetIsInit()

@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
+using TankGame.App.Infrastructure;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.Object_Pool;
+using TankGame.App.Projectiles;
 using TankGame.App.StaticData;
 using TankGame.Core.Services.AssetManagement;
 using TankGame.Core.Services.PersistentProgress;
@@ -44,7 +49,7 @@ namespace TankGame.App.Factory
             var enemyData = _staticData.ForEnemy(type);
             GameObject prefab = await _assetProvider.Load<GameObject>(enemyData.PrefabReference);
 
-            var enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent).GetComponent<Enemy>();
+            var enemy = UnityEngine.Object.Instantiate(prefab, parent.position, Quaternion.identity, parent).GetComponent<Enemy>();
             enemy.SetData(enemyData);
 
             return enemy;
@@ -57,9 +62,34 @@ namespace TankGame.App.Factory
 
             spawner.Construct(this);
             spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId);
-            spawner.InitPlayer(player);
+            spawner.Initialize(player, ServiceLocator.Instance.Single<IPoolsService>());
 
             return spawner;
+        }
+
+        public GameObject CreateEmptyObjectWithName(string name) 
+            => UnityEngine.Object.Instantiate(new GameObject(name));
+
+        public async Task<T> CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject
+        {
+            if (typeof(T) == typeof(ArmorPiercingProjectile))
+            {
+                var poolableObject = await CreateProjectileAsync(ProjectileTypeId.AP, Constants.ArmorPiercingProjectileAddress, parent, activeByDefault);
+                return poolableObject.GetComponent<T>();
+            }
+
+            if (typeof(T) == typeof(HighExplosiveProjectile))
+            {
+                var poolableObject = await CreateProjectileAsync(ProjectileTypeId.HEX, Constants.HighExplosiveProjectileAddress, parent, activeByDefault);
+                return poolableObject.GetComponent<T>();
+            }
+
+            throw new InvalidOperationException($"Unsupported type: {typeof(T)}");
+        }
+
+        public ObjectPool<T> CreatePool<T>(Transform parent, bool autoExpand) where T : IPoolableObject
+        {
+            return new ObjectPool<T>(10, parent, autoExpand, this);
         }
 
         public void CleanupProgressWatchers()
@@ -68,6 +98,18 @@ namespace TankGame.App.Factory
             ProgressWriters.Clear();
 
             _assetProvider.Cleanup();
+        }
+
+        private async Task<Projectile> CreateProjectileAsync(ProjectileTypeId projectileTypeId, string address, Transform parent, bool activeByDefault)
+        {
+            var prefab = await _assetProvider.Load<GameObject>(address);
+            var data = _staticData.ForProjectile(projectileTypeId);
+
+            Projectile projectile = UnityEngine.Object.Instantiate(prefab, parent.position, Quaternion.identity, parent).GetComponent<Projectile>();
+            projectile.Initialize(data, ServiceLocator.Instance.Single<IPoolsService>());
+            projectile.gameObject.SetActive(activeByDefault);
+
+            return projectile;
         }
 
         private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at)
@@ -88,7 +130,7 @@ namespace TankGame.App.Factory
 
         private GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
         {
-            var gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
+            var gameObject = UnityEngine.Object.Instantiate(prefab, at, Quaternion.identity);
             RegisterProgressWatchers(gameObject);
 
             return gameObject;

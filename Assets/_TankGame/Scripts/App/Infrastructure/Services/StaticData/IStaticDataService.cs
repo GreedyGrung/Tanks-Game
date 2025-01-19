@@ -10,6 +10,7 @@ namespace TankGame.App.Infrastructure.Services.StaticData
         BaseEnemyStaticData ForEnemy(EnemyTypeId enemyTypeId);
         LevelStaticData ForLevel(string sceneKey);
         UIPanelConfig ForUIPanel(UIPanelId victoryPanel);
+        ProjectileStaticData ForProjectile(ProjectileTypeId projectileTypeId);
         void LoadEnemies();
     }
 }

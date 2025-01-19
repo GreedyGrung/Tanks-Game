@@ -1,72 +1,58 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using UnityEngine;
 
 namespace TankGame.App.Object_Pool
 {
-    public class ObjectPool<T> where T : MonoBehaviour
+    public class ObjectPool<T> where T : IPoolableObject
     {
-        public bool AutoExpand { get; set; }
-
-        private readonly T _prefab;
         private readonly Transform _container;
-        private List<T> _pool;
+        private readonly bool _autoExpand;
+        private readonly IGameFactory _gameFactory;
+        private readonly Stack<T> _pool;
 
-        public ObjectPool(T prefab, int size, Transform container)
-        {
-            _prefab = prefab;
-            _container = container;
-
-            CreatePool(size);
-        }
-
-        private void CreatePool(int size)
+        public ObjectPool(int size, Transform container, bool autoExpand, IGameFactory gameFactory)
         {
             _pool = new();
+            _container = container;
+            _autoExpand = autoExpand;
+            _gameFactory = gameFactory;
 
             for (int i = 0; i < size; i++)
             {
-                CreateObject();
+                CreateItem();
             }
         }
 
-        private T CreateObject(bool isActiveByDefault = false)
+        public T Take()
         {
-            var newObject = Object.Instantiate(_prefab, _container);
-            newObject.gameObject.SetActive(isActiveByDefault);
-            _pool.Add(newObject);
-
-            return newObject;
-        }
-
-        public bool HasFreeElement(out T element)
-        {
-            foreach (var poolElement in _pool)
+            if (_pool.TryPop(out T item))
             {
-                if (!poolElement.gameObject.activeInHierarchy)
-                {
-                    element = poolElement;
-                    poolElement.gameObject.SetActive(true);
-                    return true;
-                }
+                item.OnSpawned();
+                return item;
             }
 
-            element = null;
-            return false;
-        }
-
-        public T TakeFromPool()
-        {
-            if (HasFreeElement(out var element))
+            /*if (_autoExpand)
             {
-                return element;
-            }
-
-            if (AutoExpand)
-            {
-                CreateObject(true);
-            }
+                await CreateItem(true);
+                _pool.Pop().OnSpawned();
+            }*/
 
             throw new System.Exception("The pool is empty!");
+        }
+
+        public void Return(T item)
+        {
+            item.OnDespawned();
+            _pool.Push(item);
+        }
+
+        private async Task CreateItem(bool isActiveByDefault = false)
+        {
+            var item = await _gameFactory.CreatePoolableObject<T>(_container, isActiveByDefault);
+            _pool.Push(item);
         }
     }
 }

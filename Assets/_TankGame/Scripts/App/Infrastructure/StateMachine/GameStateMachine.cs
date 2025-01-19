@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SavingLoading;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
@@ -28,7 +29,8 @@ namespace TankGame.App.Infrastructure.StateMachine
                     serviceLocator.Single<IStaticDataService>(),
                     serviceLocator.Single<IUIService>(),
                     serviceLocator.Single<IUIFactory>(),
-                    serviceLocator.Single<ISpawnersObserverService>()),
+                    serviceLocator.Single<ISpawnersObserverService>(),
+                    serviceLocator.Single<IPoolsService>()),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<ISaveLoadService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };

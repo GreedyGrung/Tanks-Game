@@ -4,10 +4,13 @@ using TankGame.App.CameraLogic;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
 using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Infrastructure.Services.UI;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.App.Object_Pool;
+using TankGame.App.Projectiles;
 using TankGame.App.StaticData;
 using TankGame.App.UI;
 using TankGame.Core.Services.Input;
@@ -28,6 +31,7 @@ namespace TankGame.App.Infrastructure.StateMachine
         private readonly IUIService _uiService;
         private readonly IUIFactory _uiFactory;
         private readonly ISpawnersObserverService _spawnersObserverService;
+        private readonly IPoolsService _poolsService;
         private readonly List<SpawnPoint> _spawnPoints = new();
 
         public LoadLevelState(
@@ -39,7 +43,8 @@ namespace TankGame.App.Infrastructure.StateMachine
             IStaticDataService staticData,
             IUIService uIService,
             IUIFactory uiFactory,
-            ISpawnersObserverService spawnersObserverService)
+            ISpawnersObserverService spawnersObserverService,
+            IPoolsService poolsService)
         {
             _sceneLoader = sceneLoader;
             _loadingScreen = loadingScreen;
@@ -50,10 +55,12 @@ namespace TankGame.App.Infrastructure.StateMachine
             _uiService = uIService;
             _uiFactory = uiFactory;
             _spawnersObserverService = spawnersObserverService;
+            _poolsService = poolsService;
         }
 
         public void Enter(string sceneName)
         {
+            _poolsService.Dispose();
             _gameFactory.CleanupProgressWatchers();
             _gameFactory.WarmUp();
             _loadingScreen.Show();
@@ -71,6 +78,7 @@ namespace TankGame.App.Infrastructure.StateMachine
         {
             await InitGameUIAsync();
             await InitGameWorldAsync();
+            InitObjectPools();
             InformProgressReaders();
             InitSpawnersObserverService();
 
@@ -87,7 +95,7 @@ namespace TankGame.App.Infrastructure.StateMachine
 
             GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
             IPlayer player = playerObject.GetComponent<IPlayer>();
-            player.Init(input, _spawnersObserverService);
+            player.Init(input, _spawnersObserverService, _poolsService);
 
             GameObject hud = await _gameFactory.CreateHudAsync();
             hud.GetComponent<PlayerStatsPanel>().Init(player);
@@ -98,6 +106,12 @@ namespace TankGame.App.Infrastructure.StateMachine
             await InitSpawnersAsync(player, levelData);
 
             UIMediator uiMediator = new(_uiService, player, _spawnersObserverService);
+        }
+
+        private void InitObjectPools()
+        {
+            _poolsService.RegisterPool<ArmorPiercingProjectile>("AP Pool");
+            _poolsService.RegisterPool<HighExplosiveProjectile>("HEX Pool");
         }
 
         private async Task InitSpawnersAsync(IPlayer player, LevelStaticData levelData)
