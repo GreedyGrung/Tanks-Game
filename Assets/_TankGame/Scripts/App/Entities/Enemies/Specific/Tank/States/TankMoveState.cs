@@ -5,7 +5,8 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank.States
 {
     public class TankMoveState : MoveState
     {
-        private Tank _tank;
+        private readonly Tank _tank;
+
         private bool _playerDetected;
         private bool _obstacleBetweenEnemyAndPlayer;
 

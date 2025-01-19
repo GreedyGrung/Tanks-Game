@@ -22,6 +22,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
 
         public TankMoveState MoveState { get; private set; }
         public TankAttackState AttackState { get; private set; }
+        public TankDeadState DeadState { get; private set; }
 
         public override void Awake()
         {
@@ -38,6 +39,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
 
             MoveState = new(this, StateMachine);
             AttackState = new(this, StateMachine);
+            DeadState = new(this, StateMachine);
 
             StateMachine.Initialize(MoveState);
 
@@ -81,6 +83,16 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
             Projectile.transform.position = BulletSpawn.position;
             Projectile.transform.rotation = BulletSpawn.rotation;
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            base.TakeDamage(damage);
+
+            if (Health.IsDead)
+            {
+                StateMachine.ChangeState(DeadState);
+            }
         }
 
         private void OnDrawGizmos()
