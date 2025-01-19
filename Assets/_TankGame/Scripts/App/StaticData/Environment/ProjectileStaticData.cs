@@ -1,9 +1,9 @@
 ﻿using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace TankGame.App.StaticData
+namespace TankGame.App.StaticData.Environment
 {
-    [CreateAssetMenu(fileName = "projectileData", menuName = "StaticData/Projectiles")]
+    [CreateAssetMenu(fileName = "ProjectileData", menuName = "Static Data/Projectile")]
     public class ProjectileStaticData : ScriptableObject
     {
         [SerializeField] private ProjectileTypeId _projectileTypeId;

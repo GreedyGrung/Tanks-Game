@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be61e36c3d68229438918ed3a060449c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c4762c4b7ac6a64c8b6c34f8f748103, type: 3}
   m_Name: HexProjectileData
   m_EditorClassIdentifier: 
   _projectileTypeId: 1

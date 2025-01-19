@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace TankGame.App.Entities.Enemies.Base.Data
+namespace TankGame.App.StaticData.Enemies
 {
     [CreateAssetMenu(fileName = "BaseEnemyStaticData", menuName = "Static Data/Enemy Data/Base Enemy Static Data")]
     public class BaseEnemyStaticData : ScriptableObject

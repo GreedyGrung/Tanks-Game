@@ -1,10 +1,9 @@
 using TankGame.App.Entities.Enemies.Base;
-using TankGame.App.Entities.Enemies.Base.Data;
 using TankGame.App.Entities.Enemies.Specific.Tank.States;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Projectiles;
-using TankGame.Core.Utils.Enums;
+using TankGame.App.StaticData.Enemies;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
@@ -15,7 +14,6 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
         [SerializeField] private Transform _wallCheck;
         [SerializeField] private Transform _tower;
 
-        private Rigidbody2D _rigidbody;
         private MovingEnemyStaticData _movingEnemyData;
 
         public Transform Tower => _tower;
@@ -24,16 +22,9 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
         public TankAttackState AttackState { get; private set; }
         public TankDeadState DeadState { get; private set; }
 
-        public override void Awake()
+        public override void Initialize(IPlayer player, IPoolsService poolsService)
         {
-            base.Awake();
-
-            _rigidbody = GetComponent<Rigidbody2D>();
-        }
-
-        public override void Init(IPlayer player, IPoolsService poolsService)
-        {
-            base.Init(player, poolsService);
+            base.Initialize(player, poolsService);
 
             _movingEnemyData = EnemyData as MovingEnemyStaticData;
 
@@ -43,13 +34,13 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
 
             StateMachine.Initialize(MoveState);
 
-            SetIsInit();
+            SetIsInitialized();
         }
 
         public void Move()
         {
             Vector2 movement = transform.up * _movingEnemyData.MovementSpeed * Time.deltaTime;
-            _rigidbody.MovePosition(_rigidbody.position + movement);
+            Rigidbody.MovePosition(Rigidbody.position + movement);
         }
 
         public bool CheckForWallCollision()
@@ -72,7 +63,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
             int direction = Random.Range(0, 2);
             float randomRotation = direction == 0 ? 90f : -90f;
 
-            _rigidbody.MoveRotation(_rigidbody.rotation + randomRotation);
+            Rigidbody.MoveRotation(Rigidbody.rotation + randomRotation);
         }
 
         public override void Shoot()
@@ -81,8 +72,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Tank
 
             Projectile = PoolsService.GetProjectile(_movingEnemyData.ProjectileType);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
-            Projectile.transform.position = BulletSpawn.position;
-            Projectile.transform.rotation = BulletSpawn.rotation;
+            Projectile.transform.SetPositionAndRotation(BulletSpawn.position, BulletSpawn.rotation);
         }
 
         public override void TakeDamage(float damage)

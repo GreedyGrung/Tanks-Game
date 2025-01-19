@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TankGame.App.StaticData
+namespace TankGame.App.StaticData.UI
 {
     [CreateAssetMenu(menuName = "Static Data/UI panels static data", fileName = "UIPanelsStaticData")]
     public class UIPanelsStaticData : ScriptableObject

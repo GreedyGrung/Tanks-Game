@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TankGame.App.Factory;
 using TankGame.App.Infrastructure.Services.StaticData;
-using TankGame.App.ObjectPool;
 using TankGame.App.Projectiles;
 using TankGame.Core.Utils.Enums;
 

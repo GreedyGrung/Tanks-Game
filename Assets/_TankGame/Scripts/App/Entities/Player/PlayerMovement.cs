@@ -1,4 +1,4 @@
-using TankGame.App.Entities.Player.Data;
+using TankGame.App.StaticData.Player;
 using TankGame.Core.Services.Input;
 using UnityEngine;
 

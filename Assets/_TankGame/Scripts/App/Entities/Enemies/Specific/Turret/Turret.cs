@@ -18,16 +18,16 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
 
         public Transform Tower => _tower;
 
-        public override void Init(IPlayer player, IPoolsService poolsService)
+        public override void Initialize(IPlayer player, IPoolsService poolsService)
         {
-            base.Init(player, poolsService);
+            base.Initialize(player, poolsService);
 
             IdleState = new(this, StateMachine);
             AttackState = new(this, StateMachine);
 
             StateMachine.Initialize(IdleState);
 
-            SetIsInit();
+            SetIsInitialized();
         }
 
         public void RotateTower()
@@ -42,8 +42,7 @@ namespace TankGame.App.Entities.Enemies.Specific.Turret
 
             Projectile = PoolsService.GetProjectile(EnemyData.ProjectileType);
             Projectile.gameObject.layer = (int)Layers.EnemyProjectile;
-            Projectile.transform.position = BulletSpawn.position;
-            Projectile.transform.rotation = BulletSpawn.rotation;
+            Projectile.transform.SetPositionAndRotation(BulletSpawn.position, BulletSpawn.rotation);
         }
 
         private void OnDrawGizmos()

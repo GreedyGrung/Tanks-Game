@@ -2,7 +2,7 @@
 using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace TankGame.App.StaticData
+namespace TankGame.App.StaticData.Enemies
 {
     [Serializable]
     public class EnemySpawnerData

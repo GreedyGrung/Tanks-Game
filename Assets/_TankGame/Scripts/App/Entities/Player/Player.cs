@@ -1,8 +1,8 @@
 using TankGame.App.Entities.Interfaces;
-using TankGame.App.Entities.Player.Data;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Interfaces;
+using TankGame.App.StaticData.Player;
 using TankGame.Core.Data;
 using TankGame.Core.Services.Input;
 using TankGame.Core.Services.PersistentProgress;

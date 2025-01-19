@@ -1,9 +1,9 @@
 ﻿using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
-namespace TankGame.App.StaticData
+namespace TankGame.App.StaticData.Environment
 {
-    [CreateAssetMenu(fileName = "objectPoolData", menuName = "StaticData/Pools")]
+    [CreateAssetMenu(fileName = "ObjectPoolData", menuName = "Static Data/Pool")]
     public class ObjectPoolStaticData : ScriptableObject
     {
         [SerializeField] private ObjectPoolTypeId _id;

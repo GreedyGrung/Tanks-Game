@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using TankGame.App.Entities.Player.Data;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Projectiles;
+using TankGame.App.StaticData.Player;
 using TankGame.Core.Services.Input;
 using TankGame.Core.Utils.Enums;
 using TankGame.Core.Utils.Enums.Generated;

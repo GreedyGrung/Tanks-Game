@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using TankGame.App.Environment;
-using TankGame.App.StaticData;
+using TankGame.App.StaticData.Enemies;
+using TankGame.App.StaticData.Environment;
 using TankGame.App.Utils;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEditor;

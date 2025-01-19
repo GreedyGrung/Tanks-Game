@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b00f3d7e110fe4f849524b52a088e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f103b2a5eede2347ab88632be3de806, type: 3}
   m_Name: BaseEnemyStaticData
   m_EditorClassIdentifier: 
   _enemyType: 1

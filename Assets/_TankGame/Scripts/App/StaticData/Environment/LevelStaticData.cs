@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using TankGame.App.StaticData.Enemies;
 using TankGame.Core.Editor;
 using UnityEngine;
 
-namespace TankGame.App.StaticData
+namespace TankGame.App.StaticData.Environment
 {
-    [CreateAssetMenu(fileName = "levelData", menuName = "StaticData/Level")]
+    [CreateAssetMenu(fileName = "LevelData", menuName = "Static Data/Level")]
     public class LevelStaticData : ScriptableObject
     {
         [SceneNameSelector]

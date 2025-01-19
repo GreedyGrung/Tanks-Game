@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TankGame.App.Entities.Enemies.Base.Data;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Projectiles;
-using TankGame.App.StaticData;
+using TankGame.App.StaticData.Enemies;
+using TankGame.App.StaticData.Environment;
+using TankGame.App.StaticData.UI;
 using TankGame.Core.Utils;
 using TankGame.Core.Utils.Enums;
 using UnityEngine;

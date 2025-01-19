@@ -67,7 +67,7 @@ namespace TankGame.App.Environment
             _enemy = await _gameFactory.CreateEnemyAsync(_enemyType, transform);
 
             _enemy.OnKilled += KillEnemy;
-            _enemy.Init(_player, _poolsService);
+            _enemy.Initialize(_player, _poolsService);
         }
 
         private void KillEnemy()

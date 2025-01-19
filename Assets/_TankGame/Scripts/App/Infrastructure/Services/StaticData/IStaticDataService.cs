@@ -1,6 +1,7 @@
-﻿using TankGame.App.Entities.Enemies.Base.Data;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.StaticData;
+﻿using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.StaticData.Enemies;
+using TankGame.App.StaticData.Environment;
+using TankGame.App.StaticData.UI;
 using TankGame.Core.Services;
 using TankGame.Core.Utils.Enums;
 

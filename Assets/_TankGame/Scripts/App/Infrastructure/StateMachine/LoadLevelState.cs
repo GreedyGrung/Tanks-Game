@@ -10,7 +10,7 @@ using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Infrastructure.Services.UI;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using TankGame.App.Projectiles;
-using TankGame.App.StaticData;
+using TankGame.App.StaticData.Environment;
 using TankGame.App.UI;
 using TankGame.Core.Services.Input;
 using TankGame.Core.Services.PersistentProgress;

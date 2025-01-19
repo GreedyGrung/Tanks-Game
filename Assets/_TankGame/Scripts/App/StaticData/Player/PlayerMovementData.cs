@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace TankGame.App.Entities.Player.Data
+namespace TankGame.App.StaticData.Player
 {
-    [CreateAssetMenu(fileName = "PlayerMovementData", menuName = "Data/Player Data/Movement Data")]
+    [CreateAssetMenu(fileName = "PlayerMovementData", menuName = "Static Data/Player Data/Movement Data")]
     public class PlayerMovementData : ScriptableObject
     {
         [SerializeField, Min(0)] private float _movementSpeed = 2f;

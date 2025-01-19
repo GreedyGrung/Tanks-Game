@@ -1,6 +1,5 @@
 using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.ObjectPool;
-using TankGame.App.StaticData;
+using TankGame.App.StaticData.Environment;
 using UnityEngine;
 
 namespace TankGame.App.Projectiles

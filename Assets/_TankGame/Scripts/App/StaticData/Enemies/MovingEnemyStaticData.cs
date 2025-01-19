@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TankGame.App.Entities.Enemies.Base.Data
+namespace TankGame.App.StaticData.Enemies
 {
     [CreateAssetMenu(fileName = "MovingEnemyStaticData", menuName = "Static Data/Enemy Data/Moving Enemy Static Data")]
     public class MovingEnemyStaticData : BaseEnemyStaticData

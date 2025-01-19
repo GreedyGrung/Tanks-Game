@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
-using TankGame.App.Entities.Enemies.Base.Data;
 using TankGame.App.Entities.Enemies.StateMachineScripts;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Interfaces;
 using TankGame.App.Projectiles;
+using TankGame.App.StaticData.Enemies;
 using TankGame.Core.Utils.Enums;
 using UnityEngine;
 
 namespace TankGame.App.Entities.Enemies.Base
 {
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(EnemyVisuals))]
     public class Enemy : MonoBehaviour, IDamageable
     {
         public event Action OnKilled;
@@ -67,7 +69,7 @@ namespace TankGame.App.Entities.Enemies.Base
             StateMachine.CurrentState.PhysicsUpdate();
         }
 
-        public virtual void Init(IPlayer player, IPoolsService poolsService)
+        public virtual void Initialize(IPlayer player, IPoolsService poolsService)
         {
             Player = player.Transform;
             Health = new EnemyHealth(EnemyData.MaxHealth);
@@ -75,10 +77,7 @@ namespace TankGame.App.Entities.Enemies.Base
             PoolsService = poolsService;
         }
 
-        protected void SetIsInit()
-        {
-            _isInit = true;
-        }
+        protected void SetIsInitialized() => _isInit = true;
 
         public void SetData(BaseEnemyStaticData data)
         {
@@ -121,14 +120,7 @@ namespace TankGame.App.Entities.Enemies.Base
             Quaternion targetRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
             tower.rotation = Quaternion.Slerp(tower.rotation, targetRotation, _rotationInterpolationFactor * EnemyData.TowerRotationSpeed * Time.deltaTime);
 
-            if (Quaternion.Angle(tower.rotation, targetRotation) > _rotationThreshold)
-            {
-                IsRotatingTower = true;
-            }
-            else
-            {
-                IsRotatingTower = false;
-            }
+            IsRotatingTower = Quaternion.Angle(tower.rotation, targetRotation) > _rotationThreshold;
         }
 
         public virtual void TakeDamage(float damage)
