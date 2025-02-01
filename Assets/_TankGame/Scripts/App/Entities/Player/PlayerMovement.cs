@@ -56,11 +56,11 @@ namespace TankGame.App.Entities.Player
             _movementData.MovementSpeed :
             _movementData.MovementSpeedWhenRotating;
 
-            Vector2 movement = transform.up * _inputService.MovementInput.y * movementSpeed * Time.deltaTime;
+            Vector2 movement = transform.up * _inputService.MovementInput.y * movementSpeed * Time.fixedDeltaTime;
             _rigidbody.MovePosition(_rigidbody.position + movement);
 
             _bodyRotationInverseCoefficient = _inputService.MovementInput.y < 0 ? -1 : 1;
-            float rotation = -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.deltaTime;
+            float rotation = -_inputService.MovementInput.x * _bodyRotationInverseCoefficient * _movementData.BodyRotationSpeed * Time.fixedDeltaTime;
             float newRotation = _rigidbody.rotation + rotation;
 
             _rigidbody.MoveRotation(newRotation);

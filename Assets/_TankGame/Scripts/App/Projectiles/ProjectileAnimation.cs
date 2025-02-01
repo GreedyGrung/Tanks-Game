@@ -24,7 +24,7 @@ namespace TankGame.App.Projectiles
             _animator.enabled = true;
         }
 
-        public virtual void DisableObject()
+        public virtual void DisableObject_AnimationEvent()
         {
             _animator.enabled = false;
             gameObject.SetActive(false);

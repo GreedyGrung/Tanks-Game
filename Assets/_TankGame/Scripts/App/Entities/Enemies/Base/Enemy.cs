@@ -3,7 +3,6 @@ using System.Collections;
 using TankGame.App.Entities.Enemies.StateMachineScripts;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Interfaces;
 using TankGame.App.Projectiles;
 using TankGame.App.StaticData.Enemies;
 using TankGame.Core.Utils.Enums;
@@ -73,7 +72,7 @@ namespace TankGame.App.Entities.Enemies.Base
         {
             Player = player.Transform;
             Health = new EnemyHealth(EnemyData.MaxHealth);
-            _healthBar.Construct(this);
+            _healthBar.Initialize(this);
             PoolsService = poolsService;
         }
 

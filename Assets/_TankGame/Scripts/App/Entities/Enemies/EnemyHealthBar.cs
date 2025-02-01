@@ -25,7 +25,7 @@ namespace TankGame.App.Entities.Enemies
         private void OnDestroy()
             => _enemy.Health.OnValueChanged -= SetHealthValue;
 
-        public void Construct(Enemy enemy)
+        public void Initialize(Enemy enemy)
         {
             _enemy = enemy;
             _enemy.Health.OnValueChanged += SetHealthValue;

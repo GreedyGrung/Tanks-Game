@@ -10,12 +10,10 @@ namespace TankGame.App.StaticData.Environment
         [SerializeField, Min(1)] private float _moveSpeed = 10;
         [SerializeField, Min(1)] private float _damage;
         [SerializeField, Min(1)] private float _lifetime;
-        [SerializeField] private Sprite _sprite;
 
         public ProjectileTypeId Id => _projectileTypeId;
         public float MoveSpeed => _moveSpeed;
         public float Damage => _damage;
         public float Lifetime => _lifetime;
-        public Sprite Sprite => _sprite;
     }
 }

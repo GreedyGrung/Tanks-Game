@@ -9,15 +9,11 @@ namespace TankGame.App.Infrastructure
     {
         private readonly ICoroutineRunner _coroutineRunner;
 
-        public SceneLoader(ICoroutineRunner coroutineRunner)
-        {
-            _coroutineRunner = coroutineRunner;
-        }
+        public SceneLoader(ICoroutineRunner coroutineRunner) 
+            => _coroutineRunner = coroutineRunner;
 
-        public void Load(string nextScene, Action onLoaded = null)
-        {
-            _coroutineRunner.StartCoroutine(LoadScene(nextScene, onLoaded));
-        }
+        public void Load(string nextScene, Action onLoaded = null) 
+            => _coroutineRunner.StartCoroutine(LoadScene(nextScene, onLoaded));
 
         private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
         {

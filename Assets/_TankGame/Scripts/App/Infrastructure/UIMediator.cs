@@ -22,15 +22,9 @@ namespace TankGame.App.Infrastructure
             spawnersObserverService.OnAllEnemiesKilled += OnAllEnemiesKilled;
         }
 
-        private void OnPlayerDied()
-        {
-            _uiService.Open(UIPanelId.FailurePanel);
-        }
+        private void OnPlayerDied() => _uiService.Open(UIPanelId.FailurePanel);
 
-        private void OnAllEnemiesKilled()
-        {
-            _uiService.Open(UIPanelId.VictoryPanel);
-        }
+        private void OnAllEnemiesKilled() => _uiService.Open(UIPanelId.VictoryPanel);
 
         public void Dispose()
         {

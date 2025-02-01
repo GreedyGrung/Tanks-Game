@@ -29,13 +29,13 @@ namespace TankGame.App.Utils
 
         public void LoadProgress(PlayerProgress playerProgress)
         {
-            Debug.Log("LOADED VALUE = " + playerProgress.TestValue);
+            Debug.Log("LOADED: " + playerProgress.TestValue);
         }
 
         public void UpdateProgress(PlayerProgress playerProgress)
         {
             playerProgress.TestValue = RandomValue;
-            Debug.Log("SAVED VALUE = " + playerProgress.TestValue);
+            Debug.Log("SAVED: " + playerProgress.TestValue);
         }
     }
 }
