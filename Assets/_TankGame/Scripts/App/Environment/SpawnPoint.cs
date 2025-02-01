@@ -8,6 +8,7 @@ using TankGame.Core.Data;
 using TankGame.Core.Services.PersistentProgress;
 using TankGame.Core.Utils.Enums;
 using UnityEngine;
+using Zenject;
 
 namespace TankGame.App.Environment
 {
@@ -25,9 +26,11 @@ namespace TankGame.App.Environment
 
         public bool IsSlain => _isSlain;
 
-        public void Construct(IGameFactory gameFactory)
+        [Inject]
+        private void Construct(IGameFactory gameFactory, IPoolsService poolsService)
         {
             _gameFactory = gameFactory;
+            _poolsService = poolsService;
         }
 
         public void SetSpawnData(string id, EnemyTypeId enemyType)
@@ -36,10 +39,9 @@ namespace TankGame.App.Environment
             _enemyType = enemyType;
         }
 
-        public void Initialize(IPlayer player, IPoolsService poolsService)
+        public void Initialize(IPlayer player)
         {
             _player = player;
-            _poolsService = poolsService;
         }
 
         public void LoadProgress(PlayerProgress playerProgress)

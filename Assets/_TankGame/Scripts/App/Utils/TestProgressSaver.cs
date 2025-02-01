@@ -3,6 +3,7 @@ using TankGame.App.Infrastructure.Services.SavingLoading;
 using TankGame.Core.Data;
 using TankGame.Core.Services.PersistentProgress;
 using UnityEngine;
+using Zenject;
 
 namespace TankGame.App.Utils
 {
@@ -14,9 +15,10 @@ namespace TankGame.App.Utils
         private int RandomValue => Random.Range(MinValue, MaxValue);
         private ISaveLoadService _saveLoadService;
 
-        private void Awake()
+        [Inject]
+        private void Construct(ISaveLoadService saveLoadService)
         {
-            _saveLoadService = ServiceLocator.Instance.Single<ISaveLoadService>();
+            _saveLoadService = saveLoadService;
         }
 
         private void Update()

@@ -2,6 +2,7 @@ using TankGame.App.Entities.Interfaces;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.StaticData.Environment;
 using UnityEngine;
+using Zenject;
 
 namespace TankGame.App.Projectiles
 {
@@ -16,10 +17,15 @@ namespace TankGame.App.Projectiles
 
         protected IPoolsService PoolsService { get; private set; }
 
-        public virtual void Initialize(ProjectileStaticData staticData, IPoolsService poolsService)
+        [Inject]
+        private void Construct(IPoolsService poolsService)
+        {
+            PoolsService = poolsService;
+        }
+
+        public virtual void Initialize(ProjectileStaticData staticData)
         {
             _projectileStaticData = staticData;
-            PoolsService = poolsService;
         }
 
         public virtual void Update()

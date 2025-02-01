@@ -1,6 +1,6 @@
-﻿using TankGame.App.Infrastructure;
-using TankGame.App.Infrastructure.StateMachine;
+﻿using TankGame.App.Infrastructure.StateMachine;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using Zenject;
 
 namespace TankGame.App.UI
 {
@@ -8,11 +8,10 @@ namespace TankGame.App.UI
     {
         private IGameStateMachine _gameStateMachine;
 
-        protected override void Initialize()
+        [Inject]
+        private void Construct(IGameStateMachine stateMachine)
         {
-            base.Initialize();
-
-            _gameStateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
+            _gameStateMachine = stateMachine;
         }
 
         protected override void Close()

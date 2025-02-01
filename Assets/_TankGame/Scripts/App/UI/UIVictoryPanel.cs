@@ -1,7 +1,7 @@
 ﻿using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.App.Infrastructure;
 using TankGame.App.Infrastructure.StateMachine;
 using TankGame.App.Infrastructure.Services.SavingLoading;
+using Zenject;
 
 namespace TankGame.App.UI
 {
@@ -10,12 +10,11 @@ namespace TankGame.App.UI
         private IGameStateMachine _gameStateMachine;
         private ISaveLoadService _saveLoadService;
 
-        protected override void Initialize()
+        [Inject]
+        private void Construct(IGameStateMachine stateMachine, ISaveLoadService saveLoadService)
         {
-            base.Initialize();
-
-            _gameStateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
-            _saveLoadService = ServiceLocator.Instance.Single<ISaveLoadService>();
+            _gameStateMachine = stateMachine;
+            _saveLoadService = saveLoadService;
         }
 
         protected override void Close()

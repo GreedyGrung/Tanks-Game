@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
-using TankGame.App.Infrastructure;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Projectiles;
@@ -15,6 +14,7 @@ using TankGame.Core.Services.PersistentProgress;
 using TankGame.Core.Utils;
 using TankGame.Core.Utils.Enums;
 using UnityEngine;
+using Zenject;
 
 namespace TankGame.App.Factory
 {
@@ -22,14 +22,16 @@ namespace TankGame.App.Factory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
+        private readonly DiContainer _container;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData, DiContainer container)
         {
             _assetProvider = assetProvider;
             _staticData = staticData;
+            _container = container;
         }
 
         public async Task WarmUp()
@@ -55,14 +57,14 @@ namespace TankGame.App.Factory
             return enemy;
         }
 
-        public async Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player)
+        public async Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent)
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
-            var spawner = InstantiateRegistered(prefab, spawnerData.Position).GetComponent<SpawnPoint>();
+            var spawner = _container.InstantiatePrefab(prefab, spawnerData.Position, Quaternion.identity, parent).GetComponent<SpawnPoint>();
+            RegisterProgressWatchers(spawner.gameObject);
 
-            spawner.Construct(this);
             spawner.SetSpawnData(spawnerData.Id, spawnerData.EnemyTypeId);
-            spawner.Initialize(player, ServiceLocator.Instance.Single<IPoolsService>());
+            spawner.Initialize(player);
 
             return spawner;
         }
@@ -103,8 +105,8 @@ namespace TankGame.App.Factory
             var prefab = await _assetProvider.Load<GameObject>(address);
             var data = _staticData.ForProjectile(projectileTypeId);
 
-            Projectile projectile = UnityEngine.Object.Instantiate(prefab, parent.position, Quaternion.identity, parent).GetComponent<Projectile>();
-            projectile.Initialize(data, ServiceLocator.Instance.Single<IPoolsService>());
+            Projectile projectile = _container.InstantiatePrefab(prefab, parent.position, Quaternion.identity, parent).GetComponent<Projectile>();
+            projectile.Initialize(data);
             projectile.gameObject.SetActive(activeByDefault);
 
             return projectile;

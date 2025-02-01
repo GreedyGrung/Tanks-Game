@@ -1,39 +1,16 @@
-using System;
-using System.Collections.Generic;
-using TankGame.App.Factory;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Infrastructure.Services.SavingLoading;
-using TankGame.App.Infrastructure.Services.SpawnersObserver;
-using TankGame.App.Infrastructure.Services.StaticData;
-using TankGame.App.Infrastructure.Services.UI;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.App.UI;
-using TankGame.Core.Services.PersistentProgress;
+using Zenject;
 
 namespace TankGame.App.Infrastructure.StateMachine
 {
     public class GameStateMachine : IGameStateMachine
     {
-        private readonly Dictionary<Type, IBaseState> _states;
         private IBaseState _activeState;
+        private IStateFactory _stateFactory;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen, ServiceLocator serviceLocator)
+        public GameStateMachine(IStateFactory stateFactory)
         {
-            _states = new Dictionary<Type, IBaseState>()
-            {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, serviceLocator),
-                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingScreen,
-                    serviceLocator.Single<IGameFactory>(),
-                    serviceLocator.Single<IPersistentProgressService>(),
-                    serviceLocator.Single<IStaticDataService>(),
-                    serviceLocator.Single<IUIService>(),
-                    serviceLocator.Single<IUIFactory>(),
-                    serviceLocator.Single<ISpawnersObserverService>(),
-                    serviceLocator.Single<IPoolsService>()),
-                [typeof(LoadProgressState)] = new LoadProgressState(this, serviceLocator.Single<IPersistentProgressService>(), serviceLocator.Single<ISaveLoadService>()),
-                [typeof(GameLoopState)] = new GameLoopState(this)
-            };
+            _stateFactory = stateFactory;
         }
 
         public void Enter<TState>() where TState : class, IState
@@ -46,13 +23,30 @@ namespace TankGame.App.Infrastructure.StateMachine
         {
             _activeState?.Exit();
 
-            var state = GetState<TState>();
+            var state = _stateFactory.GetState<TState>();
             _activeState = state;
 
             return state;
         }
+    }
 
-        private TState GetState<TState>() where TState : class, IBaseState
-            => _states[typeof(TState)] as TState;
+    public class StateFactory : IStateFactory
+    {
+        private readonly DiContainer _container;
+
+        public StateFactory(DiContainer container)
+        {
+            _container = container;
+        }
+
+        public T GetState<T>() where T : class, IBaseState
+        {
+            return _container.Resolve<T>();
+        }
+    }
+
+    public interface IStateFactory
+    {
+        T GetState<T>() where T : class, IBaseState;
     }
 }

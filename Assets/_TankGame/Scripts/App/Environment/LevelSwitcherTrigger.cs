@@ -5,6 +5,7 @@ using TankGame.Core.Editor;
 using TankGame.Core.Utils;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
+using Zenject;
 
 namespace TankGame.App.Environment
 {
@@ -16,9 +17,10 @@ namespace TankGame.App.Environment
         private IGameStateMachine _stateMachine;
         private bool _triggered;
 
-        private void Awake()
+        [Inject]
+        private void Construct(IGameStateMachine stateMachine)
         {
-            _stateMachine = ServiceLocator.Instance.Single<IGameStateMachine>();
+            _stateMachine = stateMachine;
         }
 
         private void OnTriggerEnter2D(Collider2D other)

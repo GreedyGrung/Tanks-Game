@@ -5,12 +5,10 @@ namespace TankGame.App.Infrastructure.StateMachine
 {
     public class MainMenuState : IState
     {
-        private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
 
-        public MainMenuState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public MainMenuState(SceneLoader sceneLoader)
         {
-            _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
         }
 

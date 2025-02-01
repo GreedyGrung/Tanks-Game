@@ -9,6 +9,7 @@ namespace TankGame.Core.Utils
         public const string HudAddress = "HUD";
         public const string SpawnerAddress = "Spawner";
         public const string UIRootAddress = "UIRoot";
+        public const string SpawnersRootAddress = "SpawnersRoot";
         public const string ArmorPiercingProjectileAddress = "ArmorPiercingProjectile";
         public const string HighExplosiveProjectileAddress = "HighExplosiveProjectile";
 

@@ -21,7 +21,7 @@ namespace TankGame.App.Infrastructure.StateMachine
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private readonly GameStateMachine _gameStateMachine;
+        private readonly IGameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingScreen _loadingScreen;
         private readonly IGameFactory _gameFactory;
@@ -34,7 +34,7 @@ namespace TankGame.App.Infrastructure.StateMachine
         private readonly List<SpawnPoint> _spawnPoints = new();
 
         public LoadLevelState(
-            GameStateMachine gameStateMachine,
+            IGameStateMachine gameStateMachine,
             SceneLoader sceneLoader,
             LoadingScreen loadingScreen,
             IGameFactory gameFactory,
@@ -61,7 +61,6 @@ namespace TankGame.App.Infrastructure.StateMachine
         {
             _poolsService.Dispose();
             _gameFactory.CleanupProgressWatchers();
-            _gameFactory.WarmUp();
             _loadingScreen.Show();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
@@ -75,6 +74,7 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         private async void OnLoaded()
         {
+            await _gameFactory.WarmUp();
             await InitGameUIAsync();
             await InitGameWorldAsync();
             InitObjectPools();
@@ -115,9 +115,11 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         private async Task InitSpawnersAsync(IPlayer player, LevelStaticData levelData)
         {
+            var spawnersRoot = _gameFactory.CreateEmptyObjectWithName("Spawners Root");
+
             foreach (var spawnerData in levelData.EnemySpawners)
             {
-                _spawnPoints.Add(await _gameFactory.CreateSpawnerAsync(spawnerData, player));
+                _spawnPoints.Add(await _gameFactory.CreateSpawnerAsync(spawnerData, player, spawnersRoot.transform));
             }
         }
 

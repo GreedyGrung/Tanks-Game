@@ -22,7 +22,7 @@ namespace TankGame.App.Factory
         Task<GameObject> CreateInputAsync();
         Task<GameObject> CreateHudAsync();
         Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent);
-        Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player);
+        Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent);
         GameObject CreateEmptyObjectWithName(string name);
         void CleanupProgressWatchers();
         Task WarmUp();

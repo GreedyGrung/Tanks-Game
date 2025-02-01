@@ -7,9 +7,9 @@ namespace TankGame.App.Projectiles
     {
         private ObjectPool<ArmorPiercingProjectile> _pool;
 
-        public override void Initialize(ProjectileStaticData staticData, IPoolsService poolsService)
+        public override void Initialize(ProjectileStaticData staticData)
         {
-            base.Initialize(staticData, poolsService);
+            base.Initialize(staticData);
 
             _pool = PoolsService.GetPool<ArmorPiercingProjectile>();
         }
