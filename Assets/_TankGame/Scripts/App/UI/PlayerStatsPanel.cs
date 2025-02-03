@@ -19,7 +19,7 @@ namespace TankGame.App.UI
 
         private IPlayer _player;
 
-        public void Init(IPlayer player)
+        public void Initialize(IPlayer player)
         {
             _player = player;
             SetupPanel();

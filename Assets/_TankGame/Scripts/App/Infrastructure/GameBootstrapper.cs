@@ -1,4 +1,3 @@
-using System;
 using TankGame.App.Factory;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SavingLoading;

@@ -1,4 +1,3 @@
-using TankGame.App.Entities.Interfaces;
 using UnityEngine;
 
 namespace TankGame.App.CameraLogic
@@ -10,9 +9,9 @@ namespace TankGame.App.CameraLogic
 
         [SerializeField] private Transform _followingTarget;
 
-        public void Init(IPlayer player)
+        public void Initialize(Transform playerTransform)
         {
-            _followingTarget = player.Transform;
+            _followingTarget = playerTransform;
         }
 
         private void LateUpdate()

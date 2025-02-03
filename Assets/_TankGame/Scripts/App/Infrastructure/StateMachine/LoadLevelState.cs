@@ -92,11 +92,10 @@ namespace TankGame.App.Infrastructure.StateMachine
             GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
             IPlayer player = playerObject.GetComponent<IPlayer>();
 
-            GameObject hud = await _gameFactory.CreateHudAsync();
-            hud.GetComponent<PlayerStatsPanel>().Init(player);
+            var hud = await _gameFactory.CreateHudAsync();
+            hud.GetComponent<PlayerStatsPanel>().Initialize(player);
 
-            var cameraFollow = Object.FindObjectOfType<CameraFollow>();
-            cameraFollow.Init(player);
+            Object.FindObjectOfType<CameraFollow>().Initialize(player.Transform);
 
             await InitSpawnersAsync(player, levelData);
 
