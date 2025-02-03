@@ -89,12 +89,8 @@ namespace TankGame.App.Infrastructure.StateMachine
             string sceneKey = SceneManager.GetActiveScene().name;
             LevelStaticData levelData = _staticData.ForLevel(sceneKey);
 
-            GameObject inputObject = await _gameFactory.CreateInputAsync();
-            UnityActionsInputService input = inputObject.GetComponent<UnityActionsInputService>();
-
             GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
             IPlayer player = playerObject.GetComponent<IPlayer>();
-            player.Init(input, _spawnersObserverService, _poolsService);
 
             GameObject hud = await _gameFactory.CreateHudAsync();
             hud.GetComponent<PlayerStatsPanel>().Init(player);

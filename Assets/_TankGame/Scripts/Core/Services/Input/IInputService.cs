@@ -5,7 +5,7 @@ namespace TankGame.Core.Services.Input
 {
     public interface IInputService : IService
     {
-        public event Action OnLeftMouseButtonClicked;
+        public event Action OnAttackPressed;
         public event Action OnFirstProjectileTypeSelected;
         public event Action OnSecondProjectileTypeSelected;
 

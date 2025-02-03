@@ -8,6 +8,7 @@ using TankGame.Core.Services.PersistentProgress;
 using TankGame.Core.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace TankGame.App.Entities.Player
 {
@@ -38,7 +39,8 @@ namespace TankGame.App.Entities.Player
             Health.OnDied -= DeactivatePlayer;
         }
 
-        public void Init(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
+        [Inject]
+        public void Construct(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
         {
             Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
             _playerMovement = GetComponent<PlayerMovement>();

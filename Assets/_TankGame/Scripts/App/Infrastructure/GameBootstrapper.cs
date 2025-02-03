@@ -9,6 +9,7 @@ using TankGame.App.Infrastructure.StateMachine;
 using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using TankGame.App.UI;
 using TankGame.Core.Services.AssetManagement;
+using TankGame.Core.Services.Input;
 using TankGame.Core.Services.PersistentProgress;
 using UnityEngine;
 using Zenject;
@@ -30,6 +31,7 @@ namespace TankGame.App.Infrastructure
             BindProgressServices();
             BindUIServices();
             BindGameplayServices();
+            BindInputService();
             BindGameStates();
         }
 
@@ -58,6 +60,11 @@ namespace TankGame.App.Infrastructure
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<ISpawnersObserverService>().To<SpawnersObserverService>().AsSingle();
             Container.Bind<IPoolsService>().To<PoolsService>().AsSingle();
+        }
+
+        private void BindInputService()
+        {
+            Container.Bind<IInputService>().To<InputService>().AsSingle();
         }
 
         private void BindUIServices()

@@ -33,7 +33,7 @@ namespace TankGame.App.Entities.Player
             _inputService = inputService;
             _poolsService = poolsService;
 
-            _inputService.OnLeftMouseButtonClicked += Shoot;
+            _inputService.OnAttackPressed += Shoot;
             _inputService.OnFirstProjectileTypeSelected += ChooseFirstProjectileType;
             _inputService.OnSecondProjectileTypeSelected += ChooseSecondProjectileType;
         }
@@ -45,7 +45,7 @@ namespace TankGame.App.Entities.Player
 
         private void OnDestroy()
         {
-            _inputService.OnLeftMouseButtonClicked -= Shoot;
+            _inputService.OnAttackPressed -= Shoot;
             _inputService.OnFirstProjectileTypeSelected -= ChooseFirstProjectileType;
             _inputService.OnSecondProjectileTypeSelected -= ChooseSecondProjectileType;
         }

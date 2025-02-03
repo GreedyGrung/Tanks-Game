@@ -5,7 +5,6 @@ namespace TankGame.Core.Utils
         public const string ProjectRootPath = "Assets/_TankGame";
         public const string WallTag = "Wall";
         public const string PlayerAddress = "Player";
-        public const string UnityInputActionsAddress = "UnityActionsInputService";
         public const string HudAddress = "HUD";
         public const string SpawnerAddress = "Spawner";
         public const string UIRootAddress = "UIRoot";

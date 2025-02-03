@@ -19,7 +19,6 @@ namespace TankGame.App.Factory
         List<ISavedProgress> ProgressWriters { get; }
 
         Task<GameObject> CreatePlayerAsync(Vector3 at);
-        Task<GameObject> CreateInputAsync();
         Task<GameObject> CreateHudAsync();
         Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent);
         Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent);

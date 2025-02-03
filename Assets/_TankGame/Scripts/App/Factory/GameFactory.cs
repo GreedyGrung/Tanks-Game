@@ -40,9 +40,6 @@ namespace TankGame.App.Factory
         public async Task<GameObject> CreatePlayerAsync(Vector3 at)
             => await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
 
-        public async Task<GameObject> CreateInputAsync()
-            => await InstantiateRegisteredAsync(Constants.UnityInputActionsAddress);
-
         public async Task<GameObject> CreateHudAsync()
             => await InstantiateRegisteredAsync(Constants.HudAddress);
 
@@ -116,6 +113,7 @@ namespace TankGame.App.Factory
         {
             var playerObject = await _assetProvider.Instantiate(prefabPath, at);
             RegisterProgressWatchers(playerObject);
+            _container.InjectGameObject(playerObject);
 
             return playerObject;
         }
