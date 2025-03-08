@@ -1,7 +1,7 @@
-using TankGame.App.Entities.Enemies.Base.States;
-using TankGame.App.Entities.Enemies.StateMachineScripts;
+using _TankGame.App.Entities.Enemies.Base.States;
+using _TankGame.App.Entities.Enemies.StateMachineScripts;
 
-namespace TankGame.App.Entities.Enemies.Specific.Turret.States
+namespace _TankGame.App.Entities.Enemies.Specific.Turret.States
 {
     public class TurretAttackState : AttackState
     {

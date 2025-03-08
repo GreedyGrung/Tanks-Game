@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using TankGame.App.Utils;
+using _TankGame.App.Utils;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace TankGame.App.Editor
+namespace _TankGame.App.Editor
 {
     [CustomEditor(typeof(UniqueId))]
     public class UniqueIdEditor : UnityEditor.Editor

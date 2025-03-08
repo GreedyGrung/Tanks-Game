@@ -1,6 +1,6 @@
-﻿using TankGame.App.Infrastructure.StateMachine.Interfaces;
+﻿using _TankGame.App.Infrastructure.StateMachine.Interfaces;
 
-namespace TankGame.App.Infrastructure.StateMachine
+namespace _TankGame.App.Infrastructure.StateMachine
 {
     public class GameLoopState : IState
     {

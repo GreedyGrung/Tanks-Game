@@ -1,4 +1,4 @@
-﻿namespace TankGame.App.Infrastructure.StateMachine.Interfaces
+﻿namespace _TankGame.App.Infrastructure.StateMachine.Interfaces
 {
     public interface IPayloadedState<TPayload> : IBaseState
     {

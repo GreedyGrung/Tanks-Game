@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TankGame.App.StaticData.Enemies;
-using TankGame.Core.Editor;
+using _TankGame.App.Editor;
+using _TankGame.App.StaticData.Enemies;
 using UnityEngine;
 
-namespace TankGame.App.StaticData.Environment
+namespace _TankGame.App.StaticData.Environment
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Static Data/Level")]
     public class LevelStaticData : ScriptableObject

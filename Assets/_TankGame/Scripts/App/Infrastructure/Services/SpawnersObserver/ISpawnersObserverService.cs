@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using TankGame.App.Environment;
-using TankGame.Core.Services;
+using _TankGame.App.Environment;
 
-namespace TankGame.App.Infrastructure.Services.SpawnersObserver
+namespace _TankGame.App.Infrastructure.Services.SpawnersObserver
 {
-    public interface ISpawnersObserverService : IService
+    public interface ISpawnersObserverService
     {
         event Action OnAllEnemiesKilled;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankGame.App.UI.Buttons
+namespace _TankGame.App.UI.Buttons
 {
     [RequireComponent(typeof(Button))]
     public abstract class UIButtonBehaviourBase : MonoBehaviour

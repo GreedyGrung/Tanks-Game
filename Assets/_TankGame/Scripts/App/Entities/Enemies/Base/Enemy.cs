@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
-using TankGame.App.Entities.Enemies.StateMachineScripts;
-using TankGame.App.Entities.Interfaces;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Projectiles;
-using TankGame.App.StaticData.Enemies;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.Entities.Enemies.StateMachineScripts;
+using _TankGame.App.Entities.Interfaces;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.Projectiles;
+using _TankGame.App.StaticData.Enemies;
+using _TankGame.App.Utils.Enums;
 using UnityEngine;
 
-namespace TankGame.App.Entities.Enemies.Base
+namespace _TankGame.App.Entities.Enemies.Base
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(EnemyVisuals))]

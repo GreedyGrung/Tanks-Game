@@ -1,7 +1,7 @@
-﻿using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.Core.Utils;
+﻿using _TankGame.App.Infrastructure.StateMachine.Interfaces;
+using _TankGame.App.Utils;
 
-namespace TankGame.App.Infrastructure.StateMachine
+namespace _TankGame.App.Infrastructure.StateMachine
 {
     public class MainMenuState : IState
     {

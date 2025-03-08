@@ -1,10 +1,9 @@
-﻿using TankGame.App.Projectiles;
-using TankGame.Core.Services;
-using TankGame.Core.Utils.Enums;
+﻿using _TankGame.App.Projectiles;
+using _TankGame.App.Utils.Enums;
 
-namespace TankGame.App.Infrastructure.Services.PoolsService
+namespace _TankGame.App.Infrastructure.Services.PoolsService
 {
-    public interface IPoolsService : IService
+    public interface IPoolsService
     {
         void RegisterPool<T>() where T : IPoolableObject;
         ObjectPool<T> GetPool<T>() where T : IPoolableObject;

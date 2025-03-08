@@ -1,8 +1,8 @@
-﻿using TankGame.App.Infrastructure.StateMachine;
-using TankGame.App.Infrastructure.StateMachine.Interfaces;
+﻿using _TankGame.App.Infrastructure.StateMachine;
+using _TankGame.App.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace TankGame.App.UI
+namespace _TankGame.App.UI
 {
     public class UIFailurePanel : UIPanelBase
     {

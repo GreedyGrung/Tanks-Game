@@ -1,8 +1,8 @@
-﻿using TankGame.Core.Utils.Enums;
+﻿using _TankGame.App.Utils.Enums;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace TankGame.App.StaticData.Enemies
+namespace _TankGame.App.StaticData.Enemies
 {
     [CreateAssetMenu(fileName = "BaseEnemyStaticData", menuName = "Static Data/Enemy Data/Base Enemy Static Data")]
     public class BaseEnemyStaticData : ScriptableObject

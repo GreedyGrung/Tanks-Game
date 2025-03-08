@@ -1,7 +1,7 @@
-using TankGame.App.Entities.Enemies.Base;
+using _TankGame.App.Entities.Enemies.Base;
 using UnityEngine;
 
-namespace TankGame.App.Entities.Enemies
+namespace _TankGame.App.Entities.Enemies
 {
     [RequireComponent(typeof(Animator))]
     public class EnemyExplosion : MonoBehaviour

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankGame.App.Projectiles
+namespace _TankGame.App.Projectiles
 {
     [RequireComponent(typeof(Animator))]
     public class ProjectileAnimation : MonoBehaviour

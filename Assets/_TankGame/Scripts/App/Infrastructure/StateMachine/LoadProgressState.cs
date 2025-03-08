@@ -1,10 +1,10 @@
-﻿using TankGame.App.Infrastructure.Services.SavingLoading;
-using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.Core.Data;
-using TankGame.Core.Services.PersistentProgress;
-using TankGame.Core.Utils;
+﻿using _TankGame.App.Infrastructure.Services.PersistentProgress;
+using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using _TankGame.App.Infrastructure.Services.SavingLoading;
+using _TankGame.App.Infrastructure.StateMachine.Interfaces;
+using _TankGame.App.Utils;
 
-namespace TankGame.App.Infrastructure.StateMachine
+namespace _TankGame.App.Infrastructure.StateMachine
 {
     public class LoadProgressState : IState
     {

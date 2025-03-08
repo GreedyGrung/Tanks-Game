@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TankGame.App.UI;
-using TankGame.Core.Services;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.UI;
+using _TankGame.App.Utils.Enums;
 
-namespace TankGame.App.Factory
+namespace _TankGame.App.Factory
 {
-    public interface IUIFactory : IService
+    public interface IUIFactory
     {
         Task CreateUIRootAsync();
         Dictionary<UIPanelId, UIPanelBase> CreateUIPanels();

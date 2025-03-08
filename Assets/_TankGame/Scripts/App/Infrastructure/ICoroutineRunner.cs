@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace TankGame.App.Infrastructure
+namespace _TankGame.App.Infrastructure
 {
     public interface ICoroutineRunner
     {

@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TankGame.App.Entities.Enemies.Base;
-using TankGame.App.Entities.Interfaces;
-using TankGame.App.Environment;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.StaticData.Enemies;
-using TankGame.App.StaticData.Environment;
-using TankGame.Core.Services;
-using TankGame.Core.Services.PersistentProgress;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.Entities.Enemies.Base;
+using _TankGame.App.Entities.Interfaces;
+using _TankGame.App.Environment;
+using _TankGame.App.Infrastructure.Services.PersistentProgress;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.StaticData.Enemies;
+using _TankGame.App.StaticData.Environment;
+using _TankGame.App.Utils.Enums;
 using UnityEngine;
 
-namespace TankGame.App.Factory
+namespace _TankGame.App.Factory
 {
-    public interface IGameFactory : IService
+    public interface IGameFactory
     {
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }

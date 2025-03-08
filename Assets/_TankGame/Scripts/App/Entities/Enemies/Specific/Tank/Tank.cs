@@ -1,13 +1,12 @@
-using TankGame.App.Entities.Enemies.Base;
-using TankGame.App.Entities.Enemies.Specific.Tank.States;
-using TankGame.App.Entities.Interfaces;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Projectiles;
-using TankGame.App.StaticData.Enemies;
+using _TankGame.App.Entities.Enemies.Base;
+using _TankGame.App.Entities.Enemies.Specific.Tank.States;
+using _TankGame.App.Entities.Interfaces;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.StaticData.Enemies;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
-namespace TankGame.App.Entities.Enemies.Specific.Tank
+namespace _TankGame.App.Entities.Enemies.Specific.Tank
 {
     public class Tank : Enemy
     {

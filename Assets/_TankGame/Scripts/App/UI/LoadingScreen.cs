@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TankGame.App.UI
+namespace _TankGame.App.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class LoadingScreen : MonoBehaviour

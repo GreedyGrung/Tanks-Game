@@ -1,10 +1,10 @@
-﻿using TankGame.App.Factory;
-using TankGame.Core.Data;
-using TankGame.Core.Services.PersistentProgress;
-using TankGame.Core.Utils;
+﻿using _TankGame.App.Factory;
+using _TankGame.App.Infrastructure.Services.PersistentProgress;
+using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using _TankGame.App.Utils;
 using UnityEngine;
 
-namespace TankGame.App.Infrastructure.Services.SavingLoading
+namespace _TankGame.App.Infrastructure.Services.SavingLoading
 {
     public class SaveLoadService : ISaveLoadService
     {

@@ -1,7 +1,7 @@
-using TankGame.App.Entities.Enemies.Base.States;
-using TankGame.App.Entities.Enemies.StateMachineScripts;
+using _TankGame.App.Entities.Enemies.Base.States;
+using _TankGame.App.Entities.Enemies.StateMachineScripts;
 
-namespace TankGame.App.Entities.Enemies.Specific.Tank.States
+namespace _TankGame.App.Entities.Enemies.Specific.Tank.States
 {
     public class TankMoveState : MoveState
     {

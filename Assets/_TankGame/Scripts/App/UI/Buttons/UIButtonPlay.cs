@@ -1,8 +1,8 @@
-﻿using TankGame.App.Infrastructure.StateMachine;
-using TankGame.App.Infrastructure.StateMachine.Interfaces;
+﻿using _TankGame.App.Infrastructure.StateMachine;
+using _TankGame.App.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace TankGame.App.UI.Buttons
+namespace _TankGame.App.UI.Buttons
 {
     public class UIButtonPlay : UIButtonBehaviourBase
     {

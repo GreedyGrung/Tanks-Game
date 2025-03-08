@@ -1,9 +1,9 @@
-﻿using TankGame.App.Infrastructure.Services.StaticData;
-using TankGame.App.Infrastructure.StateMachine.Interfaces;
-using TankGame.Core.Services.AssetManagement;
-using TankGame.Core.Utils;
+﻿using _TankGame.App.Infrastructure.Services.AssetManagement;
+using _TankGame.App.Infrastructure.Services.StaticData;
+using _TankGame.App.Infrastructure.StateMachine.Interfaces;
+using _TankGame.App.Utils;
 
-namespace TankGame.App.Infrastructure.StateMachine
+namespace _TankGame.App.Infrastructure.StateMachine
 {
     public class BootstrapState : IState
     {

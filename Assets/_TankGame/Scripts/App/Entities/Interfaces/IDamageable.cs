@@ -1,4 +1,4 @@
-namespace TankGame.App.Entities.Interfaces
+namespace _TankGame.App.Entities.Interfaces
 {
     public interface IDamageable
     {

@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Projectiles;
-using TankGame.App.StaticData.Player;
-using TankGame.Core.Services.Input;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.Infrastructure.Services.Input;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.Projectiles;
+using _TankGame.App.StaticData.Player;
+using _TankGame.App.Utils.Enums;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
-namespace TankGame.App.Entities.Player
+namespace _TankGame.App.Entities.Player
 {
     public class PlayerWeapon : MonoBehaviour
     {

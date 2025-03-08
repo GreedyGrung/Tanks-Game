@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using TankGame.App.UI;
-using TankGame.Core.Services;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.UI;
+using _TankGame.App.Utils.Enums;
 
-namespace TankGame.App.Infrastructure.Services.UI
+namespace _TankGame.App.Infrastructure.Services.UI
 {
-    public interface IUIService : IService
+    public interface IUIService
     {
         void Open(UIPanelId id);
         void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels);

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using TankGame.App.UI;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.UI;
+using _TankGame.App.Utils.Enums;
 
-namespace TankGame.App.Infrastructure.Services.UI
+namespace _TankGame.App.Infrastructure.Services.UI
 {
     public class UIService : IUIService
     {

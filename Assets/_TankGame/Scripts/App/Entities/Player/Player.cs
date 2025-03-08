@@ -1,16 +1,16 @@
-using TankGame.App.Entities.Interfaces;
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.Infrastructure.Services.SpawnersObserver;
-using TankGame.App.StaticData.Player;
-using TankGame.Core.Data;
-using TankGame.Core.Services.Input;
-using TankGame.Core.Services.PersistentProgress;
-using TankGame.Core.Utils;
+using _TankGame.App.Entities.Interfaces;
+using _TankGame.App.Infrastructure.Services.Input;
+using _TankGame.App.Infrastructure.Services.PersistentProgress;
+using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.Infrastructure.Services.SpawnersObserver;
+using _TankGame.App.StaticData.Player;
+using _TankGame.App.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace TankGame.App.Entities.Player
+namespace _TankGame.App.Entities.Player
 {
     [SelectionBase]
     [RequireComponent(typeof(PlayerMovement))]

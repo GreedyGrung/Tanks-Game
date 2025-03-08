@@ -1,7 +1,7 @@
-using TankGame.App.Infrastructure.Services.PoolsService;
-using TankGame.App.StaticData.Environment;
+using _TankGame.App.Infrastructure.Services.PoolsService;
+using _TankGame.App.StaticData.Environment;
 
-namespace TankGame.App.Projectiles
+namespace _TankGame.App.Projectiles
 {
     public class ArmorPiercingProjectile : Projectile
     {

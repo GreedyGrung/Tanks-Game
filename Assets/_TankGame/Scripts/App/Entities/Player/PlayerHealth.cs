@@ -1,8 +1,8 @@
 using System;
-using TankGame.App.Entities.Interfaces;
+using _TankGame.App.Entities.Interfaces;
 using UnityEngine;
 
-namespace TankGame.App.Entities.Player
+namespace _TankGame.App.Entities.Player
 {
     public class PlayerHealth : IHealth
     {

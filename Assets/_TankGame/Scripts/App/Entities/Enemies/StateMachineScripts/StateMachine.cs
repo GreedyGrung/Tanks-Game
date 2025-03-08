@@ -1,4 +1,4 @@
-namespace TankGame.App.Entities.Enemies.StateMachineScripts
+namespace _TankGame.App.Entities.Enemies.StateMachineScripts
 {
     public class StateMachine
     {

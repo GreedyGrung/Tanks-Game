@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankGame.App.CameraLogic
+namespace _TankGame.App.CameraLogic
 {
     [RequireComponent(typeof(Camera))]
     public class CameraFollow : MonoBehaviour

@@ -1,8 +1,8 @@
 ﻿using System;
-using TankGame.App.UI;
-using TankGame.Core.Utils.Enums;
+using _TankGame.App.UI;
+using _TankGame.App.Utils.Enums;
 
-namespace TankGame.App.StaticData.UI
+namespace _TankGame.App.StaticData.UI
 {
     [Serializable]
     public class UIPanelConfig
