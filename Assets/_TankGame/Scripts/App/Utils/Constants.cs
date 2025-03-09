@@ -14,10 +14,10 @@ namespace _TankGame.App.Utils
 
         public const string SaveKey = "testSave";
 
-        public const string EnemiesStaticDataPath = "Data/Enemies";
-        public const string LevelsStaticDataPath = "Data/Levels";
-        public const string UIPanelsStaticDataPath = "Data/UI/UIPanelsStaticData";
-        public const string ProjectilesStaticDataPath = "Data/Projectiles";
-        public const string ObjectPoolsStaticDataPath = "Data/Pools";
+        public const string EnemyDataLabel = "enemyData";
+        public const string LevelDataLabel = "levelData";
+        public const string UiDataLabel = "uiData";
+        public const string ProjectileDataLabel = "projectileData";
+        public const string ObjectPoolDataLabel = "objectPoolData";
     }
 }

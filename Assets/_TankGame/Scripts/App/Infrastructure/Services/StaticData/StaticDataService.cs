@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using _TankGame.App.Infrastructure.Services.PoolsService;
 using _TankGame.App.Projectiles;
 using _TankGame.App.StaticData.Enemies;
@@ -7,7 +8,7 @@ using _TankGame.App.StaticData.Environment;
 using _TankGame.App.StaticData.UI;
 using _TankGame.App.Utils;
 using _TankGame.App.Utils.Enums;
-using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace _TankGame.App.Infrastructure.Services.StaticData
 {
@@ -19,27 +20,32 @@ namespace _TankGame.App.Infrastructure.Services.StaticData
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
         private Dictionary<ObjectPoolTypeId, ObjectPoolStaticData> _objectPools;
 
-        public void LoadStaticData()
+        public async Task LoadStaticData()
         {
-            _enemies = Resources
-                .LoadAll<BaseEnemyStaticData>(Constants.EnemiesStaticDataPath)
+            var enemyAssetsHandle = Addressables.LoadAssetsAsync<BaseEnemyStaticData>(Constants.EnemyDataLabel, null);
+            await enemyAssetsHandle.Task;
+            _enemies = enemyAssetsHandle.Result
                 .ToDictionary(config => config.EnemyType, config => config);
 
-            _levels = Resources
-                .LoadAll<LevelStaticData>(Constants.LevelsStaticDataPath)
+            var levelsAssetsHandle = Addressables.LoadAssetsAsync<LevelStaticData>(Constants.LevelDataLabel, null);
+            await levelsAssetsHandle.Task;
+            _levels = levelsAssetsHandle.Result
                 .ToDictionary(config => config.LevelKey, config => config);
 
-            _uiPanelsConfigs = Resources
-                .Load<UIPanelsStaticData>(Constants.UIPanelsStaticDataPath)
+            var uiAssetsHandle = Addressables.LoadAssetAsync<UIPanelsStaticData>(Constants.UiDataLabel);
+            await uiAssetsHandle.Task;
+            _uiPanelsConfigs = uiAssetsHandle.Result
                 .Configs
                 .ToDictionary(config => config.Id, config => config);
 
-            _projectiles = Resources
-                .LoadAll<ProjectileStaticData>(Constants.ProjectilesStaticDataPath)
+            var projectilesAssetsHandle = Addressables.LoadAssetsAsync<ProjectileStaticData>(Constants.ProjectileDataLabel, null);
+            await projectilesAssetsHandle.Task;
+            _projectiles = projectilesAssetsHandle.Result
                 .ToDictionary(config => config.Id, config => config);
 
-            _objectPools = Resources
-                .LoadAll<ObjectPoolStaticData>(Constants.ObjectPoolsStaticDataPath)
+            var objectPoolsAssetsHandle = Addressables.LoadAssetsAsync<ObjectPoolStaticData>(Constants.ObjectPoolDataLabel, null);
+            await objectPoolsAssetsHandle.Task;
+            _objectPools = objectPoolsAssetsHandle.Result
                 .ToDictionary(config => config.Id, config => config);
         }
 

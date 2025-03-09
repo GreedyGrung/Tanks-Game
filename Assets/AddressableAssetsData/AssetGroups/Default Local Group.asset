@@ -62,6 +62,75 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 598c7199efab4ae4d9e83c7cd3f5e4e3
+    m_Address: BaseEnemyStaticData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - enemyData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33864c7198a146b4e892544bbe073d67
+    m_Address: TankStaticData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - enemyData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61cdd536bced8df4ea08c0fc76d8d90f
+    m_Address: LevelData 1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - levelData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1c29d83cf931474cafd15677457d7f1
+    m_Address: LevelData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - levelData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b36a39dca611be84a87c5d8dbe91a813
+    m_Address: PlayerHealthData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3e78ceffdaa2bc41bdb9c9b2217eb85
+    m_Address: PlayerMovementData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e66dc0e258e39c94a85de1a393475eee
+    m_Address: PlayerWeaponData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 618b52f6620c6e94793606f657e624e2
+    m_Address: ApProjectilesPool
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - objectPoolData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74941470a07f60141b9e629e33847380
+    m_Address: HexProjectilesPool
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - objectPoolData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bd21d7e20f818749a584079c113b916
+    m_Address: ApProjectileData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - projectileData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 128f4500301eb5743bfbfe0f3ddfee39
+    m_Address: HexProjectileData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - projectileData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62a0ea97a80b7a34c9ceb0dc930377ad
+    m_Address: UIPanelsStaticData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - uiData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ec99787e7d43b7b40835e76d75bc65f3, type: 2}
   m_SchemaSet:
