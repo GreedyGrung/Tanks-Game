@@ -19,7 +19,7 @@ namespace _TankGame.App.Infrastructure.Services.StaticData
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
         private Dictionary<ObjectPoolTypeId, ObjectPoolStaticData> _objectPools;
 
-        public void LoadEnemies()
+        public void LoadStaticData()
         {
             _enemies = Resources
                 .LoadAll<BaseEnemyStaticData>(Constants.EnemiesStaticDataPath)

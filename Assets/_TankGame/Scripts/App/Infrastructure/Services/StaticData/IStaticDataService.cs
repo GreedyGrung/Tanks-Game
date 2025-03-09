@@ -12,7 +12,7 @@ namespace _TankGame.App.Infrastructure.Services.StaticData
         LevelStaticData ForLevel(string sceneKey);
         UIPanelConfig ForUIPanel(UIPanelId victoryPanel);
         ProjectileStaticData ForProjectile(ProjectileTypeId projectileTypeId);
-        void LoadEnemies();
+        void LoadStaticData();
         ObjectPoolStaticData ForPool<T>() where T : IPoolableObject;
     }
 }

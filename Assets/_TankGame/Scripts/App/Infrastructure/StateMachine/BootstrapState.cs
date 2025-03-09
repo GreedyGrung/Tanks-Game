@@ -16,7 +16,7 @@ namespace _TankGame.App.Infrastructure.StateMachine
             _sceneLoader = sceneLoader;
 
             assetProvider.Initialize();
-            staticData.LoadEnemies();
+            staticData.LoadStaticData();
         }
 
         public void Enter() 
