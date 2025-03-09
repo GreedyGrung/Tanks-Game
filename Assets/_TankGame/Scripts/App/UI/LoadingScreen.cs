@@ -8,11 +8,6 @@ namespace _TankGame.App.UI
     {
         private CanvasGroup _canvasGroup;
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         public void Show()
         {
             if (_canvasGroup == null)
