@@ -18,17 +18,11 @@ namespace _TankGame.App.Projectiles
         protected IPoolsService PoolsService { get; private set; }
 
         [Inject]
-        private void Construct(IPoolsService poolsService)
-        {
-            PoolsService = poolsService;
-        }
+        private void Construct(IPoolsService poolsService) => PoolsService = poolsService;
 
-        public virtual void Initialize(ProjectileStaticData staticData)
-        {
-            _projectileStaticData = staticData;
-        }
+        private void Start() => _projectileAnimation.OnFinished += ReturnToPool;
 
-        public virtual void Update()
+        protected virtual void Update()
         {
             if (_exploded)
             {
@@ -44,14 +38,9 @@ namespace _TankGame.App.Projectiles
             }
         }
 
-        public virtual void Explode()
-        {
-            _projectileAnimation.gameObject.SetActive(true);
-            _exploded = true;
-            _visuals.SetActive(false);
-        }
+        private void OnDestroy() => _projectileAnimation.OnFinished -= ReturnToPool;
 
-        public virtual void OnTriggerEnter2D(Collider2D collision)
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
@@ -59,6 +48,18 @@ namespace _TankGame.App.Projectiles
             }
 
             Explode();
+        }
+
+        public virtual void Initialize(ProjectileStaticData staticData) 
+            => _projectileStaticData = staticData;
+
+        protected virtual void ReturnToPool() { }
+
+        public virtual void Explode()
+        {
+            _projectileAnimation.gameObject.SetActive(true);
+            _exploded = true;
+            _visuals.SetActive(false);
         }
 
         public void OnSpawned()
@@ -73,8 +74,7 @@ namespace _TankGame.App.Projectiles
         {
             _timeFromSpawn = 0f;
             _visuals.SetActive(true);
+            gameObject.SetActive(false);
         }
-
-        public virtual void ReturnToPool() { }
     }
 }

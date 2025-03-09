@@ -3,7 +3,6 @@
     public interface IPoolableObject
     {
         void OnSpawned();
-        void ReturnToPool();
         void OnDespawned();
     }
 }

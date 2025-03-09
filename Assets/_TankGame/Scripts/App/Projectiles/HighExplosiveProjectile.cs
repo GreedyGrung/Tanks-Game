@@ -1,15 +1,8 @@
-using _TankGame.App.StaticData.Environment;
-
 namespace _TankGame.App.Projectiles
 {
     public class HighExplosiveProjectile : Projectile
     {
-        public override void Initialize(ProjectileStaticData staticData)
-        {
-            base.Initialize(staticData);
-        }
-
-        public override void ReturnToPool()
+        protected override void ReturnToPool()
         {
             base.ReturnToPool();
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace _TankGame.App.Projectiles
@@ -5,32 +6,21 @@ namespace _TankGame.App.Projectiles
     [RequireComponent(typeof(Animator))]
     public class ProjectileAnimation : MonoBehaviour
     {
+        public event Action OnFinished;
+
         private Animator _animator;
-        private Projectile _projectile;
 
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-            _projectile = GetComponentInParent<Projectile>();
-        }
+        private void Awake() => _animator = GetComponent<Animator>();
 
-        private void OnEnable()
-        {
-            PlayAnimation();
-        }
+        private void OnEnable() => PlayAnimation();
 
-        public void PlayAnimation()
-        {
-            _animator.enabled = true;
-        }
+        public void PlayAnimation() => _animator.enabled = true;
 
         public virtual void DisableObject_AnimationEvent()
         {
             _animator.enabled = false;
             gameObject.SetActive(false);
-            _projectile.gameObject.SetActive(false);
-
-            _projectile.ReturnToPool();
+            OnFinished?.Invoke();
         }
     }
 }
