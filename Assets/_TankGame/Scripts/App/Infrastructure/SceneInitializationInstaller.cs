@@ -12,7 +12,7 @@ namespace _TankGame.App.Infrastructure
         {
             foreach (MonoBehaviour initializer in _initializers)
             {
-                Container.BindInterfacesTo(initializer.GetType()).FromInstance(initializer).AsSingle();
+                Container.Bind(initializer.GetType()).FromInstance(initializer).AsSingle();
             }
         }
     }
