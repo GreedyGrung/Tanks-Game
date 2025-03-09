@@ -60,6 +60,7 @@ namespace _TankGame.App.Infrastructure.StateMachine
         {
             _poolsService.Dispose();
             _gameFactory.CleanupProgressWatchers();
+            _gameFactory.Dispose();
             _loadingScreen.Show();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
@@ -76,6 +77,7 @@ namespace _TankGame.App.Infrastructure.StateMachine
             await _gameFactory.WarmUp();
             await InitGameUIAsync();
             await InitGameWorldAsync();
+            await _gameFactory.LoadProjectiles();
             InitObjectPools();
             InformProgressReaders();
             InitSpawnersObserverService();

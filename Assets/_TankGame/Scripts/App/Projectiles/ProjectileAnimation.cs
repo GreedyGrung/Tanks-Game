@@ -29,6 +29,8 @@ namespace _TankGame.App.Projectiles
             _animator.enabled = false;
             gameObject.SetActive(false);
             _projectile.gameObject.SetActive(false);
+
+            _projectile.ReturnToPool();
         }
     }
 }

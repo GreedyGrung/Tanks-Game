@@ -4,6 +4,7 @@ using _TankGame.App.Factory;
 using _TankGame.App.Infrastructure.Services.StaticData;
 using _TankGame.App.Projectiles;
 using _TankGame.App.Utils.Enums;
+using UnityEngine;
 
 namespace _TankGame.App.Infrastructure.Services.PoolsService
 {
@@ -56,6 +57,22 @@ namespace _TankGame.App.Infrastructure.Services.PoolsService
         public void Dispose()
         {
             _pools.Clear();
+        }
+
+        public void ReturnToPool<T>(T poolableObject) where T : IPoolableObject
+        {
+            var type = typeof(T);
+
+            if (type == typeof(ArmorPiercingProjectile))
+            {
+                GetPool<ArmorPiercingProjectile>().Return(poolableObject as ArmorPiercingProjectile);
+                Debug.LogError("[SERVICE] " + type);
+            }
+            else if (type == typeof(HighExplosiveProjectile))
+            {
+                GetPool<HighExplosiveProjectile>().Return(poolableObject as HighExplosiveProjectile);
+                Debug.LogError("[SERVICE] " + type);
+            }
         }
     }
 }

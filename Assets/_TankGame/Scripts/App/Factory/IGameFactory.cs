@@ -25,6 +25,8 @@ namespace _TankGame.App.Factory
         void CleanupProgressWatchers();
         Task WarmUp();
         ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject;
-        Task<T> CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
+        T CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
+        Task LoadProjectiles();
+        void Dispose();
     }
 }

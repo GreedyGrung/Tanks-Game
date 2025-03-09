@@ -7,6 +7,7 @@ namespace _TankGame.App.Infrastructure.Services.PoolsService
     {
         void RegisterPool<T>() where T : IPoolableObject;
         ObjectPool<T> GetPool<T>() where T : IPoolableObject;
+        void ReturnToPool<T>(T poolableObject) where T : IPoolableObject;
         Projectile GetProjectile(ProjectileTypeId projectileTypeId);
         void Dispose();
     }

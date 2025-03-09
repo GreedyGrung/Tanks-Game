@@ -49,8 +49,6 @@ namespace _TankGame.App.Projectiles
             _projectileAnimation.gameObject.SetActive(true);
             _exploded = true;
             _visuals.SetActive(false);
-
-            ReturnToPool();
         }
 
         public virtual void OnTriggerEnter2D(Collider2D collision)

@@ -24,8 +24,7 @@ namespace _TankGame.App.Factory
         private readonly IStaticDataService _staticData;
         private readonly DiContainer _container;
 
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        private Dictionary<ProjectileTypeId, GameObject> _projectiles;
 
         public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData, DiContainer container)
         {
@@ -34,8 +33,14 @@ namespace _TankGame.App.Factory
             _container = container;
         }
 
+        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+
         public async Task WarmUp()
-            => await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
+        {
+            _projectiles = new();
+            await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
+        }
 
         public async Task<GameObject> CreatePlayerAsync(Vector3 at)
             => await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
@@ -69,17 +74,17 @@ namespace _TankGame.App.Factory
         public GameObject CreateEmptyObjectWithName(string name) 
             => UnityEngine.Object.Instantiate(new GameObject(name));
 
-        public async Task<T> CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject
+        public T CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject
         {
             if (typeof(T) == typeof(ArmorPiercingProjectile))
             {
-                var poolableObject = await CreateProjectileAsync(ProjectileTypeId.AP, Constants.ArmorPiercingProjectileAddress, parent, activeByDefault);
+                var poolableObject = CreateProjectile(ProjectileTypeId.AP, parent, activeByDefault);
                 return poolableObject.GetComponent<T>();
             }
 
             if (typeof(T) == typeof(HighExplosiveProjectile))
             {
-                var poolableObject = await CreateProjectileAsync(ProjectileTypeId.HEX, Constants.HighExplosiveProjectileAddress, parent, activeByDefault);
+                var poolableObject = CreateProjectile(ProjectileTypeId.HEX, parent, activeByDefault);
                 return poolableObject.GetComponent<T>();
             }
 
@@ -89,6 +94,12 @@ namespace _TankGame.App.Factory
         public ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject 
             => new(staticData.PoolSize, parent, staticData.AutoExpand, this);
 
+        public async Task LoadProjectiles()
+        {
+            await LoadProjectileFromAssetProvider(ProjectileTypeId.AP, Constants.ArmorPiercingProjectileAddress);
+            await LoadProjectileFromAssetProvider(ProjectileTypeId.HEX, Constants.HighExplosiveProjectileAddress);
+        }
+
         public void CleanupProgressWatchers()
         {
             ProgressReaders.Clear();
@@ -97,10 +108,28 @@ namespace _TankGame.App.Factory
             _assetProvider.Cleanup();
         }
 
-        private async Task<Projectile> CreateProjectileAsync(ProjectileTypeId projectileTypeId, string address, Transform parent, bool activeByDefault)
+        public void Dispose()
         {
-            var prefab = await _assetProvider.Load<GameObject>(address);
+            _projectiles?.Clear();
+        }
+
+        private async Task LoadProjectileFromAssetProvider(ProjectileTypeId id, string address)
+        {
+            var projectile = await _assetProvider.Load<GameObject>(address);
+
+            if (_projectiles.ContainsKey(id))
+            {
+                Debug.LogError($"Dictionary already contains key {id}! Adding operation will be skipped!");
+                return;
+            }
+
+            _projectiles.Add(id, projectile);
+        }
+
+        private Projectile CreateProjectile(ProjectileTypeId projectileTypeId, Transform parent, bool activeByDefault)
+        {
             var data = _staticData.ForProjectile(projectileTypeId);
+            var prefab = _projectiles[projectileTypeId];
 
             Projectile projectile = _container.InstantiatePrefab(prefab, parent.position, Quaternion.identity, parent).GetComponent<Projectile>();
             projectile.Initialize(data);

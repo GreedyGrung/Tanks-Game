@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using _TankGame.App.Factory;
 using UnityEngine;
 
@@ -21,9 +20,7 @@ namespace _TankGame.App.Infrastructure.Services.PoolsService
 
             for (int i = 0; i < size; i++)
             {
-#pragma warning disable CS4014
                 CreateItem();
-#pragma warning restore CS4014
             }
         }
 
@@ -35,9 +32,7 @@ namespace _TankGame.App.Infrastructure.Services.PoolsService
 
                 if (_pool.Count == 0 && _autoExpand)
                 {
-#pragma warning disable CS4014
                     CreateItem();
-#pragma warning restore CS4014
                 }
 
                 return item;
@@ -52,9 +47,9 @@ namespace _TankGame.App.Infrastructure.Services.PoolsService
             _pool.Push(item);
         }
 
-        private async Task CreateItem(bool isActiveByDefault = false)
+        private void CreateItem(bool isActiveByDefault = false)
         {
-            var item = await _gameFactory.CreatePoolableObject<T>(_container, isActiveByDefault);
+            var item = _gameFactory.CreatePoolableObject<T>(_container, isActiveByDefault);
             _pool.Push(item);
         }
     }
