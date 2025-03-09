@@ -32,6 +32,8 @@ namespace _TankGame.App.Infrastructure.StateMachine
         private readonly IPoolsService _poolsService;
         private readonly List<SpawnPoint> _spawnPoints = new();
 
+        private UIMediator _uiMediator;
+
         public LoadLevelState(
             IGameStateMachine gameStateMachine,
             SceneLoader sceneLoader,
@@ -100,7 +102,7 @@ namespace _TankGame.App.Infrastructure.StateMachine
 
             await InitSpawnersAsync(player, levelData);
 
-            UIMediator uiMediator = new(_uiService, player, _spawnersObserverService);
+            _uiMediator = new(_uiService, player, _spawnersObserverService);
         }
 
         private void InitObjectPools()
