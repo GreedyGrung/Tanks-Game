@@ -1,6 +1,6 @@
-﻿using _TankGame.App.Entities.Enemies.StateMachineScripts;
+﻿using TankGame.App.Entities.Enemies.StateMachineScripts;
 
-namespace _TankGame.App.Entities.Enemies.Base.States
+namespace TankGame.App.Entities.Enemies.Base.States
 {
     public class DeadState : State
     {

@@ -1,11 +1,11 @@
-using _TankGame.App.Entities.Enemies.Base;
-using _TankGame.App.Entities.Enemies.Specific.Turret.States;
-using _TankGame.App.Entities.Interfaces;
-using _TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Enemies.Specific.Turret.States;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
-namespace _TankGame.App.Entities.Enemies.Specific.Turret
+namespace TankGame.App.Entities.Enemies.Specific.Turret
 {
     public class Turret : Enemy
     {

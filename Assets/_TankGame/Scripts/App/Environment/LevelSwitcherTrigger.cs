@@ -1,12 +1,12 @@
-﻿using _TankGame.App.Editor;
-using _TankGame.App.Infrastructure.StateMachine;
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
-using _TankGame.App.Utils;
+﻿using TankGame.App.Utils;
+using TankGame.App.Editor;
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Environment
+namespace TankGame.App.Environment
 {
     public class LevelSwitcherTrigger : MonoBehaviour
     {

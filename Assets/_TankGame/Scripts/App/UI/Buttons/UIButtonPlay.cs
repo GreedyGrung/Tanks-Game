@@ -1,9 +1,9 @@
-﻿using _TankGame.App.Infrastructure.StateMachine;
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
-using GreedyLogger;
+﻿using GreedyLogger;
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace _TankGame.App.UI.Buttons
+namespace TankGame.App.UI.Buttons
 {
     public class UIButtonPlay : UIButtonBehaviourBase
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace _TankGame.App.Entities.Enemies.StateMachineScripts
+namespace TankGame.App.Entities.Enemies.StateMachineScripts
 {
     public class StateMachine
     {

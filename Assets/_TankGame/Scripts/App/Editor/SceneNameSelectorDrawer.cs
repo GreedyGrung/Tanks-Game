@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Reflection;
-using _TankGame.App.Utils;
+using TankGame.App.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace _TankGame.App.Editor
+namespace TankGame.App.Editor
 {
     [CustomPropertyDrawer(typeof(SceneNameSelectorAttribute))]
     public class SceneNameSelectorDrawer : PropertyDrawer

@@ -1,8 +1,8 @@
-using _TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Enemies.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _TankGame.App.Entities.Enemies
+namespace TankGame.App.Entities.Enemies
 {
     public class EnemyHealthBar : MonoBehaviour
     {

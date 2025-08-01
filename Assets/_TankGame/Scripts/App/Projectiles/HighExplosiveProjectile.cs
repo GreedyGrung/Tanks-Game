@@ -1,4 +1,4 @@
-namespace _TankGame.App.Projectiles
+namespace TankGame.App.Projectiles
 {
     public class HighExplosiveProjectile : Projectile
     {

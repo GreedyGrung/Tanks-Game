@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace _TankGame.App.Editor
+namespace TankGame.App.Editor
 {
     public class TagLayerChangePostprocessor : AssetPostprocessor
     {

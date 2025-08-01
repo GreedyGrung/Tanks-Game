@@ -1,10 +1,10 @@
-using _TankGame.App.Infrastructure.Services.PersistentProgress;
-using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
-using _TankGame.App.Infrastructure.Services.SavingLoading;
+using TankGame.App.Infrastructure.Services.PersistentProgress;
+using TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using TankGame.App.Infrastructure.Services.SavingLoading;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Utils
+namespace TankGame.App.Utils
 {
     public class TestProgressSaver : MonoBehaviour, ISavedProgress
     {

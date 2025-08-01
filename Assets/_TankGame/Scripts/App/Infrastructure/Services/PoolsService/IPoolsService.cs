@@ -1,7 +1,7 @@
-﻿using _TankGame.App.Projectiles;
-using _TankGame.App.Utils.Enums;
+﻿using TankGame.App.Projectiles;
+using TankGame.App.Utils.Enums;
 
-namespace _TankGame.App.Infrastructure.Services.PoolsService
+namespace TankGame.App.Infrastructure.Services.PoolsService
 {
     public interface IPoolsService
     {

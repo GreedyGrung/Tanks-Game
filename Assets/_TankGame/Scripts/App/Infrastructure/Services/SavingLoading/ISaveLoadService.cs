@@ -1,6 +1,6 @@
-﻿using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+﻿using TankGame.App.Infrastructure.Services.PersistentProgress.Data;
 
-namespace _TankGame.App.Infrastructure.Services.SavingLoading
+namespace TankGame.App.Infrastructure.Services.SavingLoading
 {
     public interface ISaveLoadService
     {

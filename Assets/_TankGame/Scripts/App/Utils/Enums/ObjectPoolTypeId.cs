@@ -1,4 +1,4 @@
-﻿namespace _TankGame.App.Utils.Enums
+﻿namespace TankGame.App.Utils.Enums
 {
     public enum ObjectPoolTypeId
     {

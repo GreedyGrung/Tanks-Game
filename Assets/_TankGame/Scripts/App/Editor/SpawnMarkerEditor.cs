@@ -1,8 +1,8 @@
-using _TankGame.App.Environment;
+using TankGame.App.Environment;
 using UnityEditor;
 using UnityEngine;
 
-namespace _TankGame.App.Editor
+namespace TankGame.App.Editor
 {
     [CustomEditor(typeof(SpawnMarker))]
     public class SpawnMarkerEditor : UnityEditor.Editor

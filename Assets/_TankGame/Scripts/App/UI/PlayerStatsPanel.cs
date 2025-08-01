@@ -1,9 +1,9 @@
 using System.Collections;
-using _TankGame.App.Entities.Interfaces;
+using TankGame.App.Entities.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _TankGame.App.UI
+namespace TankGame.App.UI
 {
     public class PlayerStatsPanel : MonoBehaviour
     {

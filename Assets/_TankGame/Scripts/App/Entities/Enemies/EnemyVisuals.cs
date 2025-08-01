@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _TankGame.App.Entities.Enemies
+namespace TankGame.App.Entities.Enemies
 {
     public class EnemyVisuals : MonoBehaviour
     {

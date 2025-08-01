@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using _TankGame.App.Environment;
-using _TankGame.App.StaticData.Enemies;
-using _TankGame.App.StaticData.Environment;
-using _TankGame.App.Utils;
+using TankGame.App.Environment;
+using TankGame.App.StaticData.Enemies;
+using TankGame.App.StaticData.Environment;
+using TankGame.App.Utils;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _TankGame.App.Editor
+namespace TankGame.App.Editor
 {
     [CustomEditor(typeof(LevelStaticData))]
     public class LevelStaticDataEditor : UnityEditor.Editor

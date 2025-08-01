@@ -1,10 +1,10 @@
-using _TankGame.App.Entities.Interfaces;
-using _TankGame.App.Infrastructure.Services.PoolsService;
-using _TankGame.App.StaticData.Environment;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.StaticData.Environment;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Projectiles
+namespace TankGame.App.Projectiles
 {
     public abstract class Projectile : MonoBehaviour, IPoolableObject
     {

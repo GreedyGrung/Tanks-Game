@@ -1,10 +1,10 @@
-﻿using _TankGame.App.Infrastructure.Services.AssetManagement;
-using _TankGame.App.Infrastructure.Services.StaticData;
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
-using _TankGame.App.Utils;
-using GreedyLogger;
+﻿using GreedyLogger;
+using TankGame.App.Infrastructure.Services.AssetManagement;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.App.Utils;
 
-namespace _TankGame.App.Infrastructure.StateMachine
+namespace TankGame.App.Infrastructure.StateMachine
 {
     public class BootstrapState : IState
     {

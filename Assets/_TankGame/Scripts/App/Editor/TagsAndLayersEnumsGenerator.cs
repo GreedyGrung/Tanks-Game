@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using _TankGame.App.Utils;
+using TankGame.App.Utils;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace _TankGame.App.Editor
+namespace TankGame.App.Editor
 {
     public static class TagsAndLayersEnumsGenerator
     {

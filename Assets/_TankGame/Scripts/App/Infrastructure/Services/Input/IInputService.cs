@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace _TankGame.App.Infrastructure.Services.Input
+namespace TankGame.App.Infrastructure.Services.Input
 {
     public interface IInputService
     {

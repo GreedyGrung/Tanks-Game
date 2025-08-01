@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _TankGame.App.Infrastructure
+namespace TankGame.App.Infrastructure
 {
     public class SceneLoader
     {

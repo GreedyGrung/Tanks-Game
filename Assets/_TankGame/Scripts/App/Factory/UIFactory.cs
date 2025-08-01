@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using _TankGame.App.Infrastructure.Services.AssetManagement;
-using _TankGame.App.Infrastructure.Services.StaticData;
-using _TankGame.App.UI;
-using _TankGame.App.Utils;
-using _TankGame.App.Utils.Enums;
+using TankGame.App.Infrastructure.Services.AssetManagement;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.UI;
+using TankGame.App.Utils;
+using TankGame.App.Utils.Enums;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Factory
+namespace TankGame.App.Factory
 {
     public class UIFactory : IUIFactory
     {

@@ -1,7 +1,7 @@
-﻿using _TankGame.App.Entities.Player;
+﻿using TankGame.App.Entities.Player;
 using UnityEngine;
 
-namespace _TankGame.App.Entities.Interfaces
+namespace TankGame.App.Entities.Interfaces
 {
     public interface IPlayer
     {

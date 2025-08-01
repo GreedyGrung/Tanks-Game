@@ -1,8 +1,8 @@
-﻿using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+﻿using TankGame.App.Infrastructure.Services.PersistentProgress.Data;
 using TankGame.Core.Utils.Enums.Generated;
 using UnityEngine;
 
-namespace _TankGame.App.Utils
+namespace TankGame.App.Utils
 {
     public static class Extensions
     {

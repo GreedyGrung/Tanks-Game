@@ -1,7 +1,7 @@
-﻿using _TankGame.App.Utils.Enums;
+﻿using TankGame.App.Utils.Enums;
 using UnityEngine;
 
-namespace _TankGame.App.Environment
+namespace TankGame.App.Environment
 {
     public class SpawnMarker : MonoBehaviour
     {

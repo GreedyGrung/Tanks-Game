@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _TankGame.App.Utils
+namespace TankGame.App.Utils
 {
     public class UniqueId : MonoBehaviour
     {

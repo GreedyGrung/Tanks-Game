@@ -1,4 +1,4 @@
-﻿namespace _TankGame.App.Utils
+﻿namespace TankGame.App.Utils
 {
     public static class SceneNames
     {

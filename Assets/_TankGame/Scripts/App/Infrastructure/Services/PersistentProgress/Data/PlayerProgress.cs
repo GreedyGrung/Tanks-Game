@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _TankGame.App.Infrastructure.Services.PersistentProgress.Data
+namespace TankGame.App.Infrastructure.Services.PersistentProgress.Data
 {
     [Serializable]
     public class PlayerProgress

@@ -1,15 +1,15 @@
 ﻿using System;
-using _TankGame.App.Entities.Enemies.Base;
-using _TankGame.App.Entities.Interfaces;
-using _TankGame.App.Factory;
-using _TankGame.App.Infrastructure.Services.PersistentProgress;
-using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
-using _TankGame.App.Infrastructure.Services.PoolsService;
-using _TankGame.App.Utils.Enums;
+using TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PersistentProgress;
+using TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Utils.Enums;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Environment
+namespace TankGame.App.Environment
 {
     public class SpawnPoint : MonoBehaviour, ISavedProgress
     {

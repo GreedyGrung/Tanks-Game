@@ -1,4 +1,4 @@
-﻿namespace _TankGame.App.Infrastructure.Services.PersistentProgress.Data
+﻿namespace TankGame.App.Infrastructure.Services.PersistentProgress.Data
 {
     public class Vector3Data
     {

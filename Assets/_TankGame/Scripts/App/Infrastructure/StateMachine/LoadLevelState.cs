@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using _TankGame.App.CameraLogic;
-using _TankGame.App.Entities.Interfaces;
-using _TankGame.App.Environment;
-using _TankGame.App.Factory;
-using _TankGame.App.Infrastructure.Services.PersistentProgress;
-using _TankGame.App.Infrastructure.Services.PoolsService;
-using _TankGame.App.Infrastructure.Services.SpawnersObserver;
-using _TankGame.App.Infrastructure.Services.StaticData;
-using _TankGame.App.Infrastructure.Services.UI;
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
-using _TankGame.App.Projectiles;
-using _TankGame.App.StaticData.Environment;
-using _TankGame.App.UI;
+using TankGame.App.CameraLogic;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Environment;
+using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.PersistentProgress;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Infrastructure.Services.SpawnersObserver;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.Infrastructure.Services.UI;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.App.Projectiles;
+using TankGame.App.StaticData.Environment;
+using TankGame.App.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _TankGame.App.Infrastructure.StateMachine
+namespace TankGame.App.Infrastructure.StateMachine
 {
     public class LoadLevelState : IPayloadedState<string>
     {

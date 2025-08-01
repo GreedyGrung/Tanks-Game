@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _TankGame.App.StaticData.Player
+namespace TankGame.App.StaticData.Player
 {
     [CreateAssetMenu(fileName = "PlayerWeaponData", menuName = "Static Data/Player Data/Weapon Data")]
     public class PlayerWeaponData : ScriptableObject

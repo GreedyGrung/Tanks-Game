@@ -1,8 +1,8 @@
-using _TankGame.App.Infrastructure.Services.Input;
-using _TankGame.App.StaticData.Player;
+using TankGame.App.Infrastructure.Services.Input;
+using TankGame.App.StaticData.Player;
 using UnityEngine;
 
-namespace _TankGame.App.Entities.Player
+namespace TankGame.App.Entities.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour

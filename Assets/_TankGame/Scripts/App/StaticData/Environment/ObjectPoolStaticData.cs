@@ -1,7 +1,7 @@
-﻿using _TankGame.App.Utils.Enums;
+﻿using TankGame.App.Utils.Enums;
 using UnityEngine;
 
-namespace _TankGame.App.StaticData.Environment
+namespace TankGame.App.StaticData.Environment
 {
     [CreateAssetMenu(fileName = "ObjectPoolData", menuName = "Static Data/Pool")]
     public class ObjectPoolStaticData : ScriptableObject

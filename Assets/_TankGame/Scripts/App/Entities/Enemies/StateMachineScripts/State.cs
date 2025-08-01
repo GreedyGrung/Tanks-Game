@@ -1,6 +1,6 @@
-using _TankGame.App.Entities.Enemies.Base;
+using TankGame.App.Entities.Enemies.Base;
 
-namespace _TankGame.App.Entities.Enemies.StateMachineScripts
+namespace TankGame.App.Entities.Enemies.StateMachineScripts
 {
     public abstract class State
     {

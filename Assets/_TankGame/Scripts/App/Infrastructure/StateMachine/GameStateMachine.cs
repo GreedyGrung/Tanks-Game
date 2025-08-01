@@ -1,7 +1,7 @@
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace _TankGame.App.Infrastructure.StateMachine
+namespace TankGame.App.Infrastructure.StateMachine
 {
     public class GameStateMachine : IGameStateMachine
     {

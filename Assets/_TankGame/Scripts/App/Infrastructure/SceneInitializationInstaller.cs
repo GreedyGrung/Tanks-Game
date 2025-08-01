@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Infrastructure
+namespace TankGame.App.Infrastructure
 {
     public class SceneInitializationInstaller : MonoInstaller
     {

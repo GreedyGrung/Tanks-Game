@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _TankGame.App.Infrastructure.Services.PersistentProgress.Data
+namespace TankGame.App.Infrastructure.Services.PersistentProgress.Data
 {
     [Serializable]
     public class KillData

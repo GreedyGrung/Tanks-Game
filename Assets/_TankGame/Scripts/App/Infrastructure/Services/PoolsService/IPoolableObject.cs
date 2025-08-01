@@ -1,4 +1,4 @@
-﻿namespace _TankGame.App.Infrastructure.Services.PoolsService
+﻿namespace TankGame.App.Infrastructure.Services.PoolsService
 {
     public interface IPoolableObject
     {

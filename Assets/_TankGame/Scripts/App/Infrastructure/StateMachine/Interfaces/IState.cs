@@ -1,4 +1,4 @@
-﻿namespace _TankGame.App.Infrastructure.StateMachine.Interfaces
+﻿namespace TankGame.App.Infrastructure.StateMachine.Interfaces
 {
     public interface IState : IBaseState
     {

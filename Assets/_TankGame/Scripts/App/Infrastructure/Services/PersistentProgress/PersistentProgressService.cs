@@ -1,6 +1,6 @@
-using _TankGame.App.Infrastructure.Services.PersistentProgress.Data;
+using TankGame.App.Infrastructure.Services.PersistentProgress.Data;
 
-namespace _TankGame.App.Infrastructure.Services.PersistentProgress
+namespace TankGame.App.Infrastructure.Services.PersistentProgress
 {
     public class PersistentProgressService : IPersistentProgressService
     {

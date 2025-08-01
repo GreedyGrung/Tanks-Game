@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace _TankGame.App.Infrastructure.Services.AssetManagement
+namespace TankGame.App.Infrastructure.Services.AssetManagement
 {
     public interface IAssetProvider
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using _TankGame.App.Factory;
+using TankGame.App.Factory;
 using UnityEngine;
 
-namespace _TankGame.App.Infrastructure.Services.PoolsService
+namespace TankGame.App.Infrastructure.Services.PoolsService
 {
     public class ObjectPool<T> where T : IPoolableObject
     {

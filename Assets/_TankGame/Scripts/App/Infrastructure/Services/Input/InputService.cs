@@ -3,7 +3,7 @@ using App.Infrastructure.Services.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace _TankGame.App.Infrastructure.Services.Input
+namespace TankGame.App.Infrastructure.Services.Input
 {
     public class InputService : IInputService
     {

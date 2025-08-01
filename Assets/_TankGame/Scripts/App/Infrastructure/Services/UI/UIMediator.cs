@@ -1,9 +1,9 @@
 using System;
-using _TankGame.App.Entities.Interfaces;
-using _TankGame.App.Infrastructure.Services.SpawnersObserver;
-using _TankGame.App.Utils.Enums;
+using TankGame.App.Entities.Interfaces;
+using TankGame.App.Infrastructure.Services.SpawnersObserver;
+using TankGame.App.Utils.Enums;
 
-namespace _TankGame.App.Infrastructure.Services.UI
+namespace TankGame.App.Infrastructure.Services.UI
 {
     public class UIMediator : IDisposable
     {

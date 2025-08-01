@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using _TankGame.App.Infrastructure.Services.PoolsService;
-using _TankGame.App.Projectiles;
-using _TankGame.App.StaticData.Enemies;
-using _TankGame.App.StaticData.Environment;
-using _TankGame.App.StaticData.UI;
-using _TankGame.App.Utils;
-using _TankGame.App.Utils.Enums;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Projectiles;
+using TankGame.App.StaticData.Enemies;
+using TankGame.App.StaticData.Environment;
+using TankGame.App.StaticData.UI;
+using TankGame.App.Utils;
+using TankGame.App.Utils.Enums;
 using UnityEngine.AddressableAssets;
 
-namespace _TankGame.App.Infrastructure.Services.StaticData
+namespace TankGame.App.Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {

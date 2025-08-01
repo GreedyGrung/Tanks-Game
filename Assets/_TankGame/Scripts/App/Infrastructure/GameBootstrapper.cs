@@ -1,19 +1,19 @@
-using _TankGame.App.Factory;
-using _TankGame.App.Infrastructure.Services.AssetManagement;
-using _TankGame.App.Infrastructure.Services.Input;
-using _TankGame.App.Infrastructure.Services.PersistentProgress;
-using _TankGame.App.Infrastructure.Services.PoolsService;
-using _TankGame.App.Infrastructure.Services.SavingLoading;
-using _TankGame.App.Infrastructure.Services.SpawnersObserver;
-using _TankGame.App.Infrastructure.Services.StaticData;
-using _TankGame.App.Infrastructure.Services.UI;
-using _TankGame.App.Infrastructure.StateMachine;
-using _TankGame.App.Infrastructure.StateMachine.Interfaces;
-using _TankGame.App.UI;
+using TankGame.App.Factory;
+using TankGame.App.Infrastructure.Services.AssetManagement;
+using TankGame.App.Infrastructure.Services.Input;
+using TankGame.App.Infrastructure.Services.PersistentProgress;
+using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Infrastructure.Services.SavingLoading;
+using TankGame.App.Infrastructure.Services.SpawnersObserver;
+using TankGame.App.Infrastructure.Services.StaticData;
+using TankGame.App.Infrastructure.Services.UI;
+using TankGame.App.Infrastructure.StateMachine;
+using TankGame.App.Infrastructure.StateMachine.Interfaces;
+using TankGame.App.UI;
 using UnityEngine;
 using Zenject;
 
-namespace _TankGame.App.Infrastructure
+namespace TankGame.App.Infrastructure
 {
     public class GameBootstrapper : MonoInstaller, ICoroutineRunner, IInitializable
     {
