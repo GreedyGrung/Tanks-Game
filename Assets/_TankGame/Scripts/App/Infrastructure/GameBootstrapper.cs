@@ -4,6 +4,7 @@ using TankGame.App.Infrastructure.Services.Input;
 using TankGame.App.Infrastructure.Services.PersistentProgress;
 using TankGame.App.Infrastructure.Services.PoolsService;
 using TankGame.App.Infrastructure.Services.SavingLoading;
+using TankGame.App.Infrastructure.Services.ScenesLoading;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Infrastructure.Services.UI;
@@ -15,7 +16,7 @@ using Zenject;
 
 namespace TankGame.App.Infrastructure
 {
-    public class GameBootstrapper : MonoInstaller, ICoroutineRunner, IInitializable
+    public class GameBootstrapper : MonoInstaller, IInitializable
     {
         [SerializeField] private LoadingScreen _loadingScreen;
 
@@ -46,7 +47,7 @@ namespace TankGame.App.Infrastructure
 
         private void BindSceneLoader()
         {
-            Container.Bind<SceneLoader>().AsSingle();
+            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
         }
 
         private void BindAssetsManagementServices()

@@ -6,6 +6,7 @@ using TankGame.App.Environment;
 using TankGame.App.Factory;
 using TankGame.App.Infrastructure.Services.PersistentProgress;
 using TankGame.App.Infrastructure.Services.PoolsService;
+using TankGame.App.Infrastructure.Services.ScenesLoading;
 using TankGame.App.Infrastructure.Services.SpawnersObserver;
 using TankGame.App.Infrastructure.Services.StaticData;
 using TankGame.App.Infrastructure.Services.UI;
@@ -21,7 +22,7 @@ namespace TankGame.App.Infrastructure.StateMachine
     public class LoadLevelState : IPayloadedState<string>
     {
         private readonly IGameStateMachine _gameStateMachine;
-        private readonly SceneLoader _sceneLoader;
+        private readonly ISceneLoader _sceneLoader;
         private readonly LoadingScreen _loadingScreen;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
@@ -36,7 +37,7 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         public LoadLevelState(
             IGameStateMachine gameStateMachine,
-            SceneLoader sceneLoader,
+            ISceneLoader sceneLoader,
             LoadingScreen loadingScreen,
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
@@ -64,7 +65,7 @@ namespace TankGame.App.Infrastructure.StateMachine
             _gameFactory.CleanupProgressWatchers();
             _gameFactory.Dispose();
             _loadingScreen.Show();
-            _sceneLoader.Load(sceneName, OnLoaded);
+            _sceneLoader.LoadAsync(sceneName, OnLoaded);
         }
 
         public void Exit()
