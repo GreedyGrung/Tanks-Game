@@ -17,21 +17,17 @@ namespace _TankGame.App.Entities.Enemies.Specific.Tank
 
         public Transform Tower => _tower;
 
-        public TankMoveState MoveState { get; private set; }
-        public TankAttackState AttackState { get; private set; }
-        public TankDeadState DeadState { get; private set; }
-
         public override void Initialize(IPlayer player, IPoolsService poolsService)
         {
             base.Initialize(player, poolsService);
 
             _movingEnemyData = EnemyData as MovingEnemyStaticData;
 
-            MoveState = new(this, StateMachine);
-            AttackState = new(this, StateMachine);
-            DeadState = new(this, StateMachine);
+            StateMachine.RegisterState(new TankMoveState(this, StateMachine));
+            StateMachine.RegisterState(new TankAttackState(this, StateMachine));
+            StateMachine.RegisterState(new TankDeadState(this, StateMachine));
 
-            StateMachine.Initialize(MoveState);
+            StateMachine.Initialize<TankMoveState>();
 
             SetIsInitialized();
         }
@@ -80,7 +76,7 @@ namespace _TankGame.App.Entities.Enemies.Specific.Tank
 
             if (Health.IsDead)
             {
-                StateMachine.ChangeState(DeadState);
+                StateMachine.ChangeState<TankDeadState>();
             }
         }
 

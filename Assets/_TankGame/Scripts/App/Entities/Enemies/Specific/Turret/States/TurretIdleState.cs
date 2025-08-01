@@ -30,7 +30,7 @@ namespace _TankGame.App.Entities.Enemies.Specific.Turret.States
 
             if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
             {
-                _turret.StateMachine.ChangeState(_turret.AttackState);
+                StateMachine.ChangeState<TurretAttackState>();
             }
         }
     }

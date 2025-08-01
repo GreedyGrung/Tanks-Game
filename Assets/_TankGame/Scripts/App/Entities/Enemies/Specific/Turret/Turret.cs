@@ -9,11 +9,6 @@ namespace _TankGame.App.Entities.Enemies.Specific.Turret
 {
     public class Turret : Enemy
     {
-        public TurretIdleState IdleState { get; private set; }
-        public TurretAttackState AttackState { get; private set; }
-
-        public bool IsRotating { get; private set; } = false;
-
         [SerializeField] private Transform _tower;
 
         public Transform Tower => _tower;
@@ -22,10 +17,10 @@ namespace _TankGame.App.Entities.Enemies.Specific.Turret
         {
             base.Initialize(player, poolsService);
 
-            IdleState = new(this, StateMachine);
-            AttackState = new(this, StateMachine);
+            StateMachine.RegisterState(new TurretIdleState(this, StateMachine));
+            StateMachine.RegisterState(new TurretAttackState(this, StateMachine));
 
-            StateMachine.Initialize(IdleState);
+            StateMachine.Initialize<TurretIdleState>();
 
             SetIsInitialized();
         }

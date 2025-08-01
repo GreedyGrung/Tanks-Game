@@ -28,7 +28,7 @@ namespace _TankGame.App.Entities.Enemies.Specific.Tank.States
 
             if (_playerDetected && !_obstacleBetweenEnemyAndPlayer)
             {
-                _tank.StateMachine.ChangeState(_tank.AttackState);
+                StateMachine.ChangeState<TankAttackState>();
             }
         }
 

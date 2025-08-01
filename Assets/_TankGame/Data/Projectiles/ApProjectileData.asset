@@ -16,4 +16,3 @@ MonoBehaviour:
   _moveSpeed: 7
   _damage: 40
   _lifetime: 5
-  _sprite: {fileID: 21300000, guid: 62e876d5080b4884e82e124bf74f5dc5, type: 3}

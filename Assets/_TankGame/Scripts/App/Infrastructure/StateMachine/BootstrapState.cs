@@ -2,6 +2,7 @@
 using _TankGame.App.Infrastructure.Services.StaticData;
 using _TankGame.App.Infrastructure.StateMachine.Interfaces;
 using _TankGame.App.Utils;
+using GreedyLogger;
 
 namespace _TankGame.App.Infrastructure.StateMachine
 {
@@ -18,6 +19,8 @@ namespace _TankGame.App.Infrastructure.StateMachine
             _staticData = staticData;
 
             assetProvider.Initialize();
+
+            GLogger.Log("Init!", LogContext.Gameplay);
         }
 
         public void Enter() => _sceneLoader.Load(SceneNames.Bootstrap, onLoaded: EnterLoadLevel);

@@ -1,5 +1,6 @@
 ﻿using _TankGame.App.Infrastructure.StateMachine;
 using _TankGame.App.Infrastructure.StateMachine.Interfaces;
+using GreedyLogger;
 using Zenject;
 
 namespace _TankGame.App.UI.Buttons
@@ -17,6 +18,7 @@ namespace _TankGame.App.UI.Buttons
         protected override void HandleClick()
         {
             _gameStateMachine.Enter<LoadProgressState>();
+            GLogger.LogWarning("Click!", LogContext.UI);
         }
     }
 }
