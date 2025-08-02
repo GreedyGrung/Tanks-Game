@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GreedyLogger;
 using TankGame.App.Entities.Enemies.Base;
 using TankGame.App.Entities.Interfaces;
 using TankGame.App.Environment;
@@ -24,7 +25,7 @@ namespace TankGame.App.Factory
         private readonly IStaticDataService _staticData;
         private readonly DiContainer _container;
 
-        private Dictionary<ProjectileTypeId, GameObject> _projectiles;
+        private Dictionary<ProjectileTypeId, GameObject> _projectiles = new();
 
         public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData, DiContainer container)
         {
@@ -33,14 +34,8 @@ namespace TankGame.App.Factory
             _container = container;
         }
 
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-
-        public async Task WarmUp()
-        {
-            _projectiles = new();
-            await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
-        }
+        public List<ISavedProgressReader> ProgressReaders { get; } = new();
+        public List<ISavedProgress> ProgressWriters { get; } = new();
 
         public async Task<GameObject> CreatePlayerAsync(Vector3 at)
             => await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
@@ -119,7 +114,7 @@ namespace TankGame.App.Factory
 
             if (_projectiles.ContainsKey(id))
             {
-                Debug.LogError($"Dictionary already contains key {id}! Adding operation will be skipped!");
+                GLogger.LogError($"Dictionary already contains key {id}! Adding operation will be skipped!", LogContext.Infrastructure);
                 return;
             }
 

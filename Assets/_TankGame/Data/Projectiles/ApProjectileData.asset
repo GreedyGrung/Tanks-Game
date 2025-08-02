@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileTypeId: 0
   _moveSpeed: 7
-  _damage: 40
+  _damage: 4
   _lifetime: 5

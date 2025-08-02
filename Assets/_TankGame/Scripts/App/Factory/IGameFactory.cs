@@ -23,7 +23,6 @@ namespace TankGame.App.Factory
         Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent);
         GameObject CreateEmptyObjectWithName(string name);
         void CleanupProgressWatchers();
-        Task WarmUp();
         ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject;
         T CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
         Task LoadProjectiles();

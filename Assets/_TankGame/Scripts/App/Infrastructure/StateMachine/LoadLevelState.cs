@@ -77,7 +77,6 @@ namespace TankGame.App.Infrastructure.StateMachine
 
         private async void OnLoaded()
         {
-            await _gameFactory.WarmUp();
             await InitGameUIAsync();
             await InitGameWorldAsync();
             await _gameFactory.LoadProjectiles();
