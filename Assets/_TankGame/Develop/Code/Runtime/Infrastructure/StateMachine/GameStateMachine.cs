@@ -1,17 +1,15 @@
+using TankGame.Runtime.Infrastructure.StateMachine.Factory;
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
-using Zenject;
 
 namespace TankGame.Runtime.Infrastructure.StateMachine
 {
     public class GameStateMachine : IGameStateMachine
     {
+        private readonly IStateFactory _stateFactory;
+        
         private IBaseState _activeState;
-        private IStateFactory _stateFactory;
 
-        public GameStateMachine(IStateFactory stateFactory)
-        {
-            _stateFactory = stateFactory;
-        }
+        public GameStateMachine(IStateFactory stateFactory) => _stateFactory = stateFactory;
 
         public void Enter<TState>() where TState : class, IState
             => ChangeState<TState>().Enter();
@@ -28,25 +26,5 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
             return state;
         }
-    }
-
-    public class StateFactory : IStateFactory
-    {
-        private readonly DiContainer _container;
-
-        public StateFactory(DiContainer container)
-        {
-            _container = container;
-        }
-
-        public T GetState<T>() where T : class, IBaseState
-        {
-            return _container.Resolve<T>();
-        }
-    }
-
-    public interface IStateFactory
-    {
-        T GetState<T>() where T : class, IBaseState;
     }
 }
