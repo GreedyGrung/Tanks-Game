@@ -1,11 +1,10 @@
-﻿using GreedyLogger;
-using TankGame.Runtime.Infrastructure.StateMachine;
+﻿using TankGame.Runtime.Infrastructure.StateMachine;
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
 namespace TankGame.Runtime.UI.Buttons
 {
-    public class UIButtonPlay : UIButtonBehaviourBase
+    public class UIButtonNewGame : UIButtonBehaviourBase
     {
         private IGameStateMachine _gameStateMachine;
 
@@ -17,8 +16,7 @@ namespace TankGame.Runtime.UI.Buttons
 
         protected override void HandleClick()
         {
-            _gameStateMachine.Enter<LoadProgressState>();
-            GLogger.LogWarning("Click!", LogContext.UI);
+            _gameStateMachine.Enter<LoadNewGameState>();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,13 +9,13 @@ namespace TankGame.Runtime.UI
     {
         private CanvasGroup _canvasGroup;
 
+        private void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
         public void Show()
         {
-            if (_canvasGroup == null)
-            {
-                _canvasGroup = GetComponent<CanvasGroup>();
-            }
-
             gameObject.SetActive(true);
             _canvasGroup.alpha = 1;
         }

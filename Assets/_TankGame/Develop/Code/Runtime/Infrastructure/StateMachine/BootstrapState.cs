@@ -24,14 +24,14 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             GLogger.Log("Init!", LogContext.Gameplay);
         }
 
-        public void Enter() => _sceneLoader.LoadAsync(SceneNames.Bootstrap, onLoaded: EnterLoadLevel);
+        public void Enter() => _sceneLoader.LoadAsync(SceneNames.Bootstrap, onLoaded: EnterMainMenu);
 
         public void Exit()
         {
 
         }
 
-        private async void EnterLoadLevel()
+        private async void EnterMainMenu()
         {
             await _staticData.LoadStaticData();
 

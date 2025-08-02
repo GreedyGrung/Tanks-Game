@@ -96,6 +96,7 @@ namespace TankGame.Runtime.Infrastructure
             Container.Bind<MainMenuState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<LoadNewGameState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
 
