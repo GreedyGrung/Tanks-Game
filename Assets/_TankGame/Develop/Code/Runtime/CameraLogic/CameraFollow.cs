@@ -7,7 +7,7 @@ namespace TankGame.Runtime.CameraLogic
     {
         private const float OffsetZ = -10;
 
-        [SerializeField] private Transform _followingTarget;
+        private Transform _followingTarget;
 
         public void Initialize(Transform playerTransform)
         {

@@ -6,6 +6,7 @@ namespace TankGame.Runtime.Utils
         public const string WallTag = "Wall";
         public const string PlayerAddress = "Player";
         public const string HudAddress = "HUD";
+        public const string CameraAddress = "Camera";
         public const string SpawnerAddress = "Spawner";
         public const string UIRootAddress = "UIRoot";
         public const string SpawnersRootAddress = "SpawnersRoot";

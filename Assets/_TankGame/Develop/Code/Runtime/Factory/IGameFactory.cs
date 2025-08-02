@@ -27,5 +27,6 @@ namespace TankGame.Runtime.Factory
         T CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject;
         Task LoadProjectiles();
         void Dispose();
+        Task<GameObject> CreateCameraAsync();
     }
 }

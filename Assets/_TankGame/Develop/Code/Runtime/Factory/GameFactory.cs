@@ -37,11 +37,14 @@ namespace TankGame.Runtime.Factory
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
 
-        public async Task<GameObject> CreatePlayerAsync(Vector3 at)
-            => await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
+        public async Task<GameObject> CreatePlayerAsync(Vector3 at) =>
+            await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
 
-        public async Task<GameObject> CreateHudAsync()
-            => await InstantiateRegisteredAsync(Constants.HudAddress);
+        public async Task<GameObject> CreateHudAsync() => 
+            await InstantiateRegisteredAsync(Constants.HudAddress);
+
+        public async Task<GameObject> CreateCameraAsync() => 
+            await _assetProvider.Instantiate(Constants.CameraAddress);
 
         public async Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent)
         {

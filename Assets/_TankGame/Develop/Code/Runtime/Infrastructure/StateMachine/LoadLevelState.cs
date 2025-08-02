@@ -89,20 +89,35 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
         private async Task InitGameWorldAsync()
         {
-            string sceneKey = SceneManager.GetActiveScene().name;
-            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
-
-            GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
-            IPlayer player = playerObject.GetComponent<IPlayer>();
-
-            var hud = await _gameFactory.CreateHudAsync();
-            hud.GetComponent<PlayerStatsPanel>().Initialize(player);
-
-            Object.FindObjectOfType<CameraFollow>().Initialize(player.Transform);
-
+            var camera = await _gameFactory.CreateCameraAsync();
+            var levelData = LoadLevelData();
+            var player = await CreatePlayer(levelData);
+            camera.GetComponent<CameraFollow>().Initialize(player.Transform);
+            
+            await CreateHud(player);
             await InitSpawnersAsync(player, levelData);
 
             _uiMediator = new(_uiService, player, _spawnersObserverService);
+        }
+        
+        private async Task<IPlayer> CreatePlayer(LevelStaticData levelData)
+        {
+            GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
+            IPlayer player = playerObject.GetComponent<IPlayer>();
+            return player;
+        }
+
+        private LevelStaticData LoadLevelData()
+        {
+            string sceneKey = SceneManager.GetActiveScene().name;
+            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
+            return levelData;
+        }
+
+        private async Task CreateHud(IPlayer player)
+        {
+            var hud = await _gameFactory.CreateHudAsync();
+            hud.GetComponent<PlayerStatsPanel>().Initialize(player);
         }
 
         private void InitObjectPools()
