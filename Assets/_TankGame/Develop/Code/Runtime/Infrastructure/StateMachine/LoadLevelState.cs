@@ -89,21 +89,28 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
         private async Task InitGameWorldAsync()
         {
-            var camera = await _gameFactory.CreateCameraAsync();
             var levelData = LoadLevelData();
             var player = await CreatePlayer(levelData);
-            camera.GetComponent<CameraFollow>().Initialize(player.Transform);
             
+            await CreateCamera(player);
+            player.Initalize();
             await CreateHud(player);
             await InitSpawnersAsync(player, levelData);
 
             _uiMediator = new(_uiService, player, _spawnersObserverService);
         }
-        
+
+        private async Task CreateCamera(IPlayer player)
+        {
+            var camera = await _gameFactory.CreateCameraAsync();
+            camera.GetComponent<CameraFollow>().Initialize(player.Transform);
+        }
+
         private async Task<IPlayer> CreatePlayer(LevelStaticData levelData)
         {
             GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
             IPlayer player = playerObject.GetComponent<IPlayer>();
+            
             return player;
         }
 
@@ -111,6 +118,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         {
             string sceneKey = SceneManager.GetActiveScene().name;
             LevelStaticData levelData = _staticData.ForLevel(sceneKey);
+            
             return levelData;
         }
 

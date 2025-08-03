@@ -8,5 +8,6 @@ namespace TankGame.Runtime.Entities.Interfaces
         IHealth Health { get; }
         PlayerWeapon Weapon { get; }
         Transform Transform { get; }
+        void Initalize();
     }
 }

@@ -16,6 +16,7 @@ namespace TankGame.Runtime.Infrastructure.Services.Input
             Subscribe();
         }
 
+        public event Action OnPausePressed;
         public Vector2 MovementInput { get; private set; }
         public Vector2 MousePosition { get; private set; }
 
@@ -31,8 +32,20 @@ namespace TankGame.Runtime.Infrastructure.Services.Input
             _playerControls.Player.MouseLeftButtonClick.performed += Attack;
             _playerControls.Player.ChooseFirstProjectileType.performed += ChooseFirstProjectileType;
             _playerControls.Player.ChooseSecondProjectileType.performed += ChooseSecondProjectileType;
+            _playerControls.Player.Pause.performed += Pause;
         }
 
+        private void Unsubscribe()
+        {
+            _playerControls.Player.Movement.performed -= Move;
+            _playerControls.Player.Movement.canceled -= Move;
+            _playerControls.Player.MousePosition.performed -= Look;
+            _playerControls.Player.MouseLeftButtonClick.performed -= Attack;
+            _playerControls.Player.ChooseFirstProjectileType.performed -= ChooseFirstProjectileType;
+            _playerControls.Player.ChooseSecondProjectileType.performed -= ChooseSecondProjectileType;
+            _playerControls.Player.Pause.performed -= Pause;
+        }
+        
         private void Move(InputAction.CallbackContext context)
             => MovementInput = context.ReadValue<Vector2>();
 
@@ -48,15 +61,8 @@ namespace TankGame.Runtime.Infrastructure.Services.Input
         private void ChooseSecondProjectileType(InputAction.CallbackContext context)
             => OnSecondProjectileTypeSelected?.Invoke();
 
-        private void Unsubscribe()
-        {
-            _playerControls.Player.Movement.performed -= Move;
-            _playerControls.Player.Movement.canceled -= Move;
-            _playerControls.Player.MousePosition.performed -= Look;
-            _playerControls.Player.MouseLeftButtonClick.performed -= Attack;
-            _playerControls.Player.ChooseFirstProjectileType.performed -= ChooseFirstProjectileType;
-            _playerControls.Player.ChooseSecondProjectileType.performed -= ChooseSecondProjectileType;
-        }
+        private void Pause(InputAction.CallbackContext context) 
+            => OnPausePressed?.Invoke();
 
         ~InputService()
         {

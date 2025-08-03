@@ -21,6 +21,8 @@ namespace TankGame.Runtime.Entities.Player
 
         private PlayerMovement _playerMovement;
         private ISpawnersObserverService _spawnersObserverService;
+        private IInputService _inputService;
+        private IPoolsService _poolsService;
 
         private string CurrentLevel => SceneManager.GetActiveScene().name;
 
@@ -42,11 +44,17 @@ namespace TankGame.Runtime.Entities.Player
         [Inject]
         public void Construct(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
         {
+            _poolsService = poolsService;
+            _inputService = inputService;
+            _spawnersObserverService = spawnersObserverService;
+        }
+
+        public void Initalize()
+        {
             Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
             _playerMovement = GetComponent<PlayerMovement>();
-            _playerMovement.Init(inputService);
-            _weapon.Init(inputService, poolsService);
-            _spawnersObserverService = spawnersObserverService;
+            _playerMovement.Init(_inputService);
+            _weapon.Init(_inputService, _poolsService);
 
             Subscribe();
         }

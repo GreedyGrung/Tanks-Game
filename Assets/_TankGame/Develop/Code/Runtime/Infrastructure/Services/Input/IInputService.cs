@@ -8,6 +8,7 @@ namespace TankGame.Runtime.Infrastructure.Services.Input
         public event Action OnAttackPressed;
         public event Action OnFirstProjectileTypeSelected;
         public event Action OnSecondProjectileTypeSelected;
+        public event Action OnPausePressed;
 
         public Vector2 MovementInput { get; }
         public Vector2 MousePosition { get; }
