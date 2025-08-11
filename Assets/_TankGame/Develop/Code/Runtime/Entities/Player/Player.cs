@@ -1,6 +1,8 @@
+using System;
 using TankGame.Runtime.Utils;
 using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Infrastructure.Services.Input;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress.Data;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
@@ -14,7 +16,7 @@ namespace TankGame.Runtime.Entities.Player
 {
     [SelectionBase]
     [RequireComponent(typeof(PlayerMovement))]
-    public class Player : MonoBehaviour, IDamageable, ISavedProgress, IPlayer
+    public class Player : MonoBehaviour, IDamageable, ISavedProgress, IPlayer, IPausable
     {
         [SerializeField] private PlayerWeapon _weapon;
         [SerializeField] private PlayerHealthData _healthData;
@@ -29,6 +31,29 @@ namespace TankGame.Runtime.Entities.Player
         public IHealth Health { get; private set; }
         public PlayerWeapon Weapon => _weapon;
         public Transform Transform => transform;
+
+        public bool IsPaused { get; private set; }
+
+        private void Update()
+        {
+            if (IsPaused || _playerMovement == null)
+            {
+                return;
+            }
+            
+            _playerMovement.LogicUpdate();
+            _weapon.LogicUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            if (IsPaused || _playerMovement == null)
+            {
+                return;
+            }
+            
+            _playerMovement.PhysicsUpdate();
+        }
 
         private void OnDestroy()
         {
@@ -54,7 +79,7 @@ namespace TankGame.Runtime.Entities.Player
             Health = new PlayerHealth(_healthData.MaxHealth, _healthData.MaxHealth);
             _playerMovement = GetComponent<PlayerMovement>();
             _playerMovement.Init(_inputService);
-            _weapon.Init(_inputService, _poolsService);
+            _weapon.Init(this, _inputService, _poolsService);
 
             Subscribe();
         }
@@ -93,6 +118,11 @@ namespace TankGame.Runtime.Entities.Player
             _playerMovement.enabled = false;
             _weapon.enabled = false;
             gameObject.SetActive(false);
+        }
+
+        public void SetIsPaused(bool value)
+        {
+            IsPaused = value;
         }
     }
 }

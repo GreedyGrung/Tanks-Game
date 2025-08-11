@@ -1,5 +1,6 @@
 ﻿using System;
 using TankGame.Runtime.UI;
+using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils.Enums;
 
 namespace TankGame.Runtime.StaticData.UI

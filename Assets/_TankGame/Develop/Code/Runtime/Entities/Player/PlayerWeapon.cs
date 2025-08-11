@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TankGame.Runtime.Infrastructure.Services.Input;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Projectiles;
 using TankGame.Runtime.StaticData.Player;
@@ -25,11 +26,15 @@ namespace TankGame.Runtime.Entities.Player
         private Projectile _projectile;
 
         private bool _canShoot = true;
+        private float _reloadingTimer;
+        private Player _player;
 
         public PlayerWeaponData WeaponData => _weaponData;
+        public float ReloadProgress => _reloadingTimer / _weaponData.ReloadTime;
 
-        public void Init(IInputService inputService, IPoolsService poolsService)
+        public void Init(Player player, IInputService inputService, IPoolsService poolsService)
         {
+            _player = player;
             _inputService = inputService;
             _poolsService = poolsService;
 
@@ -38,9 +43,15 @@ namespace TankGame.Runtime.Entities.Player
             _inputService.OnSecondProjectileTypeSelected += ChooseSecondProjectileType;
         }
 
-        private void OnDisable()
+        public void LogicUpdate()
         {
-            StopAllCoroutines();
+            _reloadingTimer += Time.deltaTime;
+
+            if (_reloadingTimer >= _weaponData.ReloadTime)
+            {
+                _reloadingTimer = _weaponData.ReloadTime;
+                _canShoot = true;
+            }
         }
 
         private void OnDestroy()
@@ -52,7 +63,7 @@ namespace TankGame.Runtime.Entities.Player
 
         private void Shoot()
         {
-            if (!_canShoot)
+            if (!_canShoot || _player.IsPaused)
                 return;
 
             OnPlayerShot?.Invoke();
@@ -60,28 +71,24 @@ namespace TankGame.Runtime.Entities.Player
             _projectile.gameObject.layer = (int)Layers.PlayerProjectile;
             _projectile.transform.position = _bulletSpawn.position;
             _projectile.transform.rotation = _bulletSpawn.rotation;
-
-            if (gameObject.activeInHierarchy)
-            {
-                StartCoroutine(Reload());
-            }
-        }
-
-        private IEnumerator Reload()
-        {
+            _reloadingTimer = 0;
             _canShoot = false;
-            yield return new WaitForSeconds(_weaponData.ReloadTime);
-            _canShoot = true;
         }
 
         private void ChooseFirstProjectileType()
         {
+            if (_player.IsPaused)
+                return;
+            
             _selectedProjectile = ProjectileTypeId.AP;
             OnApProjectileTypeChosen?.Invoke();
         }
 
         private void ChooseSecondProjectileType()
         {
+            if (_player.IsPaused)
+                return;
+            
             _selectedProjectile = ProjectileTypeId.HEX;
             OnHexProjectileTypeChosen?.Invoke();
         }

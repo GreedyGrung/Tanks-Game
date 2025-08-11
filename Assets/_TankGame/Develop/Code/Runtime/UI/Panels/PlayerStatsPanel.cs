@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using TankGame.Runtime.Entities.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankGame.Runtime.UI
+namespace TankGame.Runtime.UI.Panels
 {
     public class PlayerStatsPanel : MonoBehaviour
     {
@@ -29,7 +30,6 @@ namespace TankGame.Runtime.UI
         private void SubscribeToPlayerEvents()
         {
             _player.Health.OnValueChanged += ChangePlayerHealthValue;
-            _player.Weapon.OnPlayerShot += StartReloading;
             _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
             _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
         }
@@ -37,7 +37,6 @@ namespace TankGame.Runtime.UI
         private void OnDestroy()
         {
             _player.Health.OnValueChanged -= ChangePlayerHealthValue;
-            _player.Weapon.OnPlayerShot -= StartReloading;
             _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
             _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
         }
@@ -54,26 +53,12 @@ namespace TankGame.Runtime.UI
             _healthValue.fillAmount = currentHealth / maxHealth;
         }
 
-        private void StartReloading()
+        private void Update()
         {
-            _reloadValue.fillAmount = 0;
-            StartCoroutine(FillReloadingBar());
+            if (_player == null) return;
+            
+            _reloadValue.fillAmount = _player.Weapon.ReloadProgress;
         }
-
-        private IEnumerator FillReloadingBar()
-        {
-            float timer = 0f;
-
-            while (timer < _player.Weapon.WeaponData.ReloadTime)
-            {
-                timer += Time.deltaTime;
-                float progress = timer / _player.Weapon.WeaponData.ReloadTime;
-                _reloadValue.fillAmount = progress;
-                yield return null;
-            }
-
-            _reloadValue.fillAmount = 1;
-        } 
 
         private void ChooseHexProjectileType()
         {

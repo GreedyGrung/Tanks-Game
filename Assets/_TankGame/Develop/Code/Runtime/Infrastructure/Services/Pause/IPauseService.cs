@@ -4,7 +4,8 @@ namespace TankGame.Runtime.Infrastructure.Services.Pause
     {
         bool IsPaused { get; }
         void Register(IPausable handler);
-        void UnRegister(IPausable handler);
-        void SetPaused(bool isPaused);
+        void Unregister(IPausable handler);
+        void TogglePause();
+        void Dispose();
     }
 }

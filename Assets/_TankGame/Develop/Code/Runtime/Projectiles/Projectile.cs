@@ -1,4 +1,5 @@
 using TankGame.Runtime.Entities.Interfaces;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.StaticData.Environment;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace TankGame.Runtime.Projectiles
 {
-    public abstract class Projectile : MonoBehaviour, IPoolableObject
+    public abstract class Projectile : MonoBehaviour, IPoolableObject, IPausable
     {
         [SerializeField] private ProjectileAnimation _projectileAnimation;
         [SerializeField] private GameObject _visuals;
@@ -17,14 +18,16 @@ namespace TankGame.Runtime.Projectiles
 
         protected IPoolsService PoolsService { get; private set; }
 
+        protected bool IsPaused { get; private set; }
+
         [Inject]
         private void Construct(IPoolsService poolsService) => PoolsService = poolsService;
 
         private void Start() => _projectileAnimation.OnFinished += ReturnToPool;
 
-        protected virtual void Update()
+        protected void Update()
         {
-            if (_exploded)
+            if (_exploded || IsPaused)
             {
                 return;
             }
@@ -40,7 +43,7 @@ namespace TankGame.Runtime.Projectiles
 
         private void OnDestroy() => _projectileAnimation.OnFinished -= ReturnToPool;
 
-        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
@@ -50,12 +53,12 @@ namespace TankGame.Runtime.Projectiles
             Explode();
         }
 
-        public virtual void Initialize(ProjectileStaticData staticData) 
+        public void Initialize(ProjectileStaticData staticData) 
             => _projectileStaticData = staticData;
 
         protected virtual void ReturnToPool() { }
 
-        public virtual void Explode()
+        public void Explode()
         {
             _projectileAnimation.gameObject.SetActive(true);
             _exploded = true;
@@ -75,6 +78,11 @@ namespace TankGame.Runtime.Projectiles
             _timeFromSpawn = 0f;
             _visuals.SetActive(true);
             gameObject.SetActive(false);
+        }
+
+        public void SetIsPaused(bool value)
+        {
+            IsPaused = value;
         }
     }
 }

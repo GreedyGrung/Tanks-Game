@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.StaticData;
 using TankGame.Runtime.UI;
+using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils;
 using TankGame.Runtime.Utils.Enums;
 using UnityEngine;
@@ -37,7 +38,8 @@ namespace TankGame.Runtime.Factory
             => new()
             {
                 { UIPanelId.VictoryPanel, CreateVictoryPanel() },
-                { UIPanelId.FailurePanel, CreateFailurePanel() }
+                { UIPanelId.FailurePanel, CreateFailurePanel() },
+                { UIPanelId.PausePanel, CreatePausePanel() },
             };
 
         private UIPanelBase CreateFailurePanel()
@@ -58,6 +60,18 @@ namespace TankGame.Runtime.Factory
                 .InstantiatePrefab(config.Prefab, Vector3.zero, Quaternion.identity, _uiRoot)
                 .GetComponent<UIPanelBase>();
             panel.gameObject.SetActive(false);
+
+            return panel;
+        }
+
+        private UIPanelBase CreatePausePanel()
+        {
+            var config = _staticData.ForUIPanel(UIPanelId.PausePanel);
+            var panel = Object
+                .Instantiate(config.Prefab, Vector3.zero, Quaternion.identity)
+                .GetComponent<UIPanelBase>();
+            panel.gameObject.SetActive(false);
+            _container.InjectGameObject(panel.gameObject);
 
             return panel;
         }

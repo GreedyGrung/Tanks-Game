@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankGame.Runtime.UI
+namespace TankGame.Runtime.UI.Panels
 {
     public abstract class UIPanelBase : MonoBehaviour
     {

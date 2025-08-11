@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace TankGame.Runtime.Infrastructure.Services.Pause
 {
@@ -10,16 +11,18 @@ namespace TankGame.Runtime.Infrastructure.Services.Pause
         
         public void Register(IPausable handler) => _pausables.Add(handler);
 
-        public void UnRegister(IPausable handler) => _pausables.Remove(handler);
+        public void Unregister(IPausable handler) => _pausables.Remove(handler);
 
-        public void SetPaused(bool isPaused)
+        public void TogglePause()
         {
-            IsPaused = isPaused;
+            IsPaused = !IsPaused;
             
             foreach (var handler in _pausables)
             {
-                handler.SetIsPaused(isPaused);
+                handler.SetIsPaused(IsPaused);
             }
         }
+
+        public void Dispose() => _pausables.Clear();
     }
 }

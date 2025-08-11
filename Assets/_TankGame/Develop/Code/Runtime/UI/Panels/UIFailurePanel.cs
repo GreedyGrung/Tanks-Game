@@ -2,7 +2,7 @@
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace TankGame.Runtime.UI
+namespace TankGame.Runtime.UI.Panels
 {
     public class UIFailurePanel : UIPanelBase
     {

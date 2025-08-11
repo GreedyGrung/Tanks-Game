@@ -2,6 +2,7 @@
 using TankGame.Runtime.Entities.Enemies.Base;
 using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Factory;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress.Data;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
@@ -22,12 +23,14 @@ namespace TankGame.Runtime.Environment
         private IPlayer _player;
         private IPoolsService _poolsService;
         private Enemy _enemy;
+        private IPauseService _pauseService;
 
         public bool IsSlain => _isSlain;
 
         [Inject]
-        private void Construct(IGameFactory gameFactory, IPoolsService poolsService)
+        private void Construct(IGameFactory gameFactory, IPoolsService poolsService, IPauseService pauseService)
         {
+            _pauseService = pauseService;
             _gameFactory = gameFactory;
             _poolsService = poolsService;
         }
@@ -69,12 +72,14 @@ namespace TankGame.Runtime.Environment
 
             _enemy.OnKilled += KillEnemy;
             _enemy.Initialize(_player, _poolsService);
+            _pauseService.Register(_enemy);
         }
 
         private void KillEnemy()
         {
             _enemy.OnKilled -= KillEnemy;
             _isSlain = true;
+            _pauseService.Unregister(_enemy);
 
             OnEnemyInSpawnerKilled?.Invoke(this);
         }

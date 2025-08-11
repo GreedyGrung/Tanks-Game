@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TankGame.Runtime.Entities.Enemies.StateMachineScripts;
 using TankGame.Runtime.Entities.Interfaces;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Projectiles;
 using TankGame.Runtime.StaticData.Enemies;
@@ -12,7 +13,7 @@ namespace TankGame.Runtime.Entities.Enemies.Base
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(EnemyVisuals))]
-    public class Enemy : MonoBehaviour, IDamageable
+    public class Enemy : MonoBehaviour, IDamageable, IPausable
     {
         public event Action OnKilled;
 
@@ -38,8 +39,10 @@ namespace TankGame.Runtime.Entities.Enemies.Base
 
         public bool CanShoot { get; private set; } = true;
         public bool IsRotatingTower { get; private set; }
+        
+        protected bool IsPaused { get; private set; }
 
-        private bool CanUpdate => _isExploding == false || _isInit == true;
+        private bool CanUpdate => (_isExploding == false || _isInit == true) && IsPaused == false;
 
         public virtual void Awake()
         {
@@ -144,6 +147,11 @@ namespace TankGame.Runtime.Entities.Enemies.Base
             CanShoot = false;
             yield return new WaitForSeconds(EnemyData.ReloadTime);
             CanShoot = true;
+        }
+
+        public void SetIsPaused(bool value)
+        {
+            IsPaused = value;
         }
     }
 }

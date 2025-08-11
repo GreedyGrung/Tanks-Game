@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace TankGame.Runtime.UI
+namespace TankGame.Runtime.UI.Common
 {
     [RequireComponent(typeof(RectTransform))]
     public class UIAnimationRotation : MonoBehaviour
@@ -18,6 +18,7 @@ namespace TankGame.Runtime.UI
         private void Awake() => _rect = GetComponent<RectTransform>();
 
         private void OnEnable()  => StartSpin();
+        
         private void OnDisable() => _spinTween?.Kill();
 
         private void StartSpin()

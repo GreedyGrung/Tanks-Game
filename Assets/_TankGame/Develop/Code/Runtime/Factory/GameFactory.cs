@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using GreedyLogger;
 using TankGame.Runtime.Entities.Enemies.Base;
 using TankGame.Runtime.Entities.Interfaces;
+using TankGame.Runtime.Entities.Player;
 using TankGame.Runtime.Environment;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Infrastructure.Services.StaticData;
@@ -23,14 +25,16 @@ namespace TankGame.Runtime.Factory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
+        private readonly IPauseService _pauseService;
         private readonly DiContainer _container;
 
         private Dictionary<ProjectileTypeId, GameObject> _projectiles = new();
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData, DiContainer container)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticData, IPauseService pauseService, DiContainer container)
         {
             _assetProvider = assetProvider;
             _staticData = staticData;
+            _pauseService = pauseService;
             _container = container;
         }
 
@@ -132,6 +136,7 @@ namespace TankGame.Runtime.Factory
             Projectile projectile = _container.InstantiatePrefab(prefab, parent.position, Quaternion.identity, parent).GetComponent<Projectile>();
             projectile.Initialize(data);
             projectile.gameObject.SetActive(activeByDefault);
+            _pauseService.Register(projectile);
 
             return projectile;
         }
@@ -141,6 +146,7 @@ namespace TankGame.Runtime.Factory
             var playerObject = await _assetProvider.Instantiate(prefabPath, at);
             RegisterProgressWatchers(playerObject);
             _container.InjectGameObject(playerObject);
+            _container.BindInstance(playerObject);
 
             return playerObject;
         }

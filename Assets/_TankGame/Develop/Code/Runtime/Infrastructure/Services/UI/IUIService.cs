@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TankGame.Runtime.UI;
+using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils.Enums;
 
 namespace TankGame.Runtime.Infrastructure.Services.UI
@@ -8,5 +9,6 @@ namespace TankGame.Runtime.Infrastructure.Services.UI
     {
         void Open(UIPanelId id);
         void ReceivePanels(Dictionary<UIPanelId, UIPanelBase> panels);
+        void Close(UIPanelId id);
     }
 }

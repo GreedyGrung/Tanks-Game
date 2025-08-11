@@ -4,6 +4,8 @@ using TankGame.Runtime.CameraLogic;
 using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Environment;
 using TankGame.Runtime.Factory;
+using TankGame.Runtime.Infrastructure.Services.Input;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Infrastructure.Services.ScenesLoading;
@@ -14,6 +16,7 @@ using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
 using TankGame.Runtime.Projectiles;
 using TankGame.Runtime.StaticData.Environment;
 using TankGame.Runtime.UI;
+using TankGame.Runtime.UI.Panels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,9 +34,12 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         private readonly IUIFactory _uiFactory;
         private readonly ISpawnersObserverService _spawnersObserverService;
         private readonly IPoolsService _poolsService;
+        private readonly IInputService _inputService;
+        private readonly IPauseService _pauseService;
         private readonly List<SpawnPoint> _spawnPoints = new();
 
         private UIMediator _uiMediator;
+        private IPlayer _player;
 
         public LoadLevelState(
             IGameStateMachine gameStateMachine,
@@ -45,7 +51,9 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             IUIService uIService,
             IUIFactory uiFactory,
             ISpawnersObserverService spawnersObserverService,
-            IPoolsService poolsService)
+            IPoolsService poolsService, 
+            IInputService inputService, 
+            IPauseService pauseService)
         {
             _sceneLoader = sceneLoader;
             _loadingScreen = loadingScreen;
@@ -57,6 +65,8 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _uiFactory = uiFactory;
             _spawnersObserverService = spawnersObserverService;
             _poolsService = poolsService;
+            _inputService = inputService;
+            _pauseService = pauseService;
         }
 
         public void Enter(string sceneName)
@@ -84,20 +94,21 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             InformProgressReaders();
             InitSpawnersObserverService();
 
-            _gameStateMachine.Enter<GameLoopState>();
+            _gameStateMachine.Enter<GameLoopState, GameLoopPayload>(new GameLoopPayload { Player = _player });
         }
 
         private async Task InitGameWorldAsync()
         {
             var levelData = LoadLevelData();
             var player = await CreatePlayer(levelData);
-            
-            await CreateCamera(player);
-            player.Initalize();
-            await CreateHud(player);
-            await InitSpawnersAsync(player, levelData);
 
-            _uiMediator = new(_uiService, player, _spawnersObserverService);
+            _player = player;
+            await CreateCamera(_player);
+            _player.Initalize();
+            await CreateHud(_player);
+            await InitSpawnersAsync(_player, levelData);
+
+            _uiMediator = new(_uiService, _player, _spawnersObserverService, _inputService, _pauseService);
         }
 
         private async Task CreateCamera(IPlayer player)

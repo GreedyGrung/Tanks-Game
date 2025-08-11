@@ -22,7 +22,7 @@ namespace TankGame.Runtime.Entities.Player
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        public void LogicUpdate()
         {
             if (_inputService == null)
             {
@@ -33,7 +33,7 @@ namespace TankGame.Runtime.Entities.Player
             HandleTowerRotation();
         }
 
-        private void FixedUpdate()
+        public void PhysicsUpdate()
         {
             if (_inputService == null)
             {

@@ -1,6 +1,7 @@
 using TankGame.Runtime.Factory;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.Input;
+using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Infrastructure.Services.SavingLoading;
@@ -61,6 +62,7 @@ namespace TankGame.Runtime.Infrastructure
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<ISpawnersObserverService>().To<SpawnersObserverService>().AsSingle();
             Container.Bind<IPoolsService>().To<PoolsService>().AsSingle();
+            Container.Bind<IPauseService>().To<PauseService>().AsSingle();
         }
 
         private void BindInputService()

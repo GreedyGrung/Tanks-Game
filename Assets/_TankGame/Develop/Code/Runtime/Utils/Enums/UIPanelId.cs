@@ -3,6 +3,7 @@
     public enum UIPanelId
     {
         VictoryPanel = 0,
-        FailurePanel = 1
+        FailurePanel = 1,
+        PausePanel = 2
     }
 }
