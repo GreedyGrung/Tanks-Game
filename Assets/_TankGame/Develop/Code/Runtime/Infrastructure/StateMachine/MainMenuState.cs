@@ -18,7 +18,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
         public void Enter()
         {
-            _sceneLoader.LoadAsync(SceneNames.MainMenu, () => _loadingScreen.Hide());
+            _sceneLoader.LoadAsync(SceneNames.MainMenu, () => _loadingScreen.TryHide());
         }
 
         public void Exit()

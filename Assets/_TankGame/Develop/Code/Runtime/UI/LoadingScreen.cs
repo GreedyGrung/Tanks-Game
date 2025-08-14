@@ -20,8 +20,10 @@ namespace TankGame.Runtime.UI
             _canvasGroup.alpha = 1;
         }
 
-        public void Hide()
+        public void TryHide()
         {
+            if (!gameObject.activeInHierarchy) return;
+            
             StartCoroutine(FadeIn());
         }
 

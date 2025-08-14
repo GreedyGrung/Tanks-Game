@@ -28,8 +28,6 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
             _player = payload.Player;
             _pauseService.Register(_player as IPausable);
-            
-            Debug.LogError("player " + _player.Health.Value);
         }
 
         public void Exit()

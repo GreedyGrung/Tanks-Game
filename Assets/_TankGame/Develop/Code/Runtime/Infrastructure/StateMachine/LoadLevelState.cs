@@ -80,7 +80,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
         public void Exit()
         {
-            _loadingScreen.Hide();
+            _loadingScreen.TryHide();
 
             _spawnPoints.Clear();
         }
