@@ -74,12 +74,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - enemyData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 61cdd536bced8df4ea08c0fc76d8d90f
-    m_Address: LevelData 1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - levelData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1c29d83cf931474cafd15677457d7f1
     m_Address: LevelData
     m_ReadOnly: 0
