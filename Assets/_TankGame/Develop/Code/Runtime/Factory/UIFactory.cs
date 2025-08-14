@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.StaticData;
 using TankGame.Runtime.UI;
+using TankGame.Runtime.UI.Common;
 using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils;
 using TankGame.Runtime.Utils.Enums;
@@ -18,6 +19,7 @@ namespace TankGame.Runtime.Factory
         private readonly DiContainer _container;
 
         private Transform _uiRoot;
+        private Transform _hintsRoot;
 
         public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData, DiContainer container)
         {
@@ -34,6 +36,14 @@ namespace TankGame.Runtime.Factory
             _uiRoot.localScale = Vector3.one;
         }
 
+        public async Task CreateHintsRootAsync()
+        {
+            GameObject hintsRootObject = await _assetProvider.Instantiate(Constants.HintsRootAddress);
+            _hintsRoot = hintsRootObject.transform;
+            _hintsRoot.position = Vector3.zero;
+            _hintsRoot.localScale = Vector3.one;
+        }
+
         public Dictionary<UIPanelId, UIPanelBase> CreateUIPanels()
             => new()
             {
@@ -41,6 +51,17 @@ namespace TankGame.Runtime.Factory
                 { UIPanelId.FailurePanel, CreateFailurePanel() },
                 { UIPanelId.PausePanel, CreatePausePanel() },
             };
+
+        public async Task<GenericHint> CreateGenericHint()
+        {
+            var prefab = await _assetProvider.Load<GameObject>(Constants.GenericHint);
+            var hint = Object
+                .Instantiate(prefab, _hintsRoot)
+                .GetComponent<GenericHint>();
+            hint.gameObject.SetActive(false);
+            
+            return hint;
+        }
 
         private UIPanelBase CreateFailurePanel()
         {

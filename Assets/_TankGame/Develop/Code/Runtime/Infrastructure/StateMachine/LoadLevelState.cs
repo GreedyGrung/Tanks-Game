@@ -163,8 +163,11 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         private async Task InitGameUIAsync()
         {
             await _uiFactory.CreateUIRootAsync();
+            await _uiFactory.CreateHintsRootAsync();
 
-            _uiService.ReceivePanels(_uiFactory.CreateUIPanels());
+            var hint = await _uiFactory.CreateGenericHint();
+
+            _uiService.Initialize(_uiFactory.CreateUIPanels(), hint);
         }
 
         private void InformProgressReaders()
