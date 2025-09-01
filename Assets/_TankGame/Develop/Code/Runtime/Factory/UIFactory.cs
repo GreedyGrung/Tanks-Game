@@ -67,7 +67,7 @@ namespace TankGame.Runtime.Factory
         {
             var config = _staticData.ForUIPanel(UIPanelId.FailurePanel);
             var panel = _container
-                .InstantiatePrefab(config.Prefab, Vector3.zero, Quaternion.identity, _uiRoot)
+                .InstantiatePrefab(config.Prefab, _uiRoot)
                 .GetComponent<UIPanelBase>();
             panel.gameObject.SetActive(false);
 
@@ -78,7 +78,7 @@ namespace TankGame.Runtime.Factory
         {
             var config = _staticData.ForUIPanel(UIPanelId.VictoryPanel);
             var panel = _container
-                .InstantiatePrefab(config.Prefab, Vector3.zero, Quaternion.identity, _uiRoot)
+                .InstantiatePrefab(config.Prefab, _uiRoot)
                 .GetComponent<UIPanelBase>();
             panel.gameObject.SetActive(false);
 

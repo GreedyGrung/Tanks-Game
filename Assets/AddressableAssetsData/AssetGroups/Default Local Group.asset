@@ -57,11 +57,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f9da043bcc5706e45948a2a846347fa5
-    m_Address: SpawnersRoot
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 598c7199efab4ae4d9e83c7cd3f5e4e3
     m_Address: BaseEnemyStaticData
     m_ReadOnly: 0

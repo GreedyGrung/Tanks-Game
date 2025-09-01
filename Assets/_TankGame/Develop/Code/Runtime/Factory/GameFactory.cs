@@ -73,8 +73,7 @@ namespace TankGame.Runtime.Factory
             return spawner;
         }
 
-        public GameObject CreateEmptyObjectWithName(string name) 
-            => UnityEngine.Object.Instantiate(new GameObject(name));
+        public GameObject CreateEmptyObjectWithName(string name) => new(name);
 
         public T CreatePoolableObject<T>(Transform parent, bool activeByDefault) where T : IPoolableObject
         {
