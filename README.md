@@ -1,3 +1,4 @@
+![image](/Documentation/tanks_game_0.png)
 # Tanks Game 
 This was once a test task, and now it's my demo project :)
 
