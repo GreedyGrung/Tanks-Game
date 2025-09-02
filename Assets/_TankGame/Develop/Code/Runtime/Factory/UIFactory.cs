@@ -52,12 +52,12 @@ namespace TankGame.Runtime.Factory
                 { UIPanelId.PausePanel, CreatePausePanel() },
             };
 
-        public async Task<GenericHint> CreateGenericHint()
+        public async Task<UIGenericHint> CreateGenericHint()
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.GenericHint);
             var hint = Object
                 .Instantiate(prefab, _hintsRoot)
-                .GetComponent<GenericHint>();
+                .GetComponent<UIGenericHint>();
             hint.gameObject.SetActive(false);
             
             return hint;

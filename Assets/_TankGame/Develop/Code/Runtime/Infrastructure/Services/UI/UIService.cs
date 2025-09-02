@@ -8,9 +8,9 @@ namespace TankGame.Runtime.Infrastructure.Services.UI
     public class UIService : IUIService
     {
         private Dictionary<UIPanelId, UIPanelBase> _panels;
-        private GenericHint _hint;
+        private UIGenericHint _hint;
 
-        public void Initialize(Dictionary<UIPanelId, UIPanelBase> panels, GenericHint hint)
+        public void Initialize(Dictionary<UIPanelId, UIPanelBase> panels, UIGenericHint hint)
         {
             _panels = new(panels);
             _hint = hint;

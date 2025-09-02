@@ -12,6 +12,6 @@ namespace TankGame.Runtime.Factory
         Task CreateUIRootAsync();
         Dictionary<UIPanelId, UIPanelBase> CreateUIPanels();
         Task CreateHintsRootAsync();
-        Task<GenericHint> CreateGenericHint();
+        Task<UIGenericHint> CreateGenericHint();
     }
 }

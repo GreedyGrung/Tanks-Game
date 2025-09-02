@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TankGame.Runtime.UI.Common
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class GenericHint : MonoBehaviour
+    public class UIGenericHint : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _message;
         [Space]

@@ -9,7 +9,7 @@ namespace TankGame.Runtime.Infrastructure.Services.UI
     public interface IUIService
     {
         void Open(UIPanelId id);
-        void Initialize(Dictionary<UIPanelId, UIPanelBase> panels, GenericHint hint);
+        void Initialize(Dictionary<UIPanelId, UIPanelBase> panels, UIGenericHint hint);
         void Close(UIPanelId id);
         void ShowHint(string message, float duration = 3f);
     }
