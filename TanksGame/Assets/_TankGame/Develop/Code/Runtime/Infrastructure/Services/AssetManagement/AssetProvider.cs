@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using GreedyLogger;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,8 +12,12 @@ namespace TankGame.Runtime.Infrastructure.Services.AssetManagement
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
-        public void Initialize() 
-            => Addressables.InitializeAsync();
+        public void Initialize()
+        {
+            Addressables.InitializeAsync();
+            
+            GLogger.Log("Addressables initialized!", LogContext.Infrastructure);
+        }
 
         public Task<GameObject> Instantiate(string address)
             => Addressables.InstantiateAsync(address).Task;

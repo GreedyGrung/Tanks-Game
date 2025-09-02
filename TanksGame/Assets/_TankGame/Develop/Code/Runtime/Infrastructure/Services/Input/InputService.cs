@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Infrastructure.Services.Input;
+using GreedyLogger;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ namespace TankGame.Runtime.Infrastructure.Services.Input
             _playerControls = new PlayerControls();
             _playerControls.Enable();
             Subscribe();
+            
+            GLogger.Log("Input service initialized!", LogContext.Infrastructure);
         }
 
         public event Action OnPausePressed;

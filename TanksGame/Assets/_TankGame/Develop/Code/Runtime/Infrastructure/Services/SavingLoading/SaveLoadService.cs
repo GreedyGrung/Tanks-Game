@@ -1,4 +1,5 @@
-﻿using TankGame.Runtime.Factory;
+﻿using GreedyLogger;
+using TankGame.Runtime.Factory;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress;
 using TankGame.Runtime.Infrastructure.Services.PersistentProgress.Data;
 using TankGame.Runtime.Utils;
@@ -24,7 +25,7 @@ namespace TankGame.Runtime.Infrastructure.Services.SavingLoading
                 writer.UpdateProgress(_progressService.Progress);
             }
 
-            Debug.Log("saved at " + Constants.SaveKey);
+            GLogger.Log("Successfully saved the progress!", LogContext.Infrastructure);
             PlayerPrefs.SetString(Constants.SaveKey, _progressService.Progress.ToJson());
         }
 
