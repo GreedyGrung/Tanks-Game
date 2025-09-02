@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using TankGame.Runtime.Entities.Enemies.Base;
-using TankGame.Runtime.Entities.Interfaces;
-using TankGame.Runtime.Entities.Player;
+﻿using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Infrastructure.Services.Input;
 using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
-using UnityEngine;
-using Zenject;
 
 namespace TankGame.Runtime.Infrastructure.StateMachine
 {
@@ -24,10 +19,10 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         
         public void Enter(GameLoopPayload payload)
         {
-            _inputService.OnPausePressed += TogglePause;
-
             _player = payload.Player;
             _pauseService.Register(_player as IPausable);
+
+            _inputService.OnPausePressed += TogglePause;
         }
 
         public void Exit()
@@ -42,6 +37,5 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
     public class GameLoopPayload
     {
         public IPlayer Player;
-        public List<Enemy> Enemies;
     }
 }

@@ -53,7 +53,7 @@ namespace TankGame.Runtime.UI.Panels
 
         private void Update()
         {
-            if (_player == null) return;
+            if (_player == null || _player.Deactivated) return;
             
             _reloadValue.fillAmount = _player.Weapon.ReloadProgress;
         }

@@ -1,4 +1,3 @@
-using System;
 using TankGame.Runtime.Utils;
 using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Infrastructure.Services.Input;
@@ -33,6 +32,8 @@ namespace TankGame.Runtime.Entities.Player
         public Transform Transform => transform;
 
         public bool IsPaused { get; private set; }
+
+        public bool Deactivated { get; private set; }
 
         private void Update()
         {
@@ -111,6 +112,7 @@ namespace TankGame.Runtime.Entities.Player
 
         private void DeactivatePlayer()
         {
+            Deactivated = true;
             _playerMovement.enabled = false;
             _weapon.enabled = false;
             gameObject.SetActive(false);
