@@ -1,3 +1,4 @@
+using GreedyLogger;
 using TankGame.Runtime.Infrastructure.StateMachine.Factory;
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
 
@@ -23,6 +24,8 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
             var state = _stateFactory.GetState<TState>();
             _activeState = state;
+            
+            GLogger.Log("Enter " + typeof(TState).Name, LogContext.Infrastructure);
 
             return state;
         }

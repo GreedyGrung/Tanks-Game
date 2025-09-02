@@ -1,5 +1,4 @@
-﻿using GreedyLogger;
-using TankGame.Runtime.Infrastructure.Services.AssetManagement;
+﻿using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.ScenesLoading;
 using TankGame.Runtime.Infrastructure.Services.StaticData;
 using TankGame.Runtime.Infrastructure.StateMachine.Interfaces;
@@ -20,8 +19,6 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _staticData = staticData;
 
             assetProvider.Initialize();
-
-            GLogger.Log("Init!", LogContext.Gameplay);
         }
 
         public void Enter() => _sceneLoader.LoadAsync(SceneNames.Bootstrap, onLoaded: EnterMainMenu);
