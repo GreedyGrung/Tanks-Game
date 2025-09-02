@@ -136,7 +136,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         private async Task CreateHud(IPlayer player)
         {
             var hud = await _gameFactory.CreateHudAsync();
-            hud.GetComponent<PlayerStatsPanel>().Initialize(player);
+            hud.GetComponent<UIPlayerStatsPanel>().Initialize(player);
         }
 
         private void InitObjectPools()

@@ -26,6 +26,7 @@ namespace TankGame.Runtime.Entities.Player
                 OnValueChanged?.Invoke(Value, MaxValue);
             }
         }
+        
         public float MaxValue { get; private set; }
         public bool IsDead => Value == 0;
         public bool IsFull => Value == MaxValue;

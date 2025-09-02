@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
 using TankGame.Runtime.Entities.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TankGame.Runtime.UI.Panels
 {
-    public class PlayerStatsPanel : MonoBehaviour
+    public class UIPlayerStatsPanel : MonoBehaviour
     {
         [Header("Images")]
         [SerializeField] private Image _healthValue;

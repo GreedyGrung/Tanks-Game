@@ -13,7 +13,6 @@ namespace TankGame.Runtime.Entities.Player
 {
     public class PlayerWeapon : MonoBehaviour
     {
-        public event Action OnPlayerShot;
         public event Action OnApProjectileTypeChosen;
         public event Action OnHexProjectileTypeChosen;
 
@@ -29,7 +28,6 @@ namespace TankGame.Runtime.Entities.Player
         private float _reloadingTimer;
         private Player _player;
 
-        public PlayerWeaponData WeaponData => _weaponData;
         public float ReloadProgress => _reloadingTimer / _weaponData.ReloadTime;
 
         public void Init(Player player, IInputService inputService, IPoolsService poolsService)
@@ -66,7 +64,6 @@ namespace TankGame.Runtime.Entities.Player
             if (!_canShoot || _player.IsPaused)
                 return;
 
-            OnPlayerShot?.Invoke();
             _projectile = _poolsService.GetProjectile(_selectedProjectile);
             _projectile.gameObject.layer = (int)Layers.PlayerProjectile;
             _projectile.transform.position = _bulletSpawn.position;

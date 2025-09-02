@@ -55,24 +55,7 @@ namespace TankGame.Runtime.Entities.Player
             _playerMovement.PhysicsUpdate();
         }
 
-        private void OnDestroy()
-        {
-            Unsubscribe();
-        }
-
-        private void Unsubscribe()
-        {
-            _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
-            Health.OnDied -= DeactivatePlayer;
-        }
-
-        [Inject]
-        public void Construct(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
-        {
-            _poolsService = poolsService;
-            _inputService = inputService;
-            _spawnersObserverService = spawnersObserverService;
-        }
+        private void OnDestroy() => Unsubscribe();
 
         public void Initalize()
         {
@@ -83,13 +66,7 @@ namespace TankGame.Runtime.Entities.Player
 
             Subscribe();
         }
-
-        private void Subscribe()
-        {
-            _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
-            Health.OnDied += DeactivatePlayer;
-        }
-
+        
         public void UpdateProgress(PlayerProgress playerProgress)
         {
             playerProgress.PlayerData.Health = Health.Value;
@@ -108,9 +85,28 @@ namespace TankGame.Runtime.Entities.Player
             Health.SetValue(playerProgress.PlayerData.Health != 0 ? playerProgress.PlayerData.Health : Health.MaxValue);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage) => Health.Subtract(damage);
+
+        public void SetIsPaused(bool value) => IsPaused = value;
+
+        [Inject]
+        private void Construct(IInputService inputService, ISpawnersObserverService spawnersObserverService, IPoolsService poolsService)
         {
-            Health.Subtract(damage);
+            _poolsService = poolsService;
+            _inputService = inputService;
+            _spawnersObserverService = spawnersObserverService;
+        }
+
+        private void Subscribe()
+        {
+            _spawnersObserverService.OnAllEnemiesKilled += DeactivatePlayer;
+            Health.OnDied += DeactivatePlayer;
+        }
+
+        private void Unsubscribe()
+        {
+            _spawnersObserverService.OnAllEnemiesKilled -= DeactivatePlayer;
+            Health.OnDied -= DeactivatePlayer;
         }
 
         private void DeactivatePlayer()
@@ -118,11 +114,6 @@ namespace TankGame.Runtime.Entities.Player
             _playerMovement.enabled = false;
             _weapon.enabled = false;
             gameObject.SetActive(false);
-        }
-
-        public void SetIsPaused(bool value)
-        {
-            IsPaused = value;
         }
     }
 }
