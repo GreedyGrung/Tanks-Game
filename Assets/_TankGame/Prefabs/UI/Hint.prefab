@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3528775593111979465}
   - component: {fileID: 6730951629590895362}
+  - component: {fileID: 1102853663555783644}
   m_Layer: 5
   m_Name: Hint
   m_TagString: Untagged
@@ -50,6 +51,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 5627508989001377783}
+  _fadeIn: 0.2
+  _fadeOut: 0.15
+  _easeIn: 5
+  _easeOut: 6
+--- !u!225 &1102853663555783644
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249161772409934797}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &6769024423371268113
 GameObject:
   m_ObjectHideFlags: 0
