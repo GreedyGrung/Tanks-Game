@@ -13,7 +13,7 @@ namespace TankGame.Runtime.Utils
         public const string ArmorPiercingProjectileAddress = "ArmorPiercingProjectile";
         public const string HighExplosiveProjectileAddress = "HighExplosiveProjectile";
 
-        public const string SaveKey = "testSave";
+        public const string SaveKey = "progress.json";
 
         public const string EnemyDataLabel = "enemyData";
         public const string LevelDataLabel = "levelData";
