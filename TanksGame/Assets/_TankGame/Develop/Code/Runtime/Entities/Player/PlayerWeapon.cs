@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using TankGame.Runtime.Infrastructure.Services.Input;
-using TankGame.Runtime.Infrastructure.Services.Pause;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Projectiles;
 using TankGame.Runtime.StaticData.Player;
