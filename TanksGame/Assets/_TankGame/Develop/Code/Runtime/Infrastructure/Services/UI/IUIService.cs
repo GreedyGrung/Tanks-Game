@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TankGame.Runtime.UI;
 using TankGame.Runtime.UI.Common;
 using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils.Enums;

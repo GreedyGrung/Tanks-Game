@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
 namespace TankGame.Runtime.Infrastructure.Services.ScenesLoading
 {
     public class SceneLoader : ISceneLoader
     {
-        public async Task LoadAsync(string nextScene, Action onLoaded = null)
+        public async UniTask LoadAsync(string nextScene, Action onLoaded = null)
         {
             if (SceneManager.GetActiveScene().name == nextScene)
             {
@@ -19,7 +19,7 @@ namespace TankGame.Runtime.Infrastructure.Services.ScenesLoading
 
             while (!waitNextScene.isDone)
             {
-                await Task.Yield();
+                await UniTask.Yield();
             }
 
             onLoaded?.Invoke();

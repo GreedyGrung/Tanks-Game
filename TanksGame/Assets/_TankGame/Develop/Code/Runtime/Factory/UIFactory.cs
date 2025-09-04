@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.StaticData;
-using TankGame.Runtime.UI;
 using TankGame.Runtime.UI.Common;
 using TankGame.Runtime.UI.Panels;
 using TankGame.Runtime.Utils;
@@ -28,7 +27,7 @@ namespace TankGame.Runtime.Factory
             _container = container;
         }
 
-        public async Task CreateUIRootAsync()
+        public async UniTask CreateUIRootAsync()
         {
             GameObject uiRootObject = await _assetProvider.Instantiate(Constants.UIRootAddress);
             _uiRoot = uiRootObject.transform;
@@ -36,7 +35,7 @@ namespace TankGame.Runtime.Factory
             _uiRoot.localScale = Vector3.one;
         }
 
-        public async Task CreateHintsRootAsync()
+        public async UniTask CreateHintsRootAsync()
         {
             GameObject hintsRootObject = await _assetProvider.Instantiate(Constants.HintsRootAddress);
             _hintsRoot = hintsRootObject.transform;
@@ -52,7 +51,7 @@ namespace TankGame.Runtime.Factory
                 { UIPanelId.PausePanel, CreatePausePanel() },
             };
 
-        public async Task<UIGenericHint> CreateGenericHint()
+        public async UniTask<UIGenericHint> CreateGenericHint()
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.GenericHint);
             var hint = Object

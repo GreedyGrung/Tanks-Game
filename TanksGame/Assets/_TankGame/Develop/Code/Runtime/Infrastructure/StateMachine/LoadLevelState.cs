@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TankGame.Runtime.CameraLogic;
 using TankGame.Runtime.Entities.Interfaces;
 using TankGame.Runtime.Environment;
@@ -97,7 +97,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _gameStateMachine.Enter<GameLoopState, GameLoopPayload>(new GameLoopPayload { Player = _player });
         }
 
-        private async Task InitGameWorldAsync()
+        private async UniTask InitGameWorldAsync()
         {
             var levelData = LoadLevelData();
             var player = await CreatePlayer(levelData);
@@ -111,13 +111,13 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _uiMediator = new(_uiService, _player, _spawnersObserverService, _inputService, _pauseService);
         }
 
-        private async Task CreateCamera(IPlayer player)
+        private async UniTask CreateCamera(IPlayer player)
         {
             var camera = await _gameFactory.CreateCameraAsync();
             camera.GetComponent<CameraFollow>().Initialize(player.Transform);
         }
 
-        private async Task<IPlayer> CreatePlayer(LevelStaticData levelData)
+        private async UniTask<IPlayer> CreatePlayer(LevelStaticData levelData)
         {
             GameObject playerObject = await _gameFactory.CreatePlayerAsync(levelData.PlayerPosition);
             IPlayer player = playerObject.GetComponent<IPlayer>();
@@ -133,7 +133,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             return levelData;
         }
 
-        private async Task CreateHud(IPlayer player)
+        private async UniTask CreateHud(IPlayer player)
         {
             var hud = await _gameFactory.CreateHudAsync();
             hud.GetComponent<UIPlayerStatsPanel>().Initialize(player);
@@ -145,7 +145,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _poolsService.RegisterPool<HighExplosiveProjectile>();
         }
 
-        private async Task InitSpawnersAsync(IPlayer player, LevelStaticData levelData)
+        private async UniTask InitSpawnersAsync(IPlayer player, LevelStaticData levelData)
         {
             var spawnersRoot = _gameFactory.CreateEmptyObjectWithName("Spawners Root");
 
@@ -160,7 +160,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _spawnersObserverService.Init(_spawnPoints);
         }
 
-        private async Task InitGameUIAsync()
+        private async UniTask InitGameUIAsync()
         {
             await _uiFactory.CreateUIRootAsync();
             await _uiFactory.CreateHintsRootAsync();

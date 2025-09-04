@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using GreedyLogger;
 using TankGame.Runtime.Entities.Enemies.Base;
 using TankGame.Runtime.Entities.Interfaces;
-using TankGame.Runtime.Entities.Player;
 using TankGame.Runtime.Environment;
 using TankGame.Runtime.Infrastructure.Services.AssetManagement;
 using TankGame.Runtime.Infrastructure.Services.Pause;
@@ -41,16 +40,16 @@ namespace TankGame.Runtime.Factory
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
 
-        public async Task<GameObject> CreatePlayerAsync(Vector3 at) =>
+        public async UniTask<GameObject> CreatePlayerAsync(Vector3 at) =>
             await InstantiateRegisteredAsync(Constants.PlayerAddress, at);
 
-        public async Task<GameObject> CreateHudAsync() => 
+        public async UniTask<GameObject> CreateHudAsync() => 
             await InstantiateRegisteredAsync(Constants.HudAddress);
 
-        public async Task<GameObject> CreateCameraAsync() => 
+        public async UniTask<GameObject> CreateCameraAsync() => 
             await _assetProvider.Instantiate(Constants.CameraAddress);
 
-        public async Task<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent)
+        public async UniTask<Enemy> CreateEnemyAsync(EnemyTypeId type, Transform parent)
         {
             var enemyData = _staticData.ForEnemy(type);
             GameObject prefab = await _assetProvider.Load<GameObject>(enemyData.PrefabReference);
@@ -61,7 +60,7 @@ namespace TankGame.Runtime.Factory
             return enemy;
         }
 
-        public async Task<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent)
+        public async UniTask<SpawnPoint> CreateSpawnerAsync(EnemySpawnerData spawnerData, IPlayer player, Transform parent)
         {
             var prefab = await _assetProvider.Load<GameObject>(Constants.SpawnerAddress);
             var spawner = _container.InstantiatePrefab(prefab, spawnerData.Position, Quaternion.identity, parent).GetComponent<SpawnPoint>();
@@ -95,7 +94,7 @@ namespace TankGame.Runtime.Factory
         public ObjectPool<T> CreatePool<T>(Transform parent, ObjectPoolStaticData staticData) where T : IPoolableObject 
             => new(staticData.PoolSize, parent, staticData.AutoExpand, this);
 
-        public async Task LoadProjectiles()
+        public async UniTask LoadProjectiles()
         {
             await LoadProjectileFromAssetProvider(ProjectileTypeId.AP, Constants.ArmorPiercingProjectileAddress);
             await LoadProjectileFromAssetProvider(ProjectileTypeId.HEX, Constants.HighExplosiveProjectileAddress);
@@ -114,7 +113,7 @@ namespace TankGame.Runtime.Factory
             _projectiles?.Clear();
         }
 
-        private async Task LoadProjectileFromAssetProvider(ProjectileTypeId id, string address)
+        private async UniTask LoadProjectileFromAssetProvider(ProjectileTypeId id, string address)
         {
             var projectile = await _assetProvider.Load<GameObject>(address);
 
@@ -140,7 +139,7 @@ namespace TankGame.Runtime.Factory
             return projectile;
         }
 
-        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at)
+        private async UniTask<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at)
         {
             var playerObject = await _assetProvider.Instantiate(prefabPath, at);
             RegisterProgressWatchers(playerObject);
@@ -150,7 +149,7 @@ namespace TankGame.Runtime.Factory
             return playerObject;
         }
 
-        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
+        private async UniTask<GameObject> InstantiateRegisteredAsync(string prefabPath)
         {
             var playerObject = await _assetProvider.Instantiate(prefabPath);
             RegisterProgressWatchers(playerObject);

@@ -1,10 +1,10 @@
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace TankGame.Runtime.Infrastructure.Services.ScenesLoading
 {
     public interface ISceneLoader
     {
-        Task LoadAsync(string nextScene, Action onLoaded = null);
+        UniTask LoadAsync(string nextScene, Action onLoaded = null);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.StaticData.Enemies;
 using TankGame.Runtime.StaticData.Environment;
@@ -13,7 +13,7 @@ namespace TankGame.Runtime.Infrastructure.Services.StaticData
         LevelStaticData ForLevel(string sceneKey);
         UIPanelConfig ForUIPanel(UIPanelId victoryPanel);
         ProjectileStaticData ForProjectile(ProjectileTypeId projectileTypeId);
-        Task LoadStaticData();
+        UniTask LoadStaticData();
         ObjectPoolStaticData ForPool<T>() where T : IPoolableObject;
     }
 }
