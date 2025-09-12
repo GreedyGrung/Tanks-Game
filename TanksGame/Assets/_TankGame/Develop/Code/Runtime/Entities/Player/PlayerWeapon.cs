@@ -1,4 +1,5 @@
 using System;
+using R3;
 using TankGame.Runtime.Infrastructure.Services.Input;
 using TankGame.Runtime.Infrastructure.Services.PoolsService;
 using TankGame.Runtime.Projectiles;
@@ -26,7 +27,9 @@ namespace TankGame.Runtime.Entities.Player
         private float _reloadingTimer;
         private Player _player;
 
-        public float ReloadProgress => _reloadingTimer / _weaponData.ReloadTime;
+        private readonly ReactiveProperty<float> _reloadProgress = new();
+        
+        public Observable<float> ReloadProgress => _reloadProgress;
 
         public void Init(Player player, IInputService inputService, IPoolsService poolsService)
         {
@@ -48,6 +51,8 @@ namespace TankGame.Runtime.Entities.Player
                 _reloadingTimer = _weaponData.ReloadTime;
                 _canShoot = true;
             }
+            
+            _reloadProgress.Value = _reloadingTimer / _weaponData.ReloadTime;
         }
 
         private void OnDestroy()

@@ -1,3 +1,5 @@
+using System;
+using R3;
 using TankGame.Runtime.Entities.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +19,8 @@ namespace TankGame.Runtime.UI.Panels
         [SerializeField] private Color _inactiveProjectile;
 
         private IPlayer _player;
+        
+        private CompositeDisposable _disposables = new();
 
         public void Initialize(IPlayer player)
         {
@@ -30,6 +34,8 @@ namespace TankGame.Runtime.UI.Panels
             _player.Health.OnValueChanged += ChangePlayerHealthValue;
             _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
             _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
+
+            _player.Weapon.ReloadProgress.Subscribe(value => _reloadValue.fillAmount = value).AddTo(_disposables);
         }
 
         private void OnDestroy()
@@ -37,6 +43,8 @@ namespace TankGame.Runtime.UI.Panels
             _player.Health.OnValueChanged -= ChangePlayerHealthValue;
             _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
             _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
+            
+            _disposables.Dispose();
         }
 
         private void SetupPanel()
@@ -49,13 +57,6 @@ namespace TankGame.Runtime.UI.Panels
         private void ChangePlayerHealthValue(float currentHealth, float maxHealth)
         {
             _healthValue.fillAmount = currentHealth / maxHealth;
-        }
-
-        private void Update()
-        {
-            if (_player == null || _player.Deactivated) return;
-            
-            _reloadValue.fillAmount = _player.Weapon.ReloadProgress;
         }
 
         private void ChooseHexProjectileType()
