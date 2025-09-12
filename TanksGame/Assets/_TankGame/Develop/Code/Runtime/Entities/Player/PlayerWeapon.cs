@@ -12,15 +12,11 @@ namespace TankGame.Runtime.Entities.Player
 {
     public class PlayerWeapon : MonoBehaviour
     {
-        public event Action OnApProjectileTypeChosen;
-        public event Action OnHexProjectileTypeChosen;
-
         [SerializeField] private PlayerWeaponData _weaponData;
         [SerializeField] private Transform _bulletSpawn;
 
         private IInputService _inputService;
         private IPoolsService _poolsService;
-        private ProjectileTypeId _selectedProjectile;
         private Projectile _projectile;
 
         private bool _canShoot = true;
@@ -28,8 +24,10 @@ namespace TankGame.Runtime.Entities.Player
         private Player _player;
 
         private readonly ReactiveProperty<float> _reloadProgress = new();
+        private readonly ReactiveProperty<ProjectileTypeId> _selectedProjectile = new();
         
         public Observable<float> ReloadProgress => _reloadProgress;
+        public Observable<ProjectileTypeId> SelectedProjectile => _selectedProjectile;
 
         public void Init(Player player, IInputService inputService, IPoolsService poolsService)
         {
@@ -67,7 +65,7 @@ namespace TankGame.Runtime.Entities.Player
             if (!_canShoot || _player.IsPaused)
                 return;
 
-            _projectile = _poolsService.GetProjectile(_selectedProjectile);
+            _projectile = _poolsService.GetProjectile(_selectedProjectile.Value);
             _projectile.gameObject.layer = (int)Layers.PlayerProjectile;
             _projectile.transform.position = _bulletSpawn.position;
             _projectile.transform.rotation = _bulletSpawn.rotation;
@@ -80,8 +78,7 @@ namespace TankGame.Runtime.Entities.Player
             if (_player.IsPaused)
                 return;
             
-            _selectedProjectile = ProjectileTypeId.AP;
-            OnApProjectileTypeChosen?.Invoke();
+            _selectedProjectile.Value = ProjectileTypeId.AP;
         }
 
         private void ChooseSecondProjectileType()
@@ -89,8 +86,7 @@ namespace TankGame.Runtime.Entities.Player
             if (_player.IsPaused)
                 return;
             
-            _selectedProjectile = ProjectileTypeId.HEX;
-            OnHexProjectileTypeChosen?.Invoke();
+            _selectedProjectile.Value = ProjectileTypeId.HEX;
         }
     }
 }

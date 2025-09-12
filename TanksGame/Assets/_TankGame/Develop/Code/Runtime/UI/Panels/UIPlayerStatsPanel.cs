@@ -1,6 +1,6 @@
-using System;
 using R3;
 using TankGame.Runtime.Entities.Interfaces;
+using TankGame.Runtime.Utils.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +20,7 @@ namespace TankGame.Runtime.UI.Panels
 
         private IPlayer _player;
         
-        private CompositeDisposable _disposables = new();
+        private readonly CompositeDisposable _disposables = new();
 
         public void Initialize(IPlayer player)
         {
@@ -32,17 +32,19 @@ namespace TankGame.Runtime.UI.Panels
         private void SubscribeToPlayerEvents()
         {
             _player.Health.OnValueChanged += ChangePlayerHealthValue;
-            _player.Weapon.OnHexProjectileTypeChosen += ChooseHexProjectileType;
-            _player.Weapon.OnApProjectileTypeChosen += ChooseApProjectileType;
 
-            _player.Weapon.ReloadProgress.Subscribe(value => _reloadValue.fillAmount = value).AddTo(_disposables);
+            _player.Weapon.ReloadProgress
+                .Subscribe(value => _reloadValue.fillAmount = value)
+                .AddTo(_disposables);
+            
+            _player.Weapon.SelectedProjectile
+                .Subscribe(SelectProjectile)
+                .AddTo(_disposables);
         }
 
         private void OnDestroy()
         {
             _player.Health.OnValueChanged -= ChangePlayerHealthValue;
-            _player.Weapon.OnHexProjectileTypeChosen -= ChooseHexProjectileType;
-            _player.Weapon.OnApProjectileTypeChosen -= ChooseApProjectileType;
             
             _disposables.Dispose();
         }
@@ -57,6 +59,19 @@ namespace TankGame.Runtime.UI.Panels
         private void ChangePlayerHealthValue(float currentHealth, float maxHealth)
         {
             _healthValue.fillAmount = currentHealth / maxHealth;
+        }
+
+        private void SelectProjectile(ProjectileTypeId value)
+        {
+            switch (value)
+            {
+                case ProjectileTypeId.AP:
+                    ChooseApProjectileType();
+                    break;
+                case ProjectileTypeId.HEX:
+                    ChooseHexProjectileType();
+                    break;
+            }
         }
 
         private void ChooseHexProjectileType()
