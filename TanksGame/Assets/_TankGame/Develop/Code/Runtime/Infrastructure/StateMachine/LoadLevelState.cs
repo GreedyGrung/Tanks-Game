@@ -73,7 +73,6 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
         {
             _uiMediator?.Dispose();
             _poolsService.Dispose();
-            _gameFactory.CleanupProgressWatchers();
             _gameFactory.Dispose();
             
             _loadingScreen.Show();

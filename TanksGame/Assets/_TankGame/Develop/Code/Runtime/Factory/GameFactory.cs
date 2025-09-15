@@ -100,17 +100,19 @@ namespace TankGame.Runtime.Factory
             await LoadProjectileFromAssetProvider(ProjectileTypeId.HEX, Constants.HighExplosiveProjectileAddress);
         }
 
-        public void CleanupProgressWatchers()
+        public void Dispose()
+        {
+            _projectiles?.Clear();
+
+            CleanupProgressWatchers();
+        }
+
+        private void CleanupProgressWatchers()
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
 
             _assetProvider.Cleanup();
-        }
-
-        public void Dispose()
-        {
-            _projectiles?.Clear();
         }
 
         private async UniTask LoadProjectileFromAssetProvider(ProjectileTypeId id, string address)
