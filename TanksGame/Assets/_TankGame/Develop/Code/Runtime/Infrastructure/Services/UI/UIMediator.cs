@@ -23,16 +23,16 @@ namespace TankGame.Runtime.Infrastructure.Services.UI
             _inputService = inputService;
             _pauseService = pauseService;
 
-            _player.Health.OnDied += OnPlayerDied;
-            _spawnersObserverService.OnAllEnemiesKilled += OnAllEnemiesKilled;
-            _inputService.OnPausePressed += OnPausePressed;
+            _player.Health.OnDied += ShowFailurePanel;
+            _spawnersObserverService.OnAllEnemiesKilled += ShowVictoryPanel;
+            _inputService.OnPausePressed += TogglePausePanel;
         }
         
-        private void OnPlayerDied() => _uiService.Open(UIPanelId.FailurePanel);
+        private void ShowFailurePanel() => _uiService.Open(UIPanelId.FailurePanel);
 
-        private void OnAllEnemiesKilled() => _uiService.Open(UIPanelId.VictoryPanel);
+        private void ShowVictoryPanel() => _uiService.Open(UIPanelId.VictoryPanel);
 
-        private void OnPausePressed()
+        private void TogglePausePanel()
         {
             if (!_pauseService.IsPaused)
             {
@@ -46,9 +46,9 @@ namespace TankGame.Runtime.Infrastructure.Services.UI
 
         public void Dispose()
         {
-            _player.Health.OnDied -= OnPlayerDied;
-            _spawnersObserverService.OnAllEnemiesKilled -= OnAllEnemiesKilled;
-            _inputService.OnPausePressed -= OnPausePressed;
+            _player.Health.OnDied -= ShowFailurePanel;
+            _spawnersObserverService.OnAllEnemiesKilled -= ShowVictoryPanel;
+            _inputService.OnPausePressed -= TogglePausePanel;
         }
     }
 }

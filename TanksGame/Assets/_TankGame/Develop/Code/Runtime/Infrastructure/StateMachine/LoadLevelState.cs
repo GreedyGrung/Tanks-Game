@@ -71,11 +71,13 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
 
         public void Enter(string sceneName)
         {
+            _uiMediator?.Dispose();
             _poolsService.Dispose();
             _gameFactory.CleanupProgressWatchers();
             _gameFactory.Dispose();
+            
             _loadingScreen.Show();
-            _sceneLoader.LoadAsync(sceneName, OnLoaded);
+            _sceneLoader.LoadAsync(sceneName, InitializeLevelAfterLoading);
         }
 
         public void Exit()
@@ -85,7 +87,7 @@ namespace TankGame.Runtime.Infrastructure.StateMachine
             _spawnPoints.Clear();
         }
 
-        private async void OnLoaded()
+        private async void InitializeLevelAfterLoading()
         {
             await InitGameUIAsync();
             await InitGameWorldAsync();
